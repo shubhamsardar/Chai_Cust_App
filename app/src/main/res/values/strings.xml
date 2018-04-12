@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">ChahiyeCustomer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="log_in">LOG IN</string>
+    <string name="sign_up">SIGN UP</string>
+
+    <string name="termsandconditions">By signing up you agree to the <u>Terms And Conditions</u></string>
+    <string name="resend_otp">Did not receive the OTP? <u>Resend OTP</u></string>
+    <string name="forgot_pin"><u>Forgot PIN?</u></string>
+    <string name="pin">PIN</string>
+    <string name="mobile">Mobile</string>
+    <string name="submit">Submit</string>
+    <string name="please_enter_your_registered_mobile_number">Please enter your registered mobile number</string>
+    <string name="re_enter_pin">Re-enter Pin</string>
+    <string name="set_a_4_digit_pin">Set a 4 digit pin</string>
+    <string name="name">Name</string>
+    <string name="please_enter_the_otp_sent_to_your_device">Please enter the OTP sent to your device</string>
+
+</resources>
