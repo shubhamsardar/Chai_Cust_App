@@ -20,7 +20,8 @@
             android:background="@null"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
+            app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:onClick="back"/>
 
         <TextView
             android:id="@+id/title_forgot_pin"

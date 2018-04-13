@@ -19,9 +19,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:background="@null"
+            android:onClick="back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
 
         <TextView
             android:id="@+id/title_forgot_pin"
@@ -107,6 +109,7 @@
             android:alpha="0.5"
             android:background="@color/colorPrimary"
             android:fontFamily="@font/rajdhani_bold"
+            android:onClick="gotomainscreen"
             android:text="@string/submit"
             android:textColor="@android:color/background_light"
             android:textSize="13sp"
