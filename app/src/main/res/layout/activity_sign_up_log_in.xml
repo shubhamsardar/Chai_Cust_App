@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/splash"
     tools:context=".SignUpLogInActivity">
 
     <Button
@@ -16,6 +17,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:fontFamily="@font/rajdhani_bold"
+        android:onClick="gotosignup"
         android:text="@string/sign_up"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
@@ -23,8 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:onClick="gotosignup"/>
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btn_login"
@@ -36,6 +37,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         android:fontFamily="@font/rajdhani_bold"
+        android:onClick="gotologin"
         android:text="@string/log_in"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
@@ -43,7 +45,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:onClick="gotologin"/>
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

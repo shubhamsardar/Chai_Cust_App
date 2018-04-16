@@ -21,5 +21,7 @@
     <string name="set_a_4_digit_pin">Set a 4 digit pin</string>
     <string name="name">Name</string>
     <string name="please_enter_the_otp_sent_to_your_device">Please enter the OTP sent to your device</string>
+    <string name="title_activity_main_landing_map">MainLandingMapActivity</string>
+    <string name="action_voice_rec">Speak</string>
 
 </resources>

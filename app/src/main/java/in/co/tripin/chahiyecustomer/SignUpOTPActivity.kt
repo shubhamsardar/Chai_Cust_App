@@ -13,7 +13,7 @@ class SignUpOTPActivity : AppCompatActivity() {
     }
 
     fun gotomainscreen(view: View) {
-        val intent = Intent(this@SignUpOTPActivity,MainActivity::class.java)
+        val intent = Intent(this@SignUpOTPActivity,MainLandingMapActivity::class.java)
         startActivity(intent)
     }
     fun back(view: View) {

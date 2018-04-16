@@ -13,7 +13,7 @@ class LogInDetailsActivity : AppCompatActivity() {
     }
 
     fun gotomainscreen(view: View) {
-        val intent = Intent(this@LogInDetailsActivity,MainActivity::class.java)
+        val intent = Intent(this@LogInDetailsActivity,MainLandingMapActivity::class.java)
         startActivity(intent)
     }
 
