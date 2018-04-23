@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlNormal">@color/cardview_light_background</item>
+        <item name="colorControlActivated">@color/cardview_light_background</item>
+        <item name="colorControlHighlight">@color/cardview_light_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -24,5 +28,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SearchView">
+        <item name="floatingSearch_backgroundColor">@color/colorAccent</item>
+        <item name="floatingSearch_viewSearchInputTextColor">#ffffff</item>
+        <item name="floatingSearch_viewSuggestionItemTextColor">#ffffff</item>
+        <item name="floatingSearch_hintTextColor">@color/colorPrimaryDark</item>
+        <item name="floatingSearch_dividerColor">@color/cardview_dark_background</item>
+        <item name="floatingSearch_clearBtnColor">#ffffff</item>
+        <item name="floatingSearch_leftActionColor">@color/colorPrimaryDark</item>
+        <item name="floatingSearch_menuItemIconColor">@color/colorPrimaryDark</item>
+        <item name="floatingSearch_suggestionRightIconColor">@color/colorPrimaryDark</item>
+        <item name="floatingSearch_actionMenuOverflowColor">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>

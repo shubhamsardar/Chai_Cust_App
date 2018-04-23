@@ -17,12 +17,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_local_offer_black_24dp" />
 
     <com.arlib.floatingsearchview.FloatingSearchView
         android:id="@+id/floating_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:elevation="2dp"
         android:transitionName="profile"
         android:visibility="visible"
         app:floatingSearch_close_search_on_keyboard_dismiss="true"
@@ -33,9 +36,8 @@
         app:floatingSearch_searchBarMarginLeft="4dp"
         app:floatingSearch_searchBarMarginRight="4dp"
         app:floatingSearch_searchBarMarginTop="4dp"
-        app:floatingSearch_searchHint="Enter Location"
+        app:floatingSearch_searchHint="@string/search_hint"
         app:floatingSearch_showSearchKey="true"
-        app:floatingSearch_suggestionsListAnimDuration="250"
-        android:layout_gravity="top|end" />
+        app:floatingSearch_suggestionsListAnimDuration="250" />
 
 </android.support.design.widget.CoordinatorLayout>

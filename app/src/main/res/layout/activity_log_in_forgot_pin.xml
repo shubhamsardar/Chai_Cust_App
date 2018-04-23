@@ -79,6 +79,7 @@
                 android:gravity="center_vertical"
                 android:inputType="textCapCharacters|textMultiLine"
                 android:textColor="@android:color/background_light"
+                android:textColorHint="@color/light_gray"
                 android:textSize="15sp" />
 
         </android.support.design.widget.TextInputLayout>

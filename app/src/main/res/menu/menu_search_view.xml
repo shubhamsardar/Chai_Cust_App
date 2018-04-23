@@ -8,4 +8,10 @@
         app:showAsAction="ifRoom"
         android:visible="true"
         android:icon="@drawable/ic_keyboard_voice_black_24dp"/>
+    <item android:id="@+id/action_gps"
+        android:title="@string/action_location"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom"
+        android:visible="true"
+        android:icon="@drawable/ic_my_location_black_24dp"/>
 </menu>

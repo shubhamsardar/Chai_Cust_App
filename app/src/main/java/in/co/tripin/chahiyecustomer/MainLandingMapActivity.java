@@ -1,5 +1,6 @@
 package in.co.tripin.chahiyecustomer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -31,8 +33,8 @@ public class MainLandingMapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,OnMapReadyCallback {
 
     private static final LatLngBounds BOUNDS_INDIA =
-            new LatLngBounds(new LatLng(23.63936, 68.14712),
-                    new LatLng(28.20453, 97.34466));
+            new LatLngBounds(new LatLng(19.052027, 72.835055),
+                    new LatLng(19.060195, 72.852520));
     private static final int MAP_PADDING = 50;
 
 
@@ -160,18 +162,30 @@ public class MainLandingMapActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(BOUNDS_INDIA, MAP_PADDING);
-        map.animateCamera(cu);
-
         LatLng tripin = new LatLng(19.117418, 72.856531);
+
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(tripin)      // Sets the center of the map to location user
+                .zoom(18)                   // Sets the zoom
+                .bearing(90)                // Sets the orientation of the camera to east
+                .tilt(40)                   // Sets the tilt of the camera to 30 degrees
+                .build();                   // Creates a CameraPosition from the builder
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(tripin)
                 .title("Dubey Tapriwala")
                 .snippet("2.0 Km.")
-                .icon(BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_BLUE));
+                .icon(BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_ORANGE));
         Marker m = map.addMarker(markerOptions);
         map.setInfoWindowAdapter(new InfoWindowCustom(this));
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                startActivity(new Intent(MainLandingMapActivity.this,TapriDetailsActivity.class));
+            }
+        });
 
     }
 }

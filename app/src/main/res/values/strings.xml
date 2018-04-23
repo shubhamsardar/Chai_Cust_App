@@ -2,8 +2,8 @@
     <string name="app_name">ChahiyeCustomer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">ChaiYe App</string>
+    <string name="nav_header_subtitle">+918394876737</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -23,5 +23,7 @@
     <string name="please_enter_the_otp_sent_to_your_device">Please enter the OTP sent to your device</string>
     <string name="title_activity_main_landing_map">MainLandingMapActivity</string>
     <string name="action_voice_rec">Speak</string>
+    <string name="search_hint">Enter Location..</string>
+    <string name="action_location">locate yourself</string>
 
 </resources>
