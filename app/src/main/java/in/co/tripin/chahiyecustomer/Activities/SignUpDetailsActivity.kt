@@ -1,5 +1,6 @@
-package `in`.co.tripin.chahiyecustomer
+package `in`.co.tripin.chahiyecustomer.Activities
 
+import `in`.co.tripin.chahiyecustomer.R
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +14,7 @@ class SignUpDetailsActivity : AppCompatActivity() {
     }
 
     fun gotootpverification(view: View) {
-        val intent = Intent(this@SignUpDetailsActivity,SignUpOTPActivity::class.java)
+        val intent = Intent(this@SignUpDetailsActivity, SignUpOTPActivity::class.java)
         startActivity(intent)
     }
 

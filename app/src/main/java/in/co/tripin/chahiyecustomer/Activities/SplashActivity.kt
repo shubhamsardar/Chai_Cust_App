@@ -1,5 +1,6 @@
-package `in`.co.tripin.chahiyecustomer
+package `in`.co.tripin.chahiyecustomer.Activities
 
+import `in`.co.tripin.chahiyecustomer.R
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -16,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
 
         Timer().schedule(3000){
             //if user is not signed in
-            val intent = Intent(this@SplashActivity,SignUpLogInActivity::class.java)
+            val intent = Intent(this@SplashActivity, SignUpLogInActivity::class.java)
             startActivity(intent)
             finish()
         }

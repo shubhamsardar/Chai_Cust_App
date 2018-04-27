@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.co.tripin.chahiyecustomer">
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +15,7 @@
             android:value="AIzaSyAFrBb3RPLb8Vlz4-dERUR2atZaiPj4yoM" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -25,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:theme="@style/AppTheme.OnlyStatusBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -35,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpLogInActivity"
+            android:name=".Activities.SignUpLogInActivity"
             android:theme="@style/AppTheme.OnlyStatusBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -50,7 +51,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".SignUpDetailsActivity"
+            android:name=".Activities.SignUpDetailsActivity"
             android:theme="@style/AppTheme.OnlyStatusBar"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
@@ -60,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpOTPActivity"
+            android:name=".Activities.SignUpOTPActivity"
             android:theme="@style/AppTheme.OnlyStatusBar"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
@@ -70,7 +71,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogInDetailsActivity"
+            android:name=".Activities.LogInDetailsActivity"
             android:theme="@style/AppTheme.OnlyStatusBar"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
@@ -80,7 +81,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogInForgotPINActivity"
+            android:name=".Activities.LogInForgotPINActivity"
             android:theme="@style/AppTheme.OnlyStatusBar"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
@@ -90,7 +91,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainLandingMapActivity"
+            android:name=".Activities.MainLandingMapActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -100,8 +101,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TapriDetailsActivity"
-            android:parentActivityName=".MainLandingMapActivity">
+            android:name=".Activities.TapriDetailsActivity"
+            android:parentActivityName=".Activities.MainLandingMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -109,18 +110,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectAddressActivity"
+            android:name=".Activities.SelectAddressActivity"
             android:label="Select Address"
-            android:parentActivityName=".TapriDetailsActivity">
+            android:parentActivityName=".Activities.TapriDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddAddressActivity"
+        <activity android:name=".Activities.AddAddressActivity"
             android:label="Add Address"
-            android:parentActivityName=".SelectAddressActivity">
+            android:parentActivityName=".Activities.SelectAddressActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

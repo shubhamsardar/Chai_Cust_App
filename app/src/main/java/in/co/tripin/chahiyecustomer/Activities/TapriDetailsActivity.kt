@@ -1,9 +1,8 @@
-package `in`.co.tripin.chahiyecustomer
+package `in`.co.tripin.chahiyecustomer.Activities
 
+import `in`.co.tripin.chahiyecustomer.R
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
-import android.view.Menu
 
 class TapriDetailsActivity : AppCompatActivity() {
 

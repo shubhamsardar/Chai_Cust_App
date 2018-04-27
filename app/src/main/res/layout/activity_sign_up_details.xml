@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash"
-    tools:context=".SignUpDetailsActivity">
+    tools:context=".Activities.SignUpDetailsActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageButton
             android:id="@+id/backButton"
@@ -77,7 +77,7 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:gravity="center_vertical"
-                android:inputType="textCapWords"
+                android:inputType="textCapWords|textPersonName"
                 android:textColor="@android:color/background_light"
                 android:textSize="15sp" />
 

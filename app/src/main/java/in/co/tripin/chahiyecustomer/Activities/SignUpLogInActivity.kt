@@ -1,10 +1,10 @@
-package `in`.co.tripin.chahiyecustomer
+package `in`.co.tripin.chahiyecustomer.Activities
 
+import `in`.co.tripin.chahiyecustomer.R
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 
 class SignUpLogInActivity : AppCompatActivity() {
 
@@ -14,12 +14,12 @@ class SignUpLogInActivity : AppCompatActivity() {
     }
 
     fun gotosignup(view: View) {
-        val intent = Intent(this@SignUpLogInActivity,SignUpDetailsActivity::class.java)
+        val intent = Intent(this@SignUpLogInActivity, SignUpDetailsActivity::class.java)
         startActivity(intent)
     }
 
     fun gotologin(view: View) {
-        val intent = Intent(this@SignUpLogInActivity,LogInDetailsActivity::class.java)
+        val intent = Intent(this@SignUpLogInActivity, LogInDetailsActivity::class.java)
         startActivity(intent)
     }
 }

@@ -1,4 +1,4 @@
-package in.co.tripin.chahiyecustomer;
+package in.co.tripin.chahiyecustomer.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -28,6 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import in.co.tripin.chahiyecustomer.Adapters.InfoWindowCustom;
+import in.co.tripin.chahiyecustomer.R;
 
 public class MainLandingMapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,OnMapReadyCallback {

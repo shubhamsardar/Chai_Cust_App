@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectAddressActivity">
+    tools:context=".Activities.SelectAddressActivity">
 
 </android.support.constraint.ConstraintLayout>
