@@ -50,7 +50,7 @@ public class RquestHandler extends ConnectRequest implements Connector {
             multiPart();
             Logger.v("\nMultiPart Request : API  : " + mRequest.getRequestUrl() + " : " + mRequest.getPostParams());
         } else if (mRequest.getType() == Request.Method.SEND_JSON) {
-            Logger.v("\nRequest : API  : " + mRequest.getRequestUrl() + " : " + mRequest.getRequestUrl());
+            Logger.v("\nRequest : API  : " + mRequest.getRequestUrl());
             sendJson();
         } else {
             Logger.v("\nRequest : API  : " + mRequest.getRequestUrl() + " : " + mRequest.getRequestUrl());
@@ -242,7 +242,6 @@ public class RquestHandler extends ConnectRequest implements Connector {
                     Logger.v("\nRequest : API :  " + mRequest.getTag() + " : " + mPostParams.toString());
                     return mPostParams;
                 }
-
             }
 
             @Override

@@ -1,6 +1,8 @@
 package `in`.co.tripin.chahiyecustomer.Activities
 
 import `in`.co.tripin.chahiyecustomer.R
+import `in`.co.tripin.chahiyecustomer.javacode.activity.LoginActivity
+import `in`.co.tripin.chahiyecustomer.javacode.activity.SignUpActivity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -14,12 +16,12 @@ class SignUpLogInActivity : AppCompatActivity() {
     }
 
     fun gotosignup(view: View) {
-        val intent = Intent(this@SignUpLogInActivity, SignUpDetailsActivity::class.java)
+        val intent = Intent(this@SignUpLogInActivity, SignUpActivity::class.java)
         startActivity(intent)
     }
 
     fun gotologin(view: View) {
-        val intent = Intent(this@SignUpLogInActivity, LogInDetailsActivity::class.java)
+        val intent = Intent(this@SignUpLogInActivity, LoginActivity::class.java)
         startActivity(intent)
     }
 }

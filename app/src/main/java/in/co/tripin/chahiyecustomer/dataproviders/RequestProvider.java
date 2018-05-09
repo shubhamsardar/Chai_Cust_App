@@ -39,7 +39,19 @@ public class RequestProvider {
         mContext = context;
         mPreferenceManager = PreferenceManager.getInstance(mContext);
     }
+    public Request getSignUpRequest(String body, RequestListener listener) {
+        Map<String, String> headerParams = new HashMap<String, String>();
+        headerParams.put("Content-Type", "application/json");
 
+        Request stopEnquiryRequest = new Request.RequestBuilder(mContext, listener)
+                .type(Request.Method.SEND_JSON)
+                .url(ApiProvider.getApiByTag(ApiTag.SIGN_UP))
+                .headerParams(headerParams)
+                .rawData(body)
+                .tag(ApiTag.SIGN_UP)
+                .build();
+        return stopEnquiryRequest;
+    }
 
     /**
      * @param listener Call back listener used to build the calling request for Oauth Generation
@@ -54,51 +66,42 @@ public class RequestProvider {
         Request oAuthRequest = new Request.RequestBuilder(mContext, listener)
                 .type(Request.Method.POST)
                 .url(ApiProvider.getApiByTag(ApiTag.O_AUTH))
-                .postParams(params)
+                .headerParams(params)
                 .tag(ApiTag.O_AUTH)
                 .build();
         return oAuthRequest;
 
     }
 
-    public Request getSignUpRequest(RequestListener listener, String username, String mobile, String password) {
+//    public Request getSignUpRequest(RequestListener listener, String username, String mobile, String password) {
+//
+//        String accessToken = mPreferenceManager.getAccessToken();
+//
+//        Map<String, String> params = new HashMap<String, String>();
+//
+////        params.put(SignUpRequest.PROFILE_NAME, username);
+////        params.put(SignUpRequest.USER_NAME, mobile);
+////        params.put(SignUpRequest.PASSWORD, password);
+//
+//        Request signUpRequest = new Request.RequestBuilder(mContext, listener)
+//                .type(Request.Method.POST)
+//                .url(ApiProvider.getApiByTag(ApiTag.SIGN_UP))
+//                .postParams(params)
+//                .tag(ApiTag.SIGN_UP)
+//                .build();
+//        return signUpRequest;
+//    }
 
-        String accessToken = mPreferenceManager.getAccessToken();
+    public Request getSignInRequest(String body, RequestListener listener) {
 
-        Map<String, String> params = new HashMap<String, String>();
-
-        params.put(SignUpRequest.ACCESS_TOKEN, accessToken);
-        params.put(SignUpRequest.PROFILE_NAME, username);
-        params.put(SignUpRequest.USER_NAME, mobile);
-        params.put(SignUpRequest.PASSWORD, password);
-
-        Request signUpRequest = new Request.RequestBuilder(mContext, listener)
-                .type(Request.Method.POST)
-                .url(ApiProvider.getApiByTag(ApiTag.SIGN_UP))
-                .postParams(params)
-                .tag(ApiTag.SIGN_UP)
-                .build();
-        return signUpRequest;
-    }
-
-    public Request getSignInRequest(RequestListener listener, String mobile, String password) {
-
-        TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-
-        String accessToken = mPreferenceManager.getAccessToken();
-        String strFCMToken = mPreferenceManager.getGCMId();
-        // Posting parameters to login url
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(SignInRequest.ACCESS_TOKEN, accessToken);
-        params.put(SignInRequest.USER_NAME, mobile);
-        params.put(SignInRequest.PASSWORD, password);
-       // params.put(SignInRequest.IMEI_NO, telephonyManager.getDeviceId());
-        params.put(SignInRequest.GCM_ID, strFCMToken);
+        Map<String, String> headerParams = new HashMap<String, String>();
+        headerParams.put("Content-Type", "application/json");
 
         Request signInRequest = new Request.RequestBuilder(mContext, listener)
-                .type(Request.Method.POST)
+                .type(Request.Method.SEND_JSON)
                 .url(ApiProvider.getApiByTag(ApiTag.SIGN_IN))
-                .postParams(params)
+                .postParams(headerParams)
+                .rawData(body)
                 .tag(ApiTag.SIGN_IN)
                 .build();
         return signInRequest;

@@ -5,15 +5,6 @@ import in.co.tripin.chahiyecustomer.dataproviders.CommonResponse;
 
 public class SignUpResponse extends CommonResponse {
     private SignUpData data;
-    private String is_mobile;
-
-    public String getIs_mobile() {
-        return is_mobile;
-    }
-
-    public void setIs_mobile(String is_mobile) {
-        this.is_mobile = is_mobile;
-    }
 
     public SignUpData getData() {
         return data;
@@ -23,24 +14,24 @@ public class SignUpResponse extends CommonResponse {
         this.data = data;
     }
 
-    public class SignUpData{
-        private String user_id ;
-        private String username;
+    public class SignUpData {
+        private String mobile;
+        private String message;
 
-        public String getUser_id() {
-            return user_id;
+        public String getMobile() {
+            return mobile;
         }
 
-        public void setUser_id(String user_id) {
-            this.user_id = user_id;
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
         }
 
-        public String getUsername() {
-            return username;
+        public String getMessage() {
+            return message;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
+        public void setMessage(String message) {
+            this.message = message;
         }
     }
 }

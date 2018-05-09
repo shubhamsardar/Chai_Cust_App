@@ -45,5 +45,11 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.0'
 
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+
+
     implementation 'com.google.android.gms:play-services-maps:12.0.1'
 }

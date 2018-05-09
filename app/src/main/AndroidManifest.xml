@@ -3,6 +3,13 @@
     package="in.co.tripin.chahiyecustomer">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -119,7 +126,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.AddAddressActivity"
+        <activity
+            android:name=".Activities.AddAddressActivity"
             android:label="Add Address"
             android:parentActivityName=".Activities.SelectAddressActivity">
             <intent-filter>
@@ -128,6 +136,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+        android:name=".javacode.activity.LoginActivity"
+        android:label="@string/title_activity_login"></activity>
+        <activity
+            android:name=".javacode.activity.SignUpActivity"
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

@@ -50,15 +50,42 @@ public class AccountManager implements RequestListener, IAccountManagerOption {
     }
 
     @Override
-    public void signUp(String name, String mobile, String password) {
+    public void signUp(String name, String mobile, String pin) {
         RquestHandler rquestHandler = new RquestHandler(mContext);
-        rquestHandler.send(mRequestProvider.getSignUpRequest(this, name, mobile, password));
+        rquestHandler.send(mRequestProvider.getSignUpRequest(generateRawData(name, mobile, pin), this));
+    }
+
+        /**
+     * this method generate a string in json format from the available data of the trip inquiry
+     */
+
+    private String generateRawData(String name, String mobile, String pin) {
+
+        org.json.JSONObject dataparams = new org.json.JSONObject();
+        try {
+            dataparams.put("name", name);
+            dataparams.put("mobile", mobile);
+            dataparams.put("pin", pin);
+        } catch (org.json.JSONException eJsonException) {
+            eJsonException.printStackTrace();
+        }
+        final String requestBody = dataparams.toString();
+        return requestBody;
     }
 
     @Override
     public void signIn(String mobile, String password) {
         RquestHandler rquestHandler = new RquestHandler(mContext);
-        rquestHandler.send(mRequestProvider.getSignInRequest(this, mobile, password));
+        org.json.JSONObject dataparams = new org.json.JSONObject();
+        try {
+            dataparams.put("mobile", mobile);
+            dataparams.put("pin", password);
+        } catch (org.json.JSONException eJsonException) {
+            eJsonException.printStackTrace();
+        }
+        final String requestBody = dataparams.toString();
+
+        rquestHandler.send(mRequestProvider.getSignInRequest(requestBody, this));
     }
 
     @Override
@@ -96,7 +123,7 @@ public class AccountManager implements RequestListener, IAccountManagerOption {
         rquestHandler.send(mRequestProvider.getChangeNumberRequest(this, newMobileNo));
     }
 
-    public void getSignInResult(String mobile, String password, SignInListener callback) {
+    public void getSignInResult(SignInListener callback, String mobile, String password ) {
         this.mSignInListener = callback;
         signIn(mobile, password);
     }
@@ -138,13 +165,11 @@ public class AccountManager implements RequestListener, IAccountManagerOption {
             case ApiTag.SIGN_UP:
                 SignUpResponse signUpResponse = (SignUpResponse) response;
                 message = signUpResponse.getMessage();
-                handleSignUpresponse(signUpResponse);
                 mSignUpListener.onSuccess(message);
                 break;
             case ApiTag.SIGN_IN:
                 SignInResponse signInResponse = (SignInResponse) response;
                 message = signInResponse.getMessage();
-                handleSignInResponse(signInResponse);
                 mSignInListener.onSuccess(message);
                 break;
             case ApiTag.FORGOT_PASSWORD:
@@ -205,36 +230,6 @@ public class AccountManager implements RequestListener, IAccountManagerOption {
         }
     }
 
-    private void handleSignUpresponse(SignUpResponse signUpResponse) {
-        mSharedPref.setStringPrefrence("sign_user_id", signUpResponse.getData().getUser_id());
-        mSharedPref.setStringPrefrence("sign_username", signUpResponse.getData().getUsername());
-        mSharedPref.setStringPrefrence("sign_mobile_number", signUpResponse.getData().getUsername());
-
-        mPreference.setUserId(signUpResponse.getData().getUser_id());
-        mPreference.setTempUserId(signUpResponse.getData().getUser_id());
-        mPreference.setMobileNo(signUpResponse.getData().getUsername());
-
-        Logger.v("SignUp Username:" + signUpResponse.getData().getUsername());
-    }
-
-    private void handleSignInResponse(SignInResponse signInResponse) {
-        Logger.v("handle sign in response  " + signInResponse);
-        Logger.v("Username " + signInResponse.getData().getName());
-        mSharedPref.setStringPrefrence("sign_user_id", signInResponse.getData().getUser_id());
-        mSharedPref.setStringPrefrence("sign_profilename", signInResponse.getData().getName());
-        mSharedPref.setStringPrefrence("sign_user_groupid", signInResponse.getData().getUsers_group_id());
-        mSharedPref.setStringPrefrence("sign_tripinid", signInResponse.getData().getTripin_id());
-        mSharedPref.setStringPrefrence("sign_email", signInResponse.getData().getEmail());
-        mSharedPref.setStringPrefrence("sign_mobile_number", signInResponse.getData().getMobile_number());
-        mSharedPref.setStringPrefrence("map_status", signInResponse.getData().getCompany_name());
-
-        mPreference.setUserId(signInResponse.getData().getUser_id());
-        mPreference.setTempUserId(signInResponse.getData().getUser_id());
-        mPreference.setUserName(signInResponse.getData().getName());
-        mPreference.setMobileNo(signInResponse.getData().getMobile_number());
-        mPreference.setTripinId(signInResponse.getData().getTripin_id());
-        mPreference.setTripinId(signInResponse.getData().getTripin_id());
-    }
 
     private void handleForgotPasswordResponse(ForgotPasswordResponse forgotPasswordResponse) {
         mPreference.setTempUserId(forgotPasswordResponse.getData().getUser_id());

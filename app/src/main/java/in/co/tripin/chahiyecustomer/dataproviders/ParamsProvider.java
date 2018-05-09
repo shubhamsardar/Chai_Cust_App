@@ -34,7 +34,9 @@ public class ParamsProvider {
 
     public static Map<String, String> getHeaderParams() {
         Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+                headers.put("Content-Type", "application/json");
+
+//        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
         return headers;
     }
 }
