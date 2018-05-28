@@ -21,7 +21,7 @@ public class ApiTag {
 
     public static final int OTP_VERIFY = 9;
 
-
+    public static final int TAPRI_LIST = 10;
 
 }
 

@@ -204,12 +204,19 @@ public class RequestProvider {
                 .tag(ApiTag.CHANGE_NUMBER)
                 .build();
         return changeNumberRequest;
-
-
     }
 
 
+    public Request getTapriListRequest(RequestListener listener, String lat, String lng) {
 
+        Request resetPasswordRequest = new Request.RequestBuilder(mContext, listener)
+                .type(Request.Method.GET)
+                .url(ApiProvider.getTapriApi(lat,lng))
+                .tag(ApiTag.TAPRI_LIST)
+                .build();
+        return resetPasswordRequest;
+
+    }
 
 
 

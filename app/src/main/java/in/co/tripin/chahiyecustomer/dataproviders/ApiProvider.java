@@ -42,16 +42,16 @@ public class ApiProvider {
             case ApiTag.RESET_PASSWORD: // 8
                 url = BASE_URL + "user/reset_password";
                 break;
-
-         /*   case ApiTag.RESET_PASSWORD: // 8
-                url = BASE_URL + "user/reset_password_new";
-                break;*/
-
-          
             default:
                 return null;
         }
         return url;
+    }
+
+    public static String getTapriApi(String lat, String lng) {
+
+        return BASE_URL + "/tapriNearBy?lat=" + lat + "&long=" + lng;
+
     }
 }
 

@@ -5,7 +5,7 @@ import in.co.tripin.chahiyecustomer.factory.Response;
 
 
 public abstract class CommonResponse implements Response {
-    private String status;
+    protected String status;
     private String message;
 
     public String getStatus() {
