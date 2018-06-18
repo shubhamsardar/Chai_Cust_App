@@ -39,5 +39,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="err_nick_address">Address nickname Cant be empty</string>
+    <string name="err_flat">Cant be Empty</string>
+    <string name="err_landmark">Cant be empty</string>
 
 </resources>

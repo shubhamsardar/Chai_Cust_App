@@ -42,6 +42,11 @@ public class ApiProvider {
             case ApiTag.RESET_PASSWORD: // 8
                 url = BASE_URL + "user/reset_password";
                 break;
+
+
+            case ApiTag.ADDRESS_LIST: // 11
+                url = BASE_URL + "/users/address?userAddress=ALL";
+                break;
             default:
                 return null;
         }

@@ -34,6 +34,9 @@ import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
 import in.co.tripin.chahiyecustomer.Managers.TapriManager;
 import in.co.tripin.chahiyecustomer.Model.responce.Tapri;
 import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.helper.Logger;
+import in.co.tripin.chahiyecustomer.javacode.activity.SelectAddressActivity;
+import in.co.tripin.chahiyecustomer.javacode.activity.TapriDetailsActivity;
 
 public class MainLandingMapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,OnMapReadyCallback {
@@ -148,9 +151,11 @@ public class MainLandingMapActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_history) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_address) {
+
+            startActivity(new Intent(MainLandingMapActivity.this, SelectAddressActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -186,7 +191,7 @@ public class MainLandingMapActivity extends AppCompatActivity
                 try {
                     if (tapriData != null) {
 
-                        for (Tapri.Data data : tapriData) {
+                        for (final Tapri.Data data : tapriData) {
                             String[] location = data.getLocation().getCoordinates();
                             double lat = Double.parseDouble(location[1].trim());
                             double lng = Double.parseDouble(location[0].trim());
@@ -203,7 +208,10 @@ public class MainLandingMapActivity extends AppCompatActivity
                             map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                 @Override
                                 public void onInfoWindowClick(Marker marker) {
-                                    startActivity(new Intent(MainLandingMapActivity.this,TapriDetailsActivity.class));
+                                    Intent i = new Intent(MainLandingMapActivity.this,TapriDetailsActivity.class);
+                                    i.putExtra("tapri_id",data.get_id());
+                                    Logger.v("Tapri Id Opened : "+data.get_id());
+                                    startActivity(i);
                                 }
                             });
                         }

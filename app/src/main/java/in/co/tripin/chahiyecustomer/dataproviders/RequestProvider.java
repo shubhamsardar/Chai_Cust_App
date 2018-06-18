@@ -39,6 +39,7 @@ public class RequestProvider {
         mContext = context;
         mPreferenceManager = PreferenceManager.getInstance(mContext);
     }
+
     public Request getSignUpRequest(String body, RequestListener listener) {
         Map<String, String> headerParams = new HashMap<String, String>();
         headerParams.put("Content-Type", "application/json");
@@ -209,16 +210,31 @@ public class RequestProvider {
 
     public Request getTapriListRequest(RequestListener listener, String lat, String lng) {
 
-        Request resetPasswordRequest = new Request.RequestBuilder(mContext, listener)
+        Request getTapriRequest = new Request.RequestBuilder(mContext, listener)
                 .type(Request.Method.GET)
-                .url(ApiProvider.getTapriApi(lat,lng))
+                .url(ApiProvider.getTapriApi(lat, lng))
                 .tag(ApiTag.TAPRI_LIST)
                 .build();
-        return resetPasswordRequest;
+        return getTapriRequest;
 
     }
 
+    public Request getAddressListRequest(RequestListener listener) {
 
+        String accessToken = mPreferenceManager.getAccessToken();
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwZXJzb25JZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1OSIsInJvbGVJZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1YSIsImV4cGlyZXMiOjE1MjkxMzYxNTg1NTB9.QJLI7T-qkAhJyiHXDjffCClMZVTn8G8TV_SF2MN50Yg");
+
+        return new Request.RequestBuilder(mContext, listener)
+                .type(Request.Method.GET)
+                .url(ApiProvider.getApiByTag(ApiTag.ADDRESS_LIST))
+                .headerParams(params)
+                .build();
+
+
+    }
 
 
 }

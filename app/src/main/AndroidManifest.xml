@@ -117,31 +117,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.SelectAddressActivity"
-            android:label="Select Address"
-            android:parentActivityName=".Activities.TapriDetailsActivity">
+            android:name=".javacode.activity.LoginActivity"
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.AddAddressActivity"
-            android:label="Add Address"
-            android:parentActivityName=".Activities.SelectAddressActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-        android:name=".javacode.activity.LoginActivity"
-        android:label="@string/title_activity_login"></activity>
         <activity
             android:name=".javacode.activity.SignUpActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".javacode.activity.SelectAddressActivity"
+            android:parentActivityName=".Activities.MainLandingMapActivity" />
+        <activity
+            android:name=".javacode.activity.AddAddressActivity"
+            android:parentActivityName=".javacode.activity.SelectAddressActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".javacode.activity.TapriDetailsActivity"></activity>
     </application>
 
 </manifest>

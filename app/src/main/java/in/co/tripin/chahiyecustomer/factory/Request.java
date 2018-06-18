@@ -88,7 +88,7 @@ public class Request extends ConnectRequest {
 
     public static class RequestBuilder {
         private final Context mContext; //Required
-        private final RequestListener mConnectionListener; //Required
+        private final RequestListener mConnectionListener; //Required 192.168.1.21
 
         private int mTag;
         private int mConnectionType;

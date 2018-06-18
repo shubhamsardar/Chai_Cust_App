@@ -23,5 +23,8 @@ public class ApiTag {
 
     public static final int TAPRI_LIST = 10;
 
+    public static final int ADDRESS_LIST = 11;
+
+
 }
 
