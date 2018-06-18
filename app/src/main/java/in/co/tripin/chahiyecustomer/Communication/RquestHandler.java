@@ -50,12 +50,15 @@ public class RquestHandler extends ConnectRequest implements Connector {
             multiPart();
             Logger.v("\nMultiPart Request : API  : " + mRequest.getRequestUrl() + " : " + mRequest.getPostParams());
         } else if (mRequest.getType() == Request.Method.SEND_JSON) {
-            Logger.v("\nRequest : API  : " + mRequest.getRequestUrl() + " : " + mRequest.getRequestUrl());
+            Logger.v("\nRequest : API  : " + mRequest.getRequestUrl());
             sendJson();
+        } else if (mRequest.getType() == Request.Method.GET) {
+            sendGetRequest();
         } else {
-            Logger.v("\nRequest : API  : " + mRequest.getRequestUrl() + " : " + mRequest.getRequestUrl());
-            connect();
-        }
+                Logger.v("\nRequest : API  : " + mRequest.getRequestUrl() + " : " + mRequest.getRequestUrl());
+                connect();
+            }
+
     }
 
     @Override
@@ -128,6 +131,29 @@ public class RquestHandler extends ConnectRequest implements Connector {
 
     @Override
     public void setHeaderParams(Map<String, String> postParams) {
+    }
+
+    private void sendGetRequest() {
+        cancelRequest();
+
+            StringRequest postRequest = new StringRequest(mRequest.getType(), mRequest.getRequestUrl(),
+                    new com.android.volley.Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Logger.v("\nResponse : API  : " + mRequest.getRequestUrl() + " : " + response);
+//                        mCallback.onResponse(ResponseResults.RESPONSE_OK, response);
+                            parseJson(response);
+                        }
+                    }, new com.android.volley.Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    errorResponsHandler(error);
+
+                }
+            });
+            postRequest.setRetryPolicy(ProviderUtils.getRetryPolicy());
+            postRequest.setTag(mRequest.getTag());
+            RequestPool.getInstance(this.mContext).addToRequestQueue(postRequest);
     }
 
     //========================== MULTIPART REQUEST ===================================
@@ -242,7 +268,6 @@ public class RquestHandler extends ConnectRequest implements Connector {
                     Logger.v("\nRequest : API :  " + mRequest.getTag() + " : " + mPostParams.toString());
                     return mPostParams;
                 }
-
             }
 
             @Override

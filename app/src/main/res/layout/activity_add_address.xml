@@ -1,140 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".Activities.AddAddressActivity">
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_name"
+    tools:context=".javacode.activity.AddAddressActivity">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/source_sans_pro_semibold"
-        android:hint="@string/name"
-        android:textColorHint="@color/light_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/name"
+        <LinearLayout
+            android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:gravity="center_vertical"
-            android:inputType="textCapWords"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp" />
+            android:layout_margin="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Address Nickname"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_mobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/source_sans_pro_semibold"
-        android:hint="@string/mobile"
-        android:textColorHint="@color/light_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_layout_name">
+            <EditText
+                android:id="@+id/flatsocity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Flat Society"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/mobile"
+            <EditText
+                android:id="@+id/addressline1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Address Line 1"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/addressline2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Address Line 2"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/landmark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Landmark"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="City"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="State"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Country"
+                android:inputType="textPostalAddress"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:gravity="center_vertical"
-            android:inputType="phone"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/rajdhani_bold"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="Save Address"
+            android:textColor="@color/background"
+            android:textStyle="bold"
+            android:onClick="addAddress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input"
+            app:layout_constraintVertical_bias="0.0" />
 
-    </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_pin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/source_sans_pro_semibold"
-        android:hint="@string/set_a_4_digit_pin"
-        android:textColorHint="@color/light_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_layout_mobile">
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/pin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:gravity="center_vertical"
-            android:inputType="numberPassword"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_pin_reenter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/source_sans_pro_semibold"
-        android:hint="@string/re_enter_pin"
-        android:textColorHint="@color/light_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_layout_pin">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/pin_reenter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:gravity="center_vertical"
-            android:inputType="numberPassword"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <TextView
-        android:id="@+id/saveaddress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/source_sans_pro_semibold"
-        android:padding="10dp"
-        android:text="Save Address"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/background"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_layout_pin_reenter" />
-
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

@@ -19,5 +19,12 @@ public class ApiTag {
 
     public static final int RESET_PASSWORD = 8;
 
+    public static final int OTP_VERIFY = 9;
+
+    public static final int TAPRI_LIST = 10;
+
+    public static final int ADDRESS_LIST = 11;
+
+
 }
 

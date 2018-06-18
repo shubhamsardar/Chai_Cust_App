@@ -14,6 +14,7 @@ import in.co.tripin.chahiyecustomer.Model.responce.ResendOtpResponse;
 import in.co.tripin.chahiyecustomer.Model.responce.ResetPasswordResponse;
 import in.co.tripin.chahiyecustomer.Model.responce.SignInResponse;
 import in.co.tripin.chahiyecustomer.Model.responce.SignUpResponse;
+import in.co.tripin.chahiyecustomer.Model.responce.Tapri;
 import in.co.tripin.chahiyecustomer.Model.responce.ValidateOtpResponse;
 import in.co.tripin.chahiyecustomer.dataproviders.ApiTag;
 import in.co.tripin.chahiyecustomer.dataproviders.CommonRequestKey;
@@ -106,6 +107,10 @@ public class ResponseParser {
                 case ApiTag.RESET_PASSWORD: // 8
                     ResetPasswordResponse resetPasswordResponse = gson.fromJson(jsonObject.toString(), ResetPasswordResponse.class);
                     response = resetPasswordResponse;
+                    break;
+                case ApiTag.TAPRI_LIST: // 8
+                    Tapri tapri = gson.fromJson(jsonObject.toString(), Tapri.class);
+                    response = tapri;
                     break;
 
             }

@@ -4,22 +4,22 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <!--<item-->
+            <!--android:id="@+id/nav_camera"-->
+            <!--android:icon="@drawable/ic_add_shopping_cart_black_24dp"-->
+            <!--android:title="Place Order" />-->
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_add_shopping_cart_black_24dp"
-            android:title="Place Order" />
-        <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_history"
             android:icon="@drawable/ic_history_black_24dp"
             android:title="Order History" />
         <item
-            android:id="@+id/nav_offers"
-            android:icon="@drawable/ic_local_offer_black_24dp"
-            android:title="Brand Offers" />
+            android:id="@+id/nav_address"
+            android:icon="@drawable/ic_edit_location_black_24dp"
+            android:title="Select Delivery Address" />
 
     </group>
 
-    <item android:title="My Accounr">
+    <item android:title="My Account">
         <menu>
             <item
                 android:id="@+id/nav_share"
