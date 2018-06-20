@@ -23,6 +23,8 @@ public class PreferenceManager {
     private static final String PREF_EMAIL_ID = "email_id";
     private static final String PREF_COMPANY_NAME = "compamy_name";
     private static final String PREF_PROFILE_IMG = "profile_img";
+    private static final String PREF_DEFAULT_ADDRESS = "default_address";
+
 
     private static SharedPreferences sInstance;
     private static SharedPreferences.Editor editor;
@@ -69,7 +71,7 @@ public class PreferenceManager {
      */
     public String getAccessToken() {
         String accessToken = sInstance.getString(PREF_ACCESS_TOKEN, null);
-        return accessToken;
+        return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwZXJzb25JZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1OSIsImV4cGlyZXMiOjE1Mjk1NzAzMDcxMTB9.Pnf9UxtKnWdB8olObY6t4T3tiCtM63pr0n5gBUf0958";
     }
 
     /**
@@ -222,6 +224,16 @@ public class PreferenceManager {
 
     public void setProfileImgPath(String profileImg) {
         editor.putString(PREF_PROFILE_IMG, profileImg);
+        editor.commit();
+    }
+
+    public String getDefaultAddress() {
+        String address = sInstance.getString(PREF_DEFAULT_ADDRESS, null);
+        return address;
+    }
+
+    public void setDefaultAddress(String address) {
+        editor.putString(PREF_DEFAULT_ADDRESS, address);
         editor.commit();
     }
 

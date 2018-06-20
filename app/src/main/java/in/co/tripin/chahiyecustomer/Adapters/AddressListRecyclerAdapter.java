@@ -34,12 +34,7 @@ public class AddressListRecyclerAdapter extends RecyclerView.Adapter<AddressList
 
         holder.nick.setText(data[position].getNickname());
 
-        holder.full.setText(data[position].getLandmark()+","
-                +data[position].getFlatSociety()+","
-                +data[position].getAddressLine1()+","
-                +data[position].getAddressLine2()+","
-                +data[position].getCity()+","
-                +data[position].getCountry());
+        holder.full.setText(data[position].getFullAddressString());
 
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
