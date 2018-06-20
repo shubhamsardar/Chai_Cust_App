@@ -209,7 +209,8 @@ public class MainLandingMapActivity extends AppCompatActivity
                                 @Override
                                 public void onInfoWindowClick(Marker marker) {
                                     Intent i = new Intent(MainLandingMapActivity.this,TapriDetailsActivity.class);
-                                    i.putExtra("tapri_id",data.get_id());
+                                    i.putExtra("tapri_id","5af56383817a5925ed444773");
+                                    i.putExtra("tapri_name",data.getName());
                                     Logger.v("Tapri Id Opened : "+data.get_id());
                                     startActivity(i);
                                 }

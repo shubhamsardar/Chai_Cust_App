@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Logger;
@@ -35,6 +36,7 @@ public class AddAddressActivity extends AppCompatActivity {
 
     private RequestQueue queue;
     AwesomeValidation mAwesomeValidation;
+    private PreferenceManager preferenceManager;
 
 
     private String mNickname = "";
@@ -58,6 +60,7 @@ public class AddAddressActivity extends AppCompatActivity {
         init();
         mAwesomeValidation = new AwesomeValidation(BASIC);
         addValidations();
+        preferenceManager =  PreferenceManager.getInstance(this);
 
     }
 
@@ -118,7 +121,7 @@ public class AddAddressActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json");
-                params.put("token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwZXJzb25JZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1OSIsInJvbGVJZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1YSIsImV4cGlyZXMiOjE1MjkxMzYxNTg1NTB9.QJLI7T-qkAhJyiHXDjffCClMZVTn8G8TV_SF2MN50Yg");
+                params.put("token", preferenceManager.getAccessToken());
                 return params;
             }
 

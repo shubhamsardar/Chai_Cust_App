@@ -107,15 +107,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.TapriDetailsActivity"
-            android:parentActivityName=".Activities.MainLandingMapActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".javacode.activity.LoginActivity"
             android:label="@string/title_activity_login">
@@ -136,7 +128,9 @@
         </activity>
         <activity
             android:name=".javacode.activity.SelectAddressActivity"
-            android:parentActivityName=".Activities.MainLandingMapActivity" />
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".javacode.activity.AddAddressActivity"
             android:parentActivityName=".javacode.activity.SelectAddressActivity">
@@ -146,7 +140,37 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".javacode.activity.TapriDetailsActivity"></activity>
+        <activity
+            android:name=".javacode.activity.TapriDetailsActivity"
+            android:parentActivityName=".Activities.MainLandingMapActivity"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".javacode.activity.OrderSummeryActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".javacode.activity.OrderHistoryActivity"
+            android:parentActivityName=".Activities.MainLandingMapActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

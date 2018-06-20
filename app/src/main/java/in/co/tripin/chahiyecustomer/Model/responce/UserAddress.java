@@ -1,5 +1,7 @@
 package in.co.tripin.chahiyecustomer.Model.responce;
 
+import java.io.Serializable;
+
 import in.co.tripin.chahiyecustomer.dataproviders.CommonResponse;
 
 public class UserAddress extends CommonResponse {
@@ -27,7 +29,7 @@ public class UserAddress extends CommonResponse {
         this.data = data;
     }
 
-    public class Data
+    public class Data implements Serializable
     {
         private Location location;
 
@@ -215,11 +217,19 @@ public class UserAddress extends CommonResponse {
             return "ClassPojo [location = "+location+", nickname = "+nickname+", __v = "+__v+", state = "+state+", addressLine2 = "+addressLine2+", addressLine1 = "+addressLine1+", country = "+country+", city = "+city+", updatedAt = "+updatedAt+", landmark = "+landmark+", flag = "+flag+", _id = "+_id+", createdAt = "+createdAt+", userId = "+userId+", flatSociety = "+flatSociety+"]";
         }
 
+        public String getFullAddressString(){
+            return getLandmark()+", "
+                    +getFlatSociety()+", "
+                    +getAddressLine1()+", "
+                    +getAddressLine2()+", "
+                    +getCity()+", "
+                    +getCountry();
+        }
 
     }
 
 
-    public class Location
+    public class Location implements Serializable
     {
         private String[] coordinates;
 

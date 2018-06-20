@@ -29,14 +29,15 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@color/black"/>
+                    android:background="@color/black"
+                    android:visibility="gone" />
 
 
                 <LinearLayout
                     android:id="@+id/itrms_header"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@drawable/titlebg"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_light_selector"
                     android:elevation="2dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -46,7 +47,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="16dp"
                         android:drawableStart="@drawable/ic_arrow_drop_up_black_24dp"
                         android:fontFamily="@font/source_sans_pro"
                         android:gravity="center_vertical"
@@ -63,96 +67,160 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <TextView
-                        android:id="@+id/beveragestitle"
+
+
+                    <LinearLayout
+                        android:id="@+id/beveragesll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="Beverages"
-                        android:textAllCaps="true"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/beveragestitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="Beverages"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginTop="3dp"
-                        android:alpha="0.5"
-                        android:background="@color/black" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:background="@color/black" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/beverages"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/snackstitle"
+                    <LinearLayout
+                        android:id="@+id/snacksll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="Snacks"
-                        android:textAllCaps="true"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginTop="3dp"
-                        android:alpha="0.5"
-                        android:background="@color/black" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        <TextView
+                            android:id="@+id/snackstitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="Snacks"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/extrastitle"
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:background="@color/black" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/snacks"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:nestedScrollingEnabled="false" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/extrasll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="Extras"
-                        android:textAllCaps="true"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/extrastitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="Extras"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginTop="3dp"
-                        android:alpha="0.5"
-                        android:background="@color/black" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:background="@color/black" />
 
-                    <android.support.v7.widget.RecyclerView
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/extras"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/chaihiyehll"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/chahiyeproductstitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="CHAI-HI-YEH PRODUCTS"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:background="@color/black" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chaihiyeh"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/delivery_address_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@color/black"/>
-
+                    android:background="@color/black"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/address_header"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@drawable/titlebg"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/button_light_selector"
                     android:elevation="2dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -162,8 +230,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
                         android:layout_marginLeft="20dp"
-                        android:drawableStart="@drawable/ic_arrow_drop_up_black_24dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="16dp"
+                        android:drawableEnd="@drawable/ic_play_arrow_black_24dp"
+                        android:drawableStart="@drawable/ic_edit_location_black_24dp"
                         android:fontFamily="@font/source_sans_pro"
                         android:gravity="center_vertical"
                         android:text="DELIVERY ADDRESS"
@@ -172,35 +244,36 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/address_list"
+                <include
+                    android:id="@+id/address_include"
+                    layout="@layout/address_item_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp" />
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/payment_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@color/black"/>
+                    android:background="@color/black"
+                    android:visibility="visible" />
 
 
                 <LinearLayout
                     android:id="@+id/payment_header"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@drawable/titlebg"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/button_light_selector"
                     android:elevation="2dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -210,8 +283,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="16dp"
                         android:layout_marginLeft="20dp"
-                        android:drawableStart="@drawable/ic_arrow_drop_up_black_24dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="16dp"
+                        android:drawableEnd="@drawable/ic_play_arrow_black_24dp"
+                        android:drawableStart="@drawable/ic_attach_money_black_24dp"
                         android:fontFamily="@font/source_sans_pro"
                         android:gravity="center_vertical"
                         android:text="Payment"
@@ -220,16 +297,30 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/payment_list"
+                <RadioGroup
+                    android:id="@+id/payment_type"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/radiocod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:text="COD" />
+
+                    <RadioButton
+                        android:id="@+id/radiowallet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="CHAIHIYEH WALLET" />
+                </RadioGroup>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -238,15 +329,15 @@
         android:id="@+id/proceedtopay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/side_nav_bar"
+        android:background="@drawable/button_main_selector"
         android:elevation="2dp"
         android:fontFamily="@font/source_sans_pro_semibold"
         android:gravity="center"
-        android:padding="15dp"
-        android:text="Proceed To Pay"
+        android:padding="16dp"
+        android:text="Proceed To Order Summery"
         android:textAllCaps="true"
         android:textColor="@color/background"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

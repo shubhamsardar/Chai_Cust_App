@@ -33,7 +33,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="Address Nickname"
-                android:inputType="textPostalAddress"
+                android:inputType="text|textCapWords"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="Flat Society"
-                android:inputType="textPostalAddress"
+                android:inputType="textCapSentences|textPostalAddress"
                 android:textSize="14sp" />
 
             <EditText
@@ -54,7 +54,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="Address Line 1"
-                android:inputType="textPostalAddress"
+                android:inputType="textCapSentences|textPostalAddress"
                 android:textSize="14sp" />
 
             <EditText
@@ -74,7 +74,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="Landmark"
-                android:inputType="textPostalAddress"
+                android:inputType="textCapSentences|textPostalAddress"
                 android:textSize="14sp" />
 
             <EditText
@@ -84,7 +84,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="City"
-                android:inputType="textPostalAddress"
+                android:inputType="textCapWords|textPostalAddress"
                 android:textSize="14sp" />
 
             <EditText
@@ -94,7 +94,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="State"
-                android:inputType="textPostalAddress"
+                android:inputType="textCapWords|textPostalAddress"
                 android:textSize="14sp" />
 
             <EditText
@@ -104,7 +104,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="Country"
-                android:inputType="textPostalAddress"
+                android:inputType="textCapWords|textPostalAddress"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -117,14 +117,14 @@
             android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_main_selector"
             android:fontFamily="@font/rajdhani_bold"
             android:gravity="center_horizontal"
+            android:onClick="addAddress"
             android:padding="10dp"
             android:text="Save Address"
             android:textColor="@color/background"
             android:textStyle="bold"
-            android:onClick="addAddress"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
