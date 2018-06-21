@@ -71,7 +71,7 @@ public class PreferenceManager {
      */
     public String getAccessToken() {
         String accessToken = sInstance.getString(PREF_ACCESS_TOKEN, null);
-        return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwZXJzb25JZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1OSIsImV4cGlyZXMiOjE1Mjk1NzAzMDcxMTB9.Pnf9UxtKnWdB8olObY6t4T3tiCtM63pr0n5gBUf0958";
+        return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwZXJzb25JZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1OSIsImV4cGlyZXMiOjE1Mjk2NjE2OTk5Mzl9.hD3OhVl_rQOJVH6r6rS2UEx6-PLQDQ4cIljyzwvzfPw";
     }
 
     /**

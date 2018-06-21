@@ -35,6 +35,7 @@ import in.co.tripin.chahiyecustomer.Managers.TapriManager;
 import in.co.tripin.chahiyecustomer.Model.responce.Tapri;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Logger;
+import in.co.tripin.chahiyecustomer.javacode.activity.OrderHistoryActivity;
 import in.co.tripin.chahiyecustomer.javacode.activity.SelectAddressActivity;
 import in.co.tripin.chahiyecustomer.javacode.activity.TapriDetailsActivity;
 
@@ -152,7 +153,9 @@ public class MainLandingMapActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_history) {
-            // Handle the camera action
+
+            startActivity(new Intent(MainLandingMapActivity.this,OrderHistoryActivity.class));
+
         } else if (id == R.id.nav_address) {
 
             startActivity(new Intent(MainLandingMapActivity.this, SelectAddressActivity.class));

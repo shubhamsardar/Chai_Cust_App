@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import in.co.tripin.chahiyecustomer.Model.responce.OrderHistoryResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.TapriMenuResponce;
@@ -48,35 +51,33 @@ public class OrderHistoryRecyclerAdapter extends RecyclerView.Adapter<OrderHisto
         holder.mSelctedItemsList.setLayoutManager(layoutManager);
         holder.mSelctedItemsList.setAdapter(selectedItemsRecyclerAdapter);
 
-        if(position==0){
+        holder.mTapriName.setText(data[position].getTapriId().getName());
+        holder.mOrderId.setText("#"+data[position].getShortId().toUpperCase());
+        holder.mOrderStatus.setText(data[position].getOrderStatus().toUpperCase());
+        String timestamp = data[position].getCreatedAt();
+        holder.mDate.setText(timestamp.substring(0,timestamp.indexOf('T')));
+
+        holder.mTotalCost.setText("₹"+data[position].getTotalAmount());
+        holder.mAddress.setText(data[position].getAddressId().getFullAddressString());
+        holder.mPaymentMethod.setText(data[position].getPaymentType());
+
+        if(position==data.length-1){
             holder.mBody.setVisibility(View.VISIBLE);
+            holder.mOrderId.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_drop_up_black_24dp, 0, 0, 0);
         }
 
-        holder.mHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(holder.mBody.getVisibility()== View.GONE){
-                    holder.mBody.setVisibility(View.VISIBLE);
-                    holder.mOrderId.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_drop_up_black_24dp, 0, 0, 0);
-
-                }else {
-                    holder.mBody.setVisibility(View.GONE);
-                    holder.mOrderId.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_drop_down_black_24dp, 0, 0, 0);
-                }
-            }
-        });
 
         if(data[position].getOrderStatus().equals("delivered")){
             holder.mRecivedSwitch.setChecked(true);
             holder.mRecivedSwitch.setTextColor(ContextCompat.getColor(context,R.color.colorGreen));
             holder.mRecivedSwitch.setClickable(false);
         }else {
+            final String orderid = data[position].get_id();
             holder.mRecivedSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
-                        callback.OnOrderMakedRecived(data[position].get_id());
-                        holder.mRecivedSwitch.setTextColor(ContextCompat.getColor(context,R.color.colorGreen));
+                        callback.OnOrderMakedRecived(orderid);
                     }
                 }
             });
@@ -124,6 +125,22 @@ public class OrderHistoryRecyclerAdapter extends RecyclerView.Adapter<OrderHisto
             mHeader = itemView.findViewById(R.id.order_header);
             mBody = itemView.findViewById(R.id.order_footer);
             mDate = itemView.findViewById(R.id.orderdate);
+
+
+            mHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mBody.getVisibility()== View.GONE){
+                        mBody.setVisibility(View.VISIBLE);
+                        mOrderId.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_drop_up_black_24dp, 0, 0, 0);
+
+
+                    }else {
+                        mBody.setVisibility(View.GONE);
+                        mOrderId.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_drop_down_black_24dp, 0, 0, 0);
+                    }
+                }
+            });
 
         }
     }

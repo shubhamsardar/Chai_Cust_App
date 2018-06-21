@@ -441,6 +441,15 @@ public class OrderHistoryResponce {
                 return "ClassPojo [location = "+location+", nickname = "+nickname+", __v = "+__v+", state = "+state+", addressLine2 = "+addressLine2+", addressLine1 = "+addressLine1+", country = "+country+", city = "+city+", updatedAt = "+updatedAt+", landmark = "+landmark+", flag = "+flag+", _id = "+_id+", createdAt = "+createdAt+", userId = "+userId+", flatSociety = "+flatSociety+"]";
             }
 
+            public String getFullAddressString(){
+                return getNickname()+"\n"+getLandmark()+", "
+                        +getFlatSociety()+", "
+                        +getAddressLine1()+", "
+                        +getAddressLine2()+", "
+                        +getCity()+", "
+                        +getCountry();
+            }
+
             public class Location
             {
                 private String[] coordinates;

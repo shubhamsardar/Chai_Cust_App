@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.renderscript.Double3;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -99,7 +102,9 @@ public class TapriDetailsActivity extends AppCompatActivity {
                 .setMessage("Fetching Menu")
                 .build();
 
-
+        init();
+        setUpView();
+        setListners();
 
         //set title and id from intent
         if (getIntent().getExtras() != null) {
@@ -114,9 +119,6 @@ public class TapriDetailsActivity extends AppCompatActivity {
             }
         }
 
-        init();
-        setUpView();
-        setListners();
 
 
     }
@@ -139,6 +141,13 @@ public class TapriDetailsActivity extends AppCompatActivity {
         });
 
         mAddresseHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(TapriDetailsActivity.this, SelectAddressActivity.class), 1);
+            }
+        });
+
+        mAddressInclude.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(TapriDetailsActivity.this, SelectAddressActivity.class), 1);
@@ -412,7 +421,7 @@ public class TapriDetailsActivity extends AppCompatActivity {
 
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == 1){
-                Toast.makeText(getApplicationContext(),"Address Selected!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Address Selected!",Toast.LENGTH_SHORT).show();
 
                 address = (UserAddress.Data) intent.getSerializableExtra("address");
                 String fulladdressstring = address.getLandmark()+", "
@@ -426,14 +435,33 @@ public class TapriDetailsActivity extends AppCompatActivity {
                 mAddressNick.setText(address.getNickname());
                 preferenceManager.setDefaultAddress(gson.toJson(address));
                 mAddressInclude.setVisibility(View.VISIBLE);
+                mAddressInclude.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.colorHighlight));
                 Logger.v("selected address is: " + fulladdressstring);
             }
         }else {
-            Toast.makeText(getApplicationContext(),"Address not selected!",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Address not selected!",Toast.LENGTH_SHORT).show();
         }
 
 
 
 
+    }
+
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_taprimenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_info) {
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

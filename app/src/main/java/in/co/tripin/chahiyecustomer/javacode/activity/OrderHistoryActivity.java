@@ -1,11 +1,16 @@
 package in.co.tripin.chahiyecustomer.javacode.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,8 +49,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private Gson gson;
     private RequestQueue queue;
     private PreferenceManager preferenceManager;
-    private OrderStatusToggleCallback orderStatusToggleCallback;
-
+    private Context mContext;
 
     private RecyclerView mOderHistoryList;
     private TextView mLoadingMsg;
@@ -56,6 +60,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
         setTitle("Order History");
+        mContext = this;
         gson = new Gson();
         queue = Volley.newRequestQueue(this);
         preferenceManager = PreferenceManager.getInstance(this);
@@ -68,7 +73,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         mOderHistoryList = findViewById(R.id.orderhistorylist);
         mLoadingMsg = findViewById(R.id.loadingtv);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
         mOderHistoryList.setLayoutManager(mLayoutManager);
 
         callOrderHistoryAPI();
@@ -104,8 +111,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
-                        Logger.d("Error.Response: "+ error.toString());
-                        Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_SHORT).show();
+                        Logger.d("Error.Response: " + error.toString());
+                        Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -126,9 +133,23 @@ public class OrderHistoryActivity extends AppCompatActivity {
         Logger.v("adapter set");
         orderHistoryRecyclerAdapter = new OrderHistoryRecyclerAdapter(this, data, new OrderStatusToggleCallback() {
             @Override
-            public void OnOrderMakedRecived(String mOrderId) {
-                
-                callEditOrderAPI(mOrderId);
+            public void OnOrderMakedRecived(final String mOrderId) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Are you sure?")
+                        .setMessage("Once an order is marked received, it cant be unmarked.")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                callEditOrderAPI(mOrderId);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .show();
+
+
 
             }
         });
@@ -139,14 +160,14 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         Logger.v("Marking Order Recived");
         dialog.show();
-        final String url = "http://139.59.70.142:3055/api/v2/order/"+mOrderId+"/recieved";
+        final String url = "http://139.59.70.142:3055/api/v2/order/" + mOrderId + "/recieved";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        Logger.v("Response :"+ response.toString());
-                        Toast.makeText(getApplicationContext(),"Marked Received",Toast.LENGTH_SHORT).show();
+                        Logger.v("Response :" + response.toString());
+                        Toast.makeText(getApplicationContext(), "Marked Received", Toast.LENGTH_SHORT).show();
                         callOrderHistoryAPI();
                     }
                 },
@@ -154,8 +175,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
-                        Logger.d("Error.Response: "+ error.toString());
-                        Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_SHORT).show();
+                        Logger.d("Error.Response: " + error.toString());
+                        Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -171,5 +192,25 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+    }
+
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_order_history, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_refresh) {
+            callOrderHistoryAPI();
+        } else if (id == R.id.action_call) {
+            //call to enquiry
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

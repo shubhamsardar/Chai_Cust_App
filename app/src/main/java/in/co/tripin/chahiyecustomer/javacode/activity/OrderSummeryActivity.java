@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,7 +85,7 @@ public class OrderSummeryActivity extends AppCompatActivity {
 
         mTapriName.setText(orderSummeryPOJO.getmTapriName().toUpperCase());
         mTotalCost.setText("₹" + orderSummeryPOJO.getmTotalCost());
-        mAddress.setText(orderSummeryPOJO.getmAddress().getNickname() + "\n" + orderSummeryPOJO.getFullAddressString());
+        mAddress.setText(orderSummeryPOJO.getmAddress().getNickname().toUpperCase() + "\n" + orderSummeryPOJO.getFullAddressString());
         mPaymentMethod.setText(orderSummeryPOJO.getmPaymentMethod());
         selectedItemsRecyclerAdapter = new SelectedItemsRecyclerAdapter(orderSummeryPOJO.getmItems());
         mSelctedItemsList.setAdapter(selectedItemsRecyclerAdapter);
@@ -165,7 +167,9 @@ public class OrderSummeryActivity extends AppCompatActivity {
                         // display response
                         Logger.v("Response: "+ response.toString());
                         Toast.makeText(getApplicationContext(),"Order Placed Successfully!",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(OrderSummeryActivity.this,OrderHistoryActivity.class));
+                        Intent intent = new Intent(OrderSummeryActivity.this,OrderHistoryActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         finish();
                     }
                 },
@@ -202,5 +206,24 @@ public class OrderSummeryActivity extends AppCompatActivity {
         };
 
         queue.add(getRequest);
+    }
+
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_order_summery, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_cancel) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

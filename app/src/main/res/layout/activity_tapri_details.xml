@@ -68,16 +68,49 @@
                     android:padding="20dp">
 
 
+                    <LinearLayout
+                        android:id="@+id/chaihiyehll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/chahiyeproductstitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="CHAI-HI-YEH PRODUCTS"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:background="@color/black" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chaihiyeh"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/beveragesll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/beveragestitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
                             android:fontFamily="@font/source_sans_pro_semibold"
                             android:text="Beverages"
                             android:textAllCaps="true"
@@ -161,37 +194,6 @@
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/extras"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:nestedScrollingEnabled="false" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/chaihiyehll"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/chahiyeproductstitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/source_sans_pro_semibold"
-                            android:text="CHAI-HI-YEH PRODUCTS"
-                            android:textAllCaps="true"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginBottom="3dp"
-                            android:layout_marginTop="3dp"
-                            android:alpha="0.5"
-                            android:background="@color/black" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/chaihiyeh"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -318,6 +320,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="CHAIHIYEH WALLET" />
                 </RadioGroup>
 
