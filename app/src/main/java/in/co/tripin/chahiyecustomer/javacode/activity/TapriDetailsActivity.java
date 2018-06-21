@@ -459,8 +459,8 @@ public class TapriDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_info) {
-        }
+//        if (id == R.id.action_info) {
+//        }
 
         return super.onOptionsItemSelected(item);
     }

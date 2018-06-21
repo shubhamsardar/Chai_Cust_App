@@ -160,7 +160,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         Logger.v("Marking Order Recived");
         dialog.show();
-        final String url = "http://139.59.70.142:3055/api/v2/order/" + mOrderId + "/recieved";
+        final String url = "http://139.59.70.142:3055/api/v2/order/" + mOrderId + "/status/received";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -208,9 +208,10 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         if (id == R.id.action_refresh) {
             callOrderHistoryAPI();
-        } else if (id == R.id.action_call) {
-            //call to enquiry
         }
+//        } else if (id == R.id.action_call) {
+//            //call to enquiry
+//        }
         return super.onOptionsItemSelected(item);
     }
 }

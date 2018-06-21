@@ -10,10 +10,4 @@
         android:visible="true"
         android:icon="@drawable/ic_refresh_black_24dp"/>
 
-    <item android:id="@+id/action_call"
-        android:title="@string/action_location"
-        android:orderInCategory="2"
-        app:showAsAction="ifRoom"
-        android:visible="true"
-        android:icon="@drawable/ic_call_white_24dp"/>
 </menu>
