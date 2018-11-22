@@ -28,6 +28,7 @@ import java.util.Map;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
@@ -96,7 +97,7 @@ public class AddAddressActivity extends AppCompatActivity {
 
     private void HitAddAddressAPI() {
         Logger.v("add address");
-        final String url = "http://139.59.70.142:3055/api/v1/users/address";
+        final String url = Constants.BASE_URL+"api/v1/users/address";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override

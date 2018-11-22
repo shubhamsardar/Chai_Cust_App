@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
  */
 
 public class PreferenceManager {
-    public static final String PREF_MOBILE_NUMBER = "partner_mobile_no";
+    public static final String PREF_MOBILE_NUMBER = "registered_mobile_no";
     public static final String PREF_USER_NAME = "partner_user_name";
     public static final String PREF_TRIPIN_ID = "partner_tripin_id";
     public static final String PREF_LOGIN_STATUS = "partner_login_status";
@@ -17,7 +17,7 @@ public class PreferenceManager {
     private static final String PREF_ACCESS_TOKEN = "partner_access_token";
     private static final String PREF_USER_ID = "partner_user_id";
     private static final String PREF_TEMP_USER_ID = "partner_temp_user_id";
-    private static final String PREF_FCM_ID = "partner_fcm_id";
+    private static final String PREF_FCM_ID = "user_fcm_id";
     private static final String PREF_ENQUIRY_ID = "enquiry_id";
     private static final String PREF_MAP_STATUS = "map_status";
     private static final String PREF_EMAIL_ID = "email_id";
@@ -71,7 +71,7 @@ public class PreferenceManager {
      */
     public String getAccessToken() {
         String accessToken = sInstance.getString(PREF_ACCESS_TOKEN, null);
-        return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwZXJzb25JZCI6IjViMjM3MjllYjc3ZDBkMDAxNTU0NWU1OSIsImV4cGlyZXMiOjE1Mjk2NjE2OTk5Mzl9.hD3OhVl_rQOJVH6r6rS2UEx6-PLQDQ4cIljyzwvzfPw";
+        return accessToken;
     }
 
     /**
@@ -157,12 +157,12 @@ public class PreferenceManager {
         editor.commit();
     }
 
-    public String getGCMId() {
-        String fcmId = sInstance.getString(PREF_FCM_ID, null);
+    public String getFCMId() {
+        String fcmId = sInstance.getString(PREF_FCM_ID, "Dummy FCM");
         return fcmId;
     }
 
-    public void setGCMId(String fcmId) {
+    public void setFCMId(String fcmId) {
         editor.putString(PREF_FCM_ID, fcmId);
         editor.commit();
     }
@@ -179,10 +179,10 @@ public class PreferenceManager {
 
     public void clearLoginPreferences() {
         //setting GCM id before clearing since it would be required when user sign's in again.
-        String gcmId = getGCMId();
+        String gcmId = getFCMId();
         String accessToken = getAccessToken();
         editor.clear();
-        setGCMId(gcmId);
+        setFCMId(gcmId);
         setAccessToken(accessToken);
         editor.commit();
     }

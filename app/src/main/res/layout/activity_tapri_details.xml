@@ -68,6 +68,17 @@
                     android:padding="20dp">
 
 
+                    <TextView
+                        android:id="@+id/tv_noitems"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/source_sans_pro_extralight"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:paddingBottom="10dp"
+                        android:text="No Items Available!"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
                     <LinearLayout
                         android:id="@+id/chaihiyehll"
                         android:layout_width="match_parent"
@@ -269,7 +280,6 @@
                     android:background="@color/black"
                     android:visibility="visible" />
 
-
                 <LinearLayout
                     android:id="@+id/payment_header"
                     android:layout_width="match_parent"
@@ -299,30 +309,89 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <RadioGroup
-                    android:id="@+id/payment_type"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/radiocod"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <RadioGroup
+                        android:id="@+id/payment_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
                         android:layout_weight="1"
-                        android:buttonTint="@color/colorPrimary"
-                        android:checked="true"
-                        android:text="COD" />
+                        android:orientation="vertical">
 
-                    <RadioButton
-                        android:id="@+id/radiowallet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        <RadioButton
+                            android:id="@+id/radiocod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorPrimary"
+                            android:checked="true"
+                            android:text="COD"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/radiowallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorPrimary"
+                            android:text="WALLET"
+                            android:textStyle="bold" />
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:id="@+id/llwalletinfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
                         android:layout_weight="1"
-                        android:buttonTint="@color/colorPrimary"
-                        android:text="CHAIHIYEH WALLET" />
-                </RadioGroup>
+                        android:background="@drawable/background_white"
+                        android:elevation="3dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:visibility="invisible">
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_extralight"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="Available Balance"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/balance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="..."
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/addmoney"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/button_light_selector"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/rajdhani_bold"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:padding="10dp"
+                            android:text="Add Money!"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
             </LinearLayout>
         </LinearLayout>

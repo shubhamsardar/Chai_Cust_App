@@ -35,6 +35,7 @@ import in.co.tripin.chahiyecustomer.Managers.UserAddressManager;
 import in.co.tripin.chahiyecustomer.Model.responce.Tapri;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 
 public class SelectAddressActivity extends AppCompatActivity {
@@ -90,13 +91,14 @@ public class SelectAddressActivity extends AppCompatActivity {
 
         Logger.v("fetch List of address..");
         dialog.show();
-        final String url = "http://139.59.70.142:3055/api/v1/users/address?userAddress=ALL";
+        final String url = Constants.BASE_URL+"api/v1/users/address?userAddress=ALL";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
                         Log.d("Response", response.toString());
+
                         userAddress = gson.fromJson(response.toString(), UserAddress.class);
                         if (userAddress != null) {
                             setAdapter(userAddress.getData());
@@ -167,7 +169,7 @@ public class SelectAddressActivity extends AppCompatActivity {
 
     private void removeAddressAPI(String id) {
 
-        String url = "http://139.59.70.142:3055/api/v1/user/address/" + id;
+        String url = Constants.BASE_URL+"api/v1/user/address/" + id;
         dialog.show();
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,

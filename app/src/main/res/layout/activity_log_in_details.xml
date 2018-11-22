@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
-    tools:context=".Activities.LogInDetailsActivity">
+    android:background="@drawable/waahchai_user_bg"
+    tools:context=".javacode.activity.LoginActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,10 +16,9 @@
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:background="@null"
             android:onClick="back"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
@@ -61,7 +60,8 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:gravity="center_vertical"
-                android:inputType="textCapCharacters|textMultiLine"
+                android:inputType="phone"
+                android:maxLength="10"
                 android:textColor="@android:color/background_light"
                 android:textColorHint="#000000"
                 android:textSize="15sp" />
@@ -89,7 +89,8 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:gravity="center_vertical"
-                android:inputType="textCapCharacters|textMultiLine"
+                android:maxLength="4"
+                android:inputType="numberPassword"
                 android:textColor="@android:color/background_light"
                 android:textSize="15sp" />
 
@@ -118,12 +119,10 @@
             android:layout_marginEnd="64dp"
             android:layout_marginStart="64dp"
             android:layout_marginTop="32dp"
-            android:alpha="0.5"
-            android:background="@color/colorAccent"
+            android:background="@drawable/button_light_selector"
             android:fontFamily="@font/rajdhani_bold"
-            android:onClick="gotomainscreen"
             android:text="@string/log_in"
-            android:textColor="@android:color/background_light"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

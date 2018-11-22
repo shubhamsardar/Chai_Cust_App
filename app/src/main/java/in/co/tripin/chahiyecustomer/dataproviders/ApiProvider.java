@@ -4,7 +4,7 @@ package in.co.tripin.chahiyecustomer.dataproviders;
 import in.co.tripin.chahiyecustomer.BuildConfig;
 
 public class ApiProvider {
-    private static final String BASE_URL = "http://139.59.70.142:3055/api/v1";
+    private static final String BASE_URL = "http://206.189.142.155:3055/api/v1";
 
     public static String getApiByTag(int apiTag) {
         String url = null;

@@ -3,6 +3,7 @@ package in.co.tripin.chahiyecustomer.javacode.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
+import in.co.tripin.chahiyecustomer.Activities.MainLandingMapActivity;
 import in.co.tripin.chahiyecustomer.Adapters.OrderHistoryRecyclerAdapter;
 import in.co.tripin.chahiyecustomer.Adapters.OrderStatusToggleCallback;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
@@ -39,6 +41,7 @@ import in.co.tripin.chahiyecustomer.Model.responce.OrderHistoryResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.TapriMenuResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 
 public class OrderHistoryActivity extends AppCompatActivity {
@@ -86,7 +89,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         Logger.v("fetch List of Order History..");
         dialog.show();
-        final String url = "http://139.59.70.142:3055/api/v2/users/orders";
+        final String url = Constants.BASE_URL+"api/v2/users/orders";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -160,7 +163,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         Logger.v("Marking Order Recived");
         dialog.show();
-        final String url = "http://139.59.70.142:3055/api/v2/order/" + mOrderId + "/status/received";
+        final String url = Constants.BASE_URL+"api/v2/order/" + mOrderId + "/status/received";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -192,6 +195,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(OrderHistoryActivity.this, MainLandingMapActivity.class));
+        finish();
     }
 
     // create an action bar button

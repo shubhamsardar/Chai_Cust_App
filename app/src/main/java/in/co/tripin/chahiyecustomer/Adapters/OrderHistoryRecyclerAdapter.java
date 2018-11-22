@@ -51,7 +51,14 @@ public class OrderHistoryRecyclerAdapter extends RecyclerView.Adapter<OrderHisto
         holder.mSelctedItemsList.setLayoutManager(layoutManager);
         holder.mSelctedItemsList.setAdapter(selectedItemsRecyclerAdapter);
 
-        holder.mTapriName.setText(data[position].getTapriId().getName());
+        if(data[position].getTapriId()!=null){
+            holder.mTapriName.setText(data[position].getTapriId().getName());
+        }
+
+        if(data[position].getOrderStatus().toUpperCase().equals("On the way".toUpperCase())){
+            holder.mRecivedSwitch.setVisibility(View.VISIBLE);
+        }
+
         holder.mOrderId.setText("#"+data[position].getShortId().toUpperCase());
         holder.mOrderStatus.setText(data[position].getOrderStatus().toUpperCase());
         String timestamp = data[position].getCreatedAt();
@@ -65,6 +72,7 @@ public class OrderHistoryRecyclerAdapter extends RecyclerView.Adapter<OrderHisto
             holder.mBody.setVisibility(View.VISIBLE);
             holder.mOrderId.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_drop_up_black_24dp, 0, 0, 0);
         }
+
 
 
         if(data[position].getOrderStatus().equals("delivered")){

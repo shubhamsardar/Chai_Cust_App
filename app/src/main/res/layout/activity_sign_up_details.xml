@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
-    tools:context=".Activities.SignUpDetailsActivity">
+    android:background="@drawable/waahchai_user_bg"
+    tools:context=".javacode.activity.SignUpActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,10 +17,9 @@
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:background="@null"
             android:onClick="back"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
@@ -103,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:maxLength="10"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:gravity="center_vertical"
                 android:inputType="phone"
@@ -131,6 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:maxLength="4"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:gravity="center_vertical"
                 android:inputType="numberPassword"
@@ -159,6 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:maxLength="4"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:gravity="center_vertical"
                 android:inputType="numberPassword"
@@ -175,10 +178,8 @@
             android:layout_marginEnd="64dp"
             android:layout_marginStart="64dp"
             android:layout_marginTop="24dp"
-            android:alpha="0.5"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_main_selector"
             android:fontFamily="@font/rajdhani_bold"
-            android:onClick="gotootpverification"
             android:text="@string/sign_up"
             android:textColor="@android:color/background_light"
             android:textSize="13sp"
@@ -191,3 +192,4 @@
 
 
 </ScrollView>
+

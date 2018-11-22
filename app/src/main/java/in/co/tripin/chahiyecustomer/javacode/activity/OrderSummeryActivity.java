@@ -38,6 +38,7 @@ import in.co.tripin.chahiyecustomer.Model.OrderSummeryPOJO;
 import in.co.tripin.chahiyecustomer.Model.responce.TapriMenuResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 
 public class OrderSummeryActivity extends AppCompatActivity {
@@ -159,7 +160,7 @@ public class OrderSummeryActivity extends AppCompatActivity {
     private void apiCall(final JSONObject jsonObject) {
 
 
-        final String url = "http://139.59.70.142:3055/api/v2/initiateOrder";
+        final String url = Constants.BASE_URL+"api/v2/initiateOrder";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override

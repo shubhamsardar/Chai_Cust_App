@@ -21,10 +21,12 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.View
 
     public TapriMenuResponce.Data.Item[] data;
     public Context context;
+    public ItemSelectionCallback itemSelectionCallback;
 
-    public ItemsListAdapter(Context context,TapriMenuResponce.Data.Item[] data) {
+    public ItemsListAdapter(Context context,TapriMenuResponce.Data.Item[] data, ItemSelectionCallback itemSelectionCallback) {
         this.data = data;
         this.context = context;
+        this.itemSelectionCallback = itemSelectionCallback;
     }
 
     @NonNull
@@ -41,45 +43,7 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.View
         holder.itemName.setText(data[position].getName());
         holder.itemRate.setText("₹" + data[position].getRate());
         holder.display.setText("" + data[position].getQuantity());
-
-        holder.display.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().isEmpty()){
-                    data[position].setQuantity(0);
-                }else {
-                    if(!s.toString().equals("0")){
-                        data[position].setQuantity(Integer.decode(s.toString().trim()));
-                        Logger.v("Quantity: " + data[position].getQuantity());
-
-                        if(data[position].getQuantity()!=0){
-                            holder.display.setBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
-                            holder.display.setTextColor(ContextCompat.getColor(context,R.color.black));
-                            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorHighlight));
-                        }else {
-                            holder.display.setBackground(ContextCompat.getDrawable(context,R.drawable.brown_border_bg));
-                            holder.display.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
-                            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.transparent));
-
-                        }
-
-                    }else {
-                        data[position].setQuantity(0);
-                    }
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        holder.display.setSelection(holder.display.getText().length());
 
 
         if(data[position].getQuantity()!=0){
@@ -93,6 +57,57 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.View
 
         }
 
+        holder.display.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int quantityBefore = data[position].getQuantity();
+                if(s.toString().isEmpty()){
+                    data[position].setQuantity(0);
+                }else {
+                    if(!s.toString().equals("0")){
+                        data[position].setQuantity(Integer.decode(s.toString().trim()));
+                    }else {
+                        data[position].setQuantity(0);
+                    }
+                }
+
+                if(data[position].getQuantity()!=0){
+                    holder.display.setBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
+                    holder.display.setTextColor(ContextCompat.getColor(context,R.color.black));
+                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorHighlight));
+                }else {
+                    holder.display.setBackground(ContextCompat.getDrawable(context,R.drawable.brown_border_bg));
+                    holder.display.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
+                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.transparent));
+                }
+
+                Logger.v("Quantity OnTextChanged: " + data[position].getQuantity());
+
+                int quantityAfter = data[position].getQuantity();
+                if(quantityAfter>quantityBefore){
+                    //increment
+                    itemSelectionCallback.onitemAdded(Double.parseDouble(data[position].getRate()),quantityAfter-quantityBefore);
+
+                }else {
+                    //decrement
+                    itemSelectionCallback.onItemRemoved(Double.parseDouble(data[position].getRate()),quantityBefore-quantityAfter);
+                }
+            }
+        });
+
+
+
 
         holder.increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +116,8 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.View
                 if (next <= 100) {
                     data[position].setQuantity(next);
                     notifyItemChanged(position);
-                    Logger.v("Quantity: " + data[position].getQuantity());
+                    //Logger.v("Quantity: " + data[position].getQuantity());
+                    itemSelectionCallback.onitemAdded(Double.parseDouble(data[position].getRate()),1);
                 }
             }
         });
@@ -113,8 +129,8 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.View
                 if (next >= 0) {
                     data[position].setQuantity(next);
                     notifyItemChanged(position);
-                    Logger.v("Quantity: " + data[position].getQuantity());
-
+                    //Logger.v("Quantity: " + data[position].getQuantity());
+                    itemSelectionCallback.onItemRemoved(Double.parseDouble(data[position].getRate()),1);
                 }
             }
         });

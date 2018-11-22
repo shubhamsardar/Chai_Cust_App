@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_currentlocation"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="Your Location"
+        android:icon="@drawable/ic_my_location_black_24dp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_setlocation"
+        android:orderInCategory="90"
+        android:title="Set Location"
+        android:icon="@drawable/ic_edit_location_white_24dp"
+        app:showAsAction="always" />
 </menu>

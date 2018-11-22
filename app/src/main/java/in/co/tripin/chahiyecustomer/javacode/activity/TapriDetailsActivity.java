@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -39,12 +41,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
+import in.co.tripin.chahiyecustomer.Activities.WalletActivity;
+import in.co.tripin.chahiyecustomer.Adapters.ItemSelectionCallback;
 import in.co.tripin.chahiyecustomer.Adapters.ItemsListAdapter;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
 import in.co.tripin.chahiyecustomer.Model.OrderSummeryPOJO;
 import in.co.tripin.chahiyecustomer.Model.responce.TapriMenuResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 
 public class TapriDetailsActivity extends AppCompatActivity {
@@ -57,6 +62,10 @@ public class TapriDetailsActivity extends AppCompatActivity {
     private RequestQueue queue;
     private TapriMenuResponce tapriMenuResponce;
     private Gson gson;
+    private Double mTotalCost = 0.0;
+    private Double mAvailableBalance = 0.0;
+    Double mMoneyTobeAdded = 0.0;
+
 
     private RecyclerView mSnacksList;
     private RecyclerView mBeveragesList;
@@ -68,7 +77,12 @@ public class TapriDetailsActivity extends AppCompatActivity {
     private TextView mAddressNick;
     private TextView mAddressFull;
     private TextView mProceedToPay;
+    private TextView mBalance;
+    private TextView mAddMoney;
+    private TextView mPaymentHeader;
     private RadioGroup mPaymentType;
+    private ScrollView mMainScroll;
+    private TextView mNoItems;
 
 
     private ItemsListAdapter mSnacksAdapter;
@@ -81,7 +95,7 @@ public class TapriDetailsActivity extends AppCompatActivity {
     private LinearLayout mItemsToggleHeader;
     private LinearLayout mAddresseHeader;
 
-    private LinearLayout mChaihiyehll, mBeveragesll, mSnacksll, mExtrasll;
+    private LinearLayout mChaihiyehll, mBeveragesll, mSnacksll, mExtrasll, mWalletInfo;
     private TextView mItemsToggleText;
     private LinearLayout mItemsList;
     private AlertDialog dialog;
@@ -163,78 +177,110 @@ public class TapriDetailsActivity extends AppCompatActivity {
 
 
 
-                for(int i=0;i<mChahiyehAdapter.data.length;i++){
+                if(mChahiyehAdapter!=null){
+                    for(int i=0;i<mChahiyehAdapter.data.length;i++){
 
-                    if(mChahiyehAdapter.data[i].getQuantity()!=0){
+                        if(mChahiyehAdapter.data[i].getQuantity()!=0){
 
-                        mItems.add(mChahiyehAdapter.data[i]);
-                        Double rate = 0.0;
-                        try {
-                            rate = Double.parseDouble(mChahiyehAdapter.data[i].getRate());
-                        } catch (NumberFormatException e) {
-                            Logger.v("Rate Invalid: cant convert to double");
+                            mItems.add(mChahiyehAdapter.data[i]);
+                            Double rate = 0.0;
+                            try {
+                                rate = Double.parseDouble(mChahiyehAdapter.data[i].getRate());
+                            } catch (NumberFormatException e) {
+                                Logger.v("Rate Invalid: cant convert to double");
+                            }
+                            cost = cost + (mChahiyehAdapter.data[i].getQuantity() * rate);
                         }
-                        cost = cost + (mChahiyehAdapter.data[i].getQuantity() * rate);
-                    }
 
-                }
-                for(int i=0;i<mExtrasAdapter.data.length;i++){
-
-                    if(mExtrasAdapter.data[i].getQuantity()!=0){
-
-                        mItems.add(mExtrasAdapter.data[i]);
-                        Double rate = 0.0;
-                        try {
-                            rate = Double.parseDouble(mExtrasAdapter.data[i].getRate());
-                        } catch (NumberFormatException e) {
-                            Logger.v("Rate Invalid: cant convert to double");
-                        }
-                        cost = cost + (mExtrasAdapter.data[i].getQuantity() * rate);
                     }
                 }
-                for(int i=0;i<mSnacksAdapter.data.length;i++){
 
-                    if(mSnacksAdapter.data[i].getQuantity()!=0){
+                if(mExtrasAdapter!=null){
+                    for(int i=0;i<mExtrasAdapter.data.length;i++){
 
-                        mItems.add(mSnacksAdapter.data[i]);
-                        Double rate = 0.0;
-                        try {
-                            rate = Double.parseDouble(mSnacksAdapter.data[i].getRate());
-                        } catch (NumberFormatException e) {
-                            Logger.v("Rate Invalid: cant convert to double");
+                        if(mExtrasAdapter.data[i].getQuantity()!=0){
+
+                            mItems.add(mExtrasAdapter.data[i]);
+                            Double rate = 0.0;
+                            try {
+                                rate = Double.parseDouble(mExtrasAdapter.data[i].getRate());
+                            } catch (NumberFormatException e) {
+                                Logger.v("Rate Invalid: cant convert to double");
+                            }
+                            cost = cost + (mExtrasAdapter.data[i].getQuantity() * rate);
                         }
-                        cost = cost + (mSnacksAdapter.data[i].getQuantity() * rate);
                     }
                 }
-                for(int i=0;i<mBeveragesAdapter.data.length;i++){
 
-                    if(mBeveragesAdapter.data[i].getQuantity()!=0){
+                if(mSnacksAdapter!=null){
+                    for(int i=0;i<mSnacksAdapter.data.length;i++){
 
-                        mItems.add(mBeveragesAdapter.data[i]);
-                        Double rate = 0.0;
-                        try {
-                            rate = Double.parseDouble(mBeveragesAdapter.data[i].getRate());
-                        } catch (NumberFormatException e) {
-                            Logger.v("Rate Invalid: cant convert to double");
+                        if(mSnacksAdapter.data[i].getQuantity()!=0){
+
+                            mItems.add(mSnacksAdapter.data[i]);
+                            Double rate = 0.0;
+                            try {
+                                rate = Double.parseDouble(mSnacksAdapter.data[i].getRate());
+                            } catch (NumberFormatException e) {
+                                Logger.v("Rate Invalid: cant convert to double");
+                            }
+                            cost = cost + (mSnacksAdapter.data[i].getQuantity() * rate);
                         }
-                        cost = cost + (mBeveragesAdapter.data[i].getQuantity() * rate);
                     }
                 }
+
+                if(mBeveragesAdapter!=null){
+                    for(int i=0;i<mBeveragesAdapter.data.length;i++){
+
+                        if(mBeveragesAdapter.data[i].getQuantity()!=0){
+
+                            mItems.add(mBeveragesAdapter.data[i]);
+                            Double rate = 0.0;
+                            try {
+                                rate = Double.parseDouble(mBeveragesAdapter.data[i].getRate());
+                            } catch (NumberFormatException e) {
+                                Logger.v("Rate Invalid: cant convert to double");
+                            }
+                            cost = cost + (mBeveragesAdapter.data[i].getQuantity() * rate);
+                        }
+                    }
+                }
+
 
 
                 if(address==null){
                     Toast.makeText(getApplicationContext(),"Address Required!",Toast.LENGTH_LONG).show();
                 }else {
 
+                    String paymentMethod = "";
                     if(mPaymentType.getCheckedRadioButtonId() == R.id.radiocod){
-
+                        paymentMethod = "COD";
+                    }else  if(mPaymentType.getCheckedRadioButtonId() == R.id.radiowallet) {
+                        paymentMethod = "Wallet";
                     }
-                    OrderSummeryPOJO orderSummeryPOJO = new OrderSummeryPOJO(tapriId,tapriName,Double.toString(cost),address,"COD",mItems);
+
+                    OrderSummeryPOJO orderSummeryPOJO = new OrderSummeryPOJO(tapriId,
+                            tapriName,
+                            Double.toString(cost),
+                            address,
+                            paymentMethod,
+                            mItems);
 
                     if(orderSummeryPOJO.getmItems().size()!=0){
-                        Intent i = new Intent(TapriDetailsActivity.this,OrderSummeryActivity.class);
-                        i.putExtra("ordersummery",orderSummeryPOJO);
-                        startActivity(i);
+                        if(orderSummeryPOJO.getmPaymentMethod().equals("Wallet")){
+                            if(mAvailableBalance<mTotalCost){
+                                Toast.makeText(getApplicationContext(),"Balance is Insufficient, Add Money!",Toast.LENGTH_LONG).show();
+                            }else {
+                                Intent i = new Intent(TapriDetailsActivity.this,OrderSummeryActivity.class);
+                                i.putExtra("ordersummery",orderSummeryPOJO);
+                                startActivity(i);
+                            }
+                        }else {
+                            Intent i = new Intent(TapriDetailsActivity.this,OrderSummeryActivity.class);
+                            i.putExtra("ordersummery",orderSummeryPOJO);
+                            startActivity(i);
+                        }
+
                     }else {
                         Toast.makeText(getApplicationContext(),"Select Some Items!",Toast.LENGTH_LONG).show();
 
@@ -244,6 +290,31 @@ public class TapriDetailsActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        mPaymentType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.radiocod){
+                    mWalletInfo.setVisibility(View.INVISIBLE);
+                }else  if(checkedId == R.id.radiowallet) {
+                    mWalletInfo.setVisibility(View.VISIBLE);
+                    FetchCurrentBalance();
+
+                }
+            }
+        });
+
+        mAddMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TapriDetailsActivity.this, WalletActivity.class);
+                if(mAvailableBalance<mTotalCost){
+                    Double tobeadded = mTotalCost-mAvailableBalance;
+                    i.putExtra("money",""+tobeadded);
+                }
+                startActivity(i);
             }
         });
     }
@@ -277,6 +348,14 @@ public class TapriDetailsActivity extends AppCompatActivity {
 
         mProceedToPay = findViewById(R.id.proceedtopay);
         mPaymentType = findViewById(R.id.payment_type);
+        mBalance = findViewById(R.id.balance);
+        mAddMoney = findViewById(R.id.addmoney);
+        mPaymentHeader = findViewById(R.id.payment_title);
+        mNoItems = findViewById(R.id.tv_noitems);
+
+        mWalletInfo = findViewById(R.id.llwalletinfo);
+        mMainScroll = findViewById(R.id.mainscroll);
+
 
 
 
@@ -317,29 +396,28 @@ public class TapriDetailsActivity extends AppCompatActivity {
 
         Logger.v("getting menu...");
         dialog.show();
-        final String url = "http://139.59.70.142:3055/api/v1/tapri/" + tapriId + "/items";
+        final String url = Constants.BASE_URL+"api/v1/tapri/"+tapriId +"/items/active";
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        Toast.makeText(getApplicationContext(), "List Fetched!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "List Fetched!", Toast.LENGTH_SHORT).show();
                         Logger.v("Response: " + response.toString());
+
                         tapriMenuResponce = new Gson().fromJson(response.toString(), TapriMenuResponce.class);
                         if (tapriMenuResponce != null) {
                             setItems(tapriMenuResponce.getData());
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        dialog.dismiss();
                         Logger.v("Error.Response: "+ error.toString());
                         Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
-
+                        dialog.dismiss();
                     }
                 }
         ) {
@@ -367,10 +445,65 @@ public class TapriDetailsActivity extends AppCompatActivity {
         setListVisiblity(data);
 
 
-        mBeveragesAdapter = new ItemsListAdapter(this,data.getBeverages());
-        mExtrasAdapter = new ItemsListAdapter(this,data.getExtra());
-        mSnacksAdapter = new ItemsListAdapter(this,data.getSnacks());
-        mChahiyehAdapter = new ItemsListAdapter(this,data.getChaihiyeh());
+        mBeveragesAdapter = new ItemsListAdapter(this, data.getBeverages(), new ItemSelectionCallback() {
+            @Override
+            public void onitemAdded(Double cost, int quant) {
+                mTotalCost = mTotalCost + (cost*quant);
+                updateTotalCostUI();
+            }
+
+            @Override
+            public void onItemRemoved(Double cost, int quant) {
+                mTotalCost = mTotalCost - (cost*quant);
+                updateTotalCostUI();
+
+            }
+        });
+        mExtrasAdapter = new ItemsListAdapter(this, data.getExtra(), new ItemSelectionCallback() {
+            @Override
+            public void onitemAdded(Double cost, int quant) {
+                mTotalCost = mTotalCost + (cost*quant);
+                updateTotalCostUI();
+
+            }
+
+            @Override
+            public void onItemRemoved(Double cost, int quant) {
+                mTotalCost = mTotalCost - (cost*quant);
+                updateTotalCostUI();
+
+            }
+        });
+        mSnacksAdapter = new ItemsListAdapter(this, data.getSnacks(), new ItemSelectionCallback() {
+            @Override
+            public void onitemAdded(Double cost, int quant) {
+                mTotalCost = mTotalCost + (cost*quant);
+                updateTotalCostUI();
+
+            }
+
+            @Override
+            public void onItemRemoved(Double cost, int quant) {
+                mTotalCost = mTotalCost - (cost*quant);
+                updateTotalCostUI();
+
+            }
+        });
+        mChahiyehAdapter = new ItemsListAdapter(this, data.getChaihiyeh(), new ItemSelectionCallback() {
+            @Override
+            public void onitemAdded(Double cost, int quant) {
+                mTotalCost = mTotalCost + (cost*quant);
+                updateTotalCostUI();
+
+            }
+
+            @Override
+            public void onItemRemoved(Double cost, int quant) {
+                mTotalCost = mTotalCost - (cost*quant);
+                updateTotalCostUI();
+
+            }
+        });
 
         //Logger.v("in Extras: "+mExtras[0].toString());
 
@@ -391,24 +524,44 @@ public class TapriDetailsActivity extends AppCompatActivity {
 
     }
 
+    private void updateTotalCostUI() {
+        mPaymentHeader.setText("Payment : ₹"+mTotalCost);
+        if(mTotalCost>mAvailableBalance){
+            mAddMoney.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.button_light_selector));
+            mMoneyTobeAdded = mTotalCost-mAvailableBalance;
+            mAddMoney.setText("Add ₹"+(mTotalCost-mAvailableBalance));
+        }else {
+            mAddMoney.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.background_white));
+            mMoneyTobeAdded = 0.0;
+            mAddMoney.setText("Add Money!");
+        }
+    }
+
     private void setListVisiblity(TapriMenuResponce.Data data) {
 
         mBeveragesll.setVisibility(View.VISIBLE);
         mChaihiyehll.setVisibility(View.VISIBLE);
         mSnacksll.setVisibility(View.VISIBLE);
         mExtrasll.setVisibility(View.VISIBLE);
-
+        boolean nocheck = false;
         if (data.getBeverages().length == 0) {
             mBeveragesll.setVisibility(View.GONE);
+            nocheck = true;
         }
         if (data.getChaihiyeh().length == 0) {
             mChaihiyehll.setVisibility(View.GONE);
+            nocheck = true;
         }
         if (data.getExtra().length == 0) {
             mExtrasll.setVisibility(View.GONE);
+            nocheck = true;
         }
         if (data.getSnacks().length == 0) {
             mSnacksll.setVisibility(View.GONE);
+            nocheck = true;
+        }
+        if(!nocheck){
+            mNoItems.setVisibility(View.GONE);
         }
     }
 
@@ -463,5 +616,47 @@ public class TapriDetailsActivity extends AppCompatActivity {
 //        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void FetchCurrentBalance() {
+        Logger.v("Fetching Balance..");
+        dialog.show();
+        final String url = Constants.BASE_URL+"api/v2/users/wallet/balance";
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        dialog.dismiss();
+                        Logger.v("Response: "+ response.toString());
+                        try {
+                            JSONObject data = response.getJSONObject("data");
+                            String balance = data.getString("balance");
+                            mBalance.setText("₹"+balance);
+                            mAvailableBalance = Double.parseDouble(balance);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dialog.dismiss();
+                        Logger.v("Error.Response: "+ error.toString());
+                        Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", preferenceManager.getAccessToken());
+                return params;
+            }
+        };
+        queue.add(getRequest);
+
     }
 }

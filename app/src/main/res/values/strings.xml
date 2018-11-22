@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChahiyeCustomer</string>
+    <string name="app_name">Chai_Cust</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">ChaiYe App</string>
@@ -42,5 +42,11 @@
     <string name="err_nick_address">Address nickname Cant be empty</string>
     <string name="err_flat">Cant be Empty</string>
     <string name="err_landmark">Cant be empty</string>
+    <string name="err_tel">Mobile Invalid</string>
+    <string name="err_mobile">Mobile is not valid</string>
+    <string name="err_password_confirmation">Pin not correct</string>
+    <string name="err_name">Name is required</string>
+    <string name="title_activity_demo_nav">DemoNavActivity</string>
+    <string name="err_amount">Amount Cant Be Empty</string>
 
 </resources>

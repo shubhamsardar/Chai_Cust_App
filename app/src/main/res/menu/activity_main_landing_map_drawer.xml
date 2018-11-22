@@ -13,27 +13,32 @@
             android:icon="@drawable/ic_history_black_24dp"
             android:title="Order History" />
         <item
-            android:id="@+id/nav_address"
-            android:icon="@drawable/ic_edit_location_black_24dp"
-            android:title="Select Delivery Address" />
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Your Wallet" />
+        <item
+            android:id="@+id/nav_changepin"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="Change Pin" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Log Out" />
 
     </group>
 
-    <item android:title="My Account">
+    <item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Change Pin" />
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share App" />
 
             <item
                 android:id="@+id/nav_rate"
                 android:icon="@drawable/ic_rate_review_black_24dp"
                 android:title="Rate us on Playstore" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_power_settings_new_black_24dp"
-                android:title="Log Out" />
+
             <item
                 android:id="@+id/nav_call"
                 android:icon="@drawable/ic_call_black_24dp"

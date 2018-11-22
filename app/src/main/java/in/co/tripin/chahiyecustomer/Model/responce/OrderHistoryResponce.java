@@ -58,7 +58,7 @@ public class OrderHistoryResponce {
 
         private String createdAt;
 
-        private String userId;
+        private UserId userId;
 
         private String totalAmount;
 
@@ -184,12 +184,12 @@ public class OrderHistoryResponce {
             this.createdAt = createdAt;
         }
 
-        public String getUserId ()
+        public UserId getUserId ()
         {
             return userId;
         }
 
-        public void setUserId (String userId)
+        public void setUserId (UserId userId)
         {
             this.userId = userId;
         }
@@ -219,6 +219,52 @@ public class OrderHistoryResponce {
         {
             return "ClassPojo [paymentType = "+paymentType+", __v = "+__v+", paymentStatus = "+paymentStatus+", type = "+type+", orderStatus = "+orderStatus+", addressId = "+addressId+", updatedAt = "+updatedAt+", shortId = "+shortId+", flag = "+flag+", details = "+details+", _id = "+_id+", createdAt = "+createdAt+", userId = "+userId+", totalAmount = "+totalAmount+", tapriId = "+tapriId+"]";
         }
+
+        public class UserId
+        {
+            private String _id;
+
+            private String fullName;
+
+            private String mobile;
+
+            public String get_id ()
+            {
+                return _id;
+            }
+
+            public void set_id (String _id)
+            {
+                this._id = _id;
+            }
+
+            public String getFullName ()
+            {
+                return fullName;
+            }
+
+            public void setFullName (String fullName)
+            {
+                this.fullName = fullName;
+            }
+
+            public String getMobile ()
+            {
+                return mobile;
+            }
+
+            public void setMobile (String mobile)
+            {
+                this.mobile = mobile;
+            }
+
+            @Override
+            public String toString()
+            {
+                return "ClassPojo [_id = "+_id+", fullName = "+fullName+", mobile = "+mobile+"]";
+            }
+        }
+
 
         public class TapriId
         {
