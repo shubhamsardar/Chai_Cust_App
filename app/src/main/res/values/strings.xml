@@ -42,5 +42,9 @@
     <string name="err_nick_address">Address nickname Cant be empty</string>
     <string name="err_flat">Cant be Empty</string>
     <string name="err_landmark">Cant be empty</string>
+    <string name="clear_order"><u>CLEAR ORDER</u></string>
+    <string name="see_full_menu"><u>SEE FULL MENU</u></string>
+
+
 
 </resources>
