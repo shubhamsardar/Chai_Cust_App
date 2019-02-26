@@ -2,10 +2,14 @@ package in.co.tripin.chahiyecustomer.Activities;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +41,9 @@ public class FavouriteTapri extends AppCompatActivity {
 
         paymentType= new ArrayList<>();
         paymentType.add("PAYMENT MODE");
-        paymentType.add("ATM CARD");
-        paymentType.add("CREDIT CARD");
+        paymentType.add("WALLET");
         paymentType.add("COD");
+        paymentType.add("WALLET AFTER DELIVERY");
         spinnerPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -76,6 +80,10 @@ public class FavouriteTapri extends AppCompatActivity {
 
             TextView textView = (TextView)view.findViewById(android.R.id.text1);
             textView.setTextColor(getResources().getColor(R.color.white));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+            textView.setGravity(Gravity.CENTER);
+            Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
+            textView.setTypeface(typeface);
             return view;
         }
 

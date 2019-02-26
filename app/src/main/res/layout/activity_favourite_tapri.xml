@@ -341,13 +341,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="left"
                         android:layout_weight="0.5"
@@ -374,25 +374,35 @@
                         <!--android:textSize="20dp"-->
 
                         <!--/>-->
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/spinnerPayment"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="0.5"
-                        android:layout_marginLeft="20dp"
-                        android:textAlignment="textStart"
-                        android:theme="@style/Spinner"
-                        android:background="@drawable/back_spinner"
-                        ></android.support.v7.widget.AppCompatSpinner>
 
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinnerPayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.5"
+                    android:textAlignment="textStart"
+                    android:theme="@style/Spinner"
+                    android:background="@drawable/back_spinner"
+                    ></android.support.v7.widget.AppCompatSpinner>
                 </LinearLayout>
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/map"
                     android:layout_gravity="center"
-                    android:layout_marginTop="30dp"/>
+                    android:layout_marginTop="15dp"/>
 
 
             </LinearLayout>
