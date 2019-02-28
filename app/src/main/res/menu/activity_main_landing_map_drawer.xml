@@ -9,6 +9,10 @@
             <!--android:icon="@drawable/ic_add_shopping_cart_black_24dp"-->
             <!--android:title="Place Order" />-->
         <item
+            android:id="@+id/nav_QRCode"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="Scan QR Code"/>
+        <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_history_black_24dp"
             android:title="Order History" />

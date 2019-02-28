@@ -173,6 +173,9 @@ public class MainLandingMapActivity extends AppCompatActivity
                 }, 3000);
             }
 
+        }else if (id == R.id.nav_QRCode)
+        {
+            startActivity(new Intent( MainLandingMapActivity.this,QRCodeActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

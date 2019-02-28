@@ -1,6 +1,7 @@
 package in.co.tripin.chahiyecustomer.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -30,12 +33,29 @@ public class FavouriteTapri extends AppCompatActivity {
 
     private Spinner spinnerPayment;
     ArrayList<String >paymentType;
+    private ImageView imageViewMap;
+    private LinearLayout linearQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_tapri);
         spinnerPayment = (Spinner)findViewById(R.id.spinnerPayment);
+        imageViewMap = (ImageView)findViewById(R.id.imageViewMap);
+        linearQR = (LinearLayout) findViewById(R.id.linearQR);
+
+        imageViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity( new Intent(FavouriteTapri.this,MainLandingMapActivity.class));
+            }
+        });
+        linearQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FavouriteTapri.this,QRCodeActivity.class));
+            }
+        });
 
         spinnerPayment.setSelection(0,false);
 

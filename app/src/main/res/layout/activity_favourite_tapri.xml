@@ -398,6 +398,7 @@
                     ></android.support.v7.widget.AppCompatSpinner>
                 </LinearLayout>
                 <ImageView
+                    android:id="@+id/imageViewMap"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/map"
@@ -417,23 +418,56 @@
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:gravity="bottom"
+        android:weightSum="1"
+        android:background="@color/lightChai"
         >
-
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:background="@drawable/back_place_order"
-            android:fontFamily="@font/source_sans_pro_semibold"
+        <LinearLayout
+            android:id="@+id/linearQR"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="PLACE ORDER"
-            android:textSize="20dp"
+            android:background="@drawable/back_place_order">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/qrcode1"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VIEW QR CODE"
+                android:textColor="@color/white"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"/>
 
-            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="3dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:background="@drawable/back_place_order"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="PLACE ORDER"
+                android:textSize="18dp"
+
+                />
+
+        </LinearLayout>
+
+
+
 
 
     </LinearLayout>

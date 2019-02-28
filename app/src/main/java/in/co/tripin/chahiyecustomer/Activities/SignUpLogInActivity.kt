@@ -21,7 +21,7 @@ class SignUpLogInActivity : AppCompatActivity() {
     }
 
     fun gotologin(view: View) {
-        val intent = Intent(this@SignUpLogInActivity, FavouriteTapri::class.java)
+        val intent = Intent(this@SignUpLogInActivity, LogInDetailsActivity::class.java)
         startActivity(intent)
     }
 }

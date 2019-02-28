@@ -15,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.FavouriteTapri"
-            android:theme="@style/AppTheme.OnlyStatusBar"></activity>
+        <activity
+            android:name=".Activities.LogInDetailsActivity"
+            android:theme="@style/AppTheme.OnlyStatusBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -79,7 +80,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.LogInDetailsActivity"
+            android:name=".Activities.FavouriteTapri"
             android:theme="@style/AppTheme.OnlyStatusBar"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
@@ -172,6 +173,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.QRCodeActivity" />
     </application>
 
 </manifest>
