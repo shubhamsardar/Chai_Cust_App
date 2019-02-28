@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewCorporate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/input_layout_pin_reenter" />
 
 
-        <Spinner
+        <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -68,10 +68,9 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="24dp"
 
-            android:alpha="0.5"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/back_spinner_signup"
-            app:layout_constraintTop_toBottomOf="@+id/textView"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewCorporate"/>
         <TextView
             android:id="@+id/textView3"
             android:layout_width="0dp"

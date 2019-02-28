@@ -16,7 +16,7 @@ class SignUpLogInActivity : AppCompatActivity() {
     }
 
     fun gotosignup(view: View) {
-        val intent = Intent(this@SignUpLogInActivity, SignUpActivity::class.java)
+        val intent = Intent(this@SignUpLogInActivity, SignUpDetailsActivity::class.java)
         startActivity(intent)
     }
 

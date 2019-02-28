@@ -14,11 +14,16 @@ import `in`.co.tripin.chahiyecustomer.rest.ApiInterface
 import `in`.co.tripin.chahiyecustomer.rest.ApiClient
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import org.json.JSONException
 import org.json.JSONObject
 import android.graphics.Movie
+import android.graphics.Typeface
+import android.opengl.Visibility
 import android.support.annotation.LayoutRes
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
@@ -38,21 +43,19 @@ class SignUpDetailsActivity : AppCompatActivity() {
         var etPin = findViewById<TextInputEditText>(R.id.pin)
         var etPinreenter = findViewById<TextInputEditText>(R.id.pin_reenter)
         var spinner = findViewById<Spinner>(R.id.spinner)
+        var tvCorporate = findViewById<TextView>(R.id.textViewCorporate);
         val btnSignUp = findViewById<Button>(R.id.btn_signup)
+        spinner.visibility = View.GONE;
         val companyList = arrayListOf<String>();
         companyList.add("Company 1");
         companyList.add("Company 2");
         companyList.add("Company 3");
         companyList.add("Company 4");
         val companyModelList = arrayListOf<CompanyModel>()
-        for ( i in companyList)
-        {
+        for (i in companyList) {
             //val companyModel = CompanyModel(i) as CompanyModel
             companyModelList.add(CompanyModel(i));
         }
-
-
-
 
 
         var name = etName.text
@@ -60,12 +63,17 @@ class SignUpDetailsActivity : AppCompatActivity() {
         var pin = etPin.text.toString()
         var reenterpin = etPinreenter.text.toString()
 
-        btnSignUp.setOnClickListener( View.OnClickListener {
+        btnSignUp.setOnClickListener(View.OnClickListener {
             var checkpin = checkPin(pin, reenterpin)
-            if(!checkpin) {
+            if (!checkpin) {
                 etPinreenter.error = "Pin Mismatch"
             }
         })
+        
+        textViewCorporate.setOnClickListener{
+            spinner.visibility= View.VISIBLE
+
+        }
 
         // prepare call in Retrofit 2.0
         val paramObject = JSONObject()
@@ -79,9 +87,9 @@ class SignUpDetailsActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-               // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -89,12 +97,12 @@ class SignUpDetailsActivity : AppCompatActivity() {
             }
         }
 
-        val customAdapter = CustomAdapter(this,android.R.layout.simple_list_item_1,companyModelList);
+        val customAdapter = CustomAdapter(this, android.R.layout.simple_list_item_1, companyModelList);
         spinner.adapter = customAdapter
 
     }
 
-    fun checkPin(pin : String, reentpin : String) : Boolean {
+    fun checkPin(pin: String, reentpin: String): Boolean {
         return pin.equals(reentpin)
     }
 
@@ -108,26 +116,33 @@ class SignUpDetailsActivity : AppCompatActivity() {
         finish()
     }
 
-    public class CustomAdapter (context : Context, @LayoutRes private val layoutResource:Int, private val companyList : List<CompanyModel>):
-            ArrayAdapter<CompanyModel>(context ,layoutResource,companyList)
-    {
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+    public class CustomAdapter(context: Context, @LayoutRes private val layoutResource: Int, private val companyList: List<CompanyModel>) :
+            ArrayAdapter<CompanyModel>(context, layoutResource, companyList) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val view : View?
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater;
-            view = inflater.inflate(R.layout.custom_comapany_spinner,null);
+            view = inflater.inflate(android.R.layout.simple_list_item_1,null);
 
-            val textViewCompanyName = view.findViewById(R.id.textViewCompany) as TextView;
+            val textViewCompanyName = view.findViewById(android.R.id.text1) as TextView;
+                    textViewCompanyName.setTextColor(Color.WHITE)
+                    textViewCompanyName.gravity = Gravity.CENTER
+                    textViewCompanyName.typeface = Typeface.SANS_SERIF
             companyList.get(position).name
             textViewCompanyName.text = companyList.get(position).name;
 
 
             return view
         }
+//        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+//            val view: View?
+//            view = super.getView(position, convertView, parent)
+//            return view
+//        }
 
         override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            val convertView :View?
+            val convertView: View?
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater;
-            convertView = inflater.inflate(R.layout.custom_comapany_spinner,null);
+            convertView = inflater.inflate(R.layout.custom_comapany_spinner, null);
 
             val textViewCompanyName = convertView.findViewById(R.id.textViewCompany) as TextView;
             companyList.get(position).name
