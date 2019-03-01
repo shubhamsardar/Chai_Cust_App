@@ -3,9 +3,15 @@
     <color name="colorPrimary">#b46d42</color>
     <color name="colorPrimaryDark">#6e482e</color>
     <color name="colorAccent">#d8b082</color>
-
     <color name="colorHighlight">#f4f3f3</color>
     <color name="colorGreen">#7fb15f</color>
+
+
+    <color name="darkBrown">#422317</color>
+    <color name="lightBrown">#5E402A</color>
+    <color name="darkChai">#C97B4C</color>
+    <color name="lightChai">#D8B082</color>
+    <color name="white">#FFFFFF</color>
 
 
 

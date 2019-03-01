@@ -48,5 +48,7 @@
     <string name="err_name">Name is required</string>
     <string name="title_activity_demo_nav">DemoNavActivity</string>
     <string name="err_amount">Amount Cant Be Empty</string>
+    <string name="clear_order"><u>CLEAR ORDER</u></string>
+    <string name="see_full_menu"><u>SEE FULL MENU</u></string>
 
 </resources>
