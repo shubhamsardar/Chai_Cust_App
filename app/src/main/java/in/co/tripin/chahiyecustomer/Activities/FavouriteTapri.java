@@ -22,10 +22,13 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.javacode.activity.TapriDetailsActivity;
 
 import static java.security.AccessController.getContext;
 
@@ -36,6 +39,15 @@ public class FavouriteTapri extends AppCompatActivity {
     private ImageView imageViewMap;
     private LinearLayout linearQR;
 
+    private TextView tvTeaCount,tvSugerFreeCount,tvCoffeeCount;
+    private  ImageView ivAddTea,ivRemoveTea,ivAddSugerFree,ivRemoveSugerFree,ivAddCoffee,ivRemoveCoffee;
+    private TextView tvTotal;
+    private TextView tvClearOrder, tvFullMenu;
+    int countTea=0,countCoffee=0,countSugerFree=0;
+    int total =0;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +55,19 @@ public class FavouriteTapri extends AppCompatActivity {
         spinnerPayment = (Spinner)findViewById(R.id.spinnerPayment);
         imageViewMap = (ImageView)findViewById(R.id.imageViewMap);
         linearQR = (LinearLayout) findViewById(R.id.linearQR);
+
+        tvTeaCount = (TextView)findViewById(R.id.textViewTeaCount);
+        tvSugerFreeCount = (TextView)findViewById(R.id.textViewSugerFreeCount);
+        tvCoffeeCount = (TextView)findViewById(R.id.textViewCoffeeCount);
+        ivAddTea= (ImageView)findViewById(R.id.ivAddTea);
+        ivRemoveTea= (ImageView)findViewById(R.id.ivRemoveTea);
+        ivAddCoffee= (ImageView)findViewById(R.id.ivAddCoffee);
+        ivRemoveCoffee= (ImageView)findViewById(R.id.ivRemoveCoffee);
+        ivAddSugerFree= (ImageView)findViewById(R.id.ivAddSugerFree);
+        ivRemoveSugerFree= (ImageView)findViewById(R.id.ivRemoveSugerFree);
+        tvTotal = (TextView)findViewById(R.id.tvTotal);
+        tvClearOrder = (TextView)findViewById(R.id.tvClearOrder);
+        tvFullMenu = (TextView)findViewById(R.id.tvFullMenu);
 
         imageViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +103,98 @@ public class FavouriteTapri extends AppCompatActivity {
 
         CustomAdapter customAdapter = new CustomAdapter(this,android.R.layout.simple_list_item_1,paymentType);
         spinnerPayment.setAdapter(customAdapter);
+
+        ivAddTea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTea>=0) {
+                    countTea = countTea + 1;
+                    tvTeaCount.setText(countTea + "");
+                    total = total + 10;
+                    tvTotal.setText("TOTAL: "+total);
+                }
+            }
+        });
+        ivRemoveTea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTea> 0){
+                countTea = countTea - 1;
+                tvTeaCount.setText(countTea+"");
+                total = total -10;
+                tvTotal.setText("TOTAL: "+total);
+                }
+            }
+        });
+
+        ivAddSugerFree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countSugerFree>=0) {
+                    countSugerFree = countSugerFree + 1;
+                    tvSugerFreeCount.setText(countSugerFree + "");
+                    total = total + 20;
+                    tvTotal.setText("TOTAL: "+total);
+                }
+            }
+        });
+        ivRemoveSugerFree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countSugerFree> 0){
+                    countSugerFree = countSugerFree - 1;
+                    tvSugerFreeCount.setText(countSugerFree+"");
+                    total = total -20;
+                    tvTotal.setText("TOTAL: "+total);
+                }
+            }
+        });
+
+        ivAddCoffee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countCoffee>=0) {
+                    countCoffee = countCoffee + 1;
+                    tvCoffeeCount.setText(countCoffee + "");
+                    total = total +30;
+                    tvTotal.setText("TOTAL: "+total);
+                }
+            }
+        });
+        ivRemoveCoffee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countCoffee> 0){
+                    countCoffee = countCoffee - 1;
+                    tvCoffeeCount.setText(countCoffee+"");
+                    total = total -30;
+                    tvTotal.setText("TOTAL: "+total);
+                }
+            }
+        });
+
+        tvClearOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTea = 0;countSugerFree=0;countCoffee=0;total=0;
+                tvTotal.setText("TOTAL: "+total);
+                tvTeaCount.setText(countTea+"");
+                tvCoffeeCount.setText(countCoffee+"");
+                tvSugerFreeCount.setText(countSugerFree+"");
+            }
+        });
+
+        tvFullMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(FavouriteTapri.this, TapriDetailsActivity.class);
+                i.putExtra("tapri_id", "5c07e402f25f9f00104ed0e1");
+                i.putExtra("tapri_name", "Jack");
+                startActivity(i);
+            }
+        });
+
+
 
     }
 

@@ -74,22 +74,25 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="105dp"
                         android:background="@color/colorAccent"
-                        android:layout_marginLeft="10dp">
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/baseline_call_24"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/source_sans_pro"
-                        android:padding="5dp"
-                        android:text="+91 98765 43210"
-                        android:textSize="20sp"/>
+                            android:src="@drawable/baseline_call_24" />
+
+                        <TextView
+                            android:id="@+id/textViewMobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro"
+                            android:padding="5dp"
+                            android:text="+91 98765 43210"
+                            android:textSize="20sp" />
 
                     </LinearLayout>
 
@@ -108,8 +111,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -136,10 +138,11 @@
                                 android:gravity="center">
 
                                 <TextView
+                                    android:id="@+id/textViewTeaCount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="10"
+                                    android:text="0"
                                     android:textColor="@color/background"
                                     android:textSize="30sp" />
 
@@ -153,6 +156,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
+                                    android:id="@+id/ivRemoveTea"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="right"
@@ -160,6 +164,7 @@
                                     android:src="@drawable/baseline_remove_circle_24" />
 
                                 <ImageView
+                                    android:id="@+id/ivAddTea"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="right"
@@ -196,10 +201,11 @@
                                 android:gravity="center">
 
                                 <TextView
+                                    android:id="@+id/textViewSugerFreeCount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="20"
+                                    android:text="0"
                                     android:textColor="@color/background"
                                     android:textSize="30sp" />
 
@@ -213,6 +219,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
+                                    android:id="@+id/ivRemoveSugerFree"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="right"
@@ -220,6 +227,7 @@
                                     android:src="@drawable/baseline_remove_circle_24" />
 
                                 <ImageView
+                                    android:id="@+id/ivAddSugerFree"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="right"
@@ -257,10 +265,11 @@
                                 android:gravity="center">
 
                                 <TextView
+                                    android:id="@+id/textViewCoffeeCount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="25"
+                                    android:text="0"
                                     android:textColor="@color/background"
                                     android:textSize="30sp" />
 
@@ -274,6 +283,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
+                                    android:id="@+id/ivRemoveCoffee"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="right"
@@ -281,6 +291,7 @@
                                     android:src="@drawable/baseline_remove_circle_24" />
 
                                 <ImageView
+                                    android:id="@+id/ivAddCoffee"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
                                     android:layout_gravity="right"
@@ -300,28 +311,39 @@
 
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="8dp"
-                        android:gravity="center_horizontal|center_vertical">
+                        android:weightSum="1"
+
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tvClearOrder"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/clear_order"
-                            android:fontFamily="@font/rajdhani_bold"
                             android:layout_gravity="left"
-                            android:textSize="15sp"
-                            android:layout_weight="1"/>
-                        <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_weight="0.3"
+                            android:fontFamily="@font/rajdhani_bold"
+                            android:text="@string/clear_order"
+                            android:textSize="15sp" />
+                        <View
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="0.4"
+                            ></View>
+
+                        <TextView
+                            android:id="@+id/tvFullMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="textEnd"
+                            android:layout_weight="0.3"
                             android:fontFamily="@font/rajdhani_bold"
                             android:text="@string/see_full_menu"
-                            android:layout_gravity="left"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
                     </LinearLayout>
 
 
@@ -347,6 +369,7 @@
                     android:weightSum="1">
 
                     <TextView
+                        android:id="@+id/tvTotal"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="left"
@@ -354,27 +377,26 @@
                         android:background="@color/lightBrown"
                         android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
-                        android:text="TOTAL: 1000"
+                        android:text="TOTAL: 0"
                         android:textColor="@color/white"
                         android:textSize="20dp"
 
                         />
 
                     <!--<TextView-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="40dp"-->
-                        <!--android:layout_gravity="right"-->
-                        <!--android:layout_marginLeft="20dp"-->
-                        <!--android:layout_weight="0.5"-->
-                        <!--android:background="@color/lightBrown"-->
-                        <!--android:fontFamily="@font/source_sans_pro_semibold"-->
-                        <!--android:gravity="center"-->
-                        <!--android:text="PAYMENT MODE"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:textSize="20dp"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:layout_weight="0.5"-->
+                    <!--android:background="@color/lightBrown"-->
+                    <!--android:fontFamily="@font/source_sans_pro_semibold"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="PAYMENT MODE"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="20dp"-->
 
-                        <!--/>-->
-
+                    <!--/>-->
 
 
                 </LinearLayout>
@@ -387,23 +409,24 @@
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/spinnerPayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_weight="0.5"
-                    android:textAlignment="textStart"
-                    android:theme="@style/Spinner"
-                    android:background="@drawable/back_spinner"
-                    ></android.support.v7.widget.AppCompatSpinner>
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinnerPayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/back_spinner"
+                        android:textAlignment="textStart"
+                        android:theme="@style/Spinner"></android.support.v7.widget.AppCompatSpinner>
                 </LinearLayout>
+
                 <ImageView
                     android:id="@+id/imageViewMap"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/map"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/map" />
 
 
             </LinearLayout>
@@ -447,12 +470,13 @@
         <LinearLayout
             android:layout_marginLeft="3dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="0.5">
 
             <TextView
+                android:id="@+id/tvPlaceOrder"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:background="@drawable/back_place_order"
                 android:fontFamily="@font/source_sans_pro_semibold"

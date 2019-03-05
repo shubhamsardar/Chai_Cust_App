@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this, AuthLandingActivity.class));
                     finish();
                 }else {
-                    startActivity(new Intent(SplashActivity.this, MainLandingMapActivity.class));
+                    startActivity(new Intent(SplashActivity.this, FavouriteTapri.class));
                     finish();
                 }
             }

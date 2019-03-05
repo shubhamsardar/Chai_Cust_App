@@ -4,27 +4,48 @@ package in.co.tripin.chahiyecustomer.javacode.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import android.widget.Button;
 import android.widget.EditText;
 
 import dmax.dialog.SpotsDialog;
+import in.co.tripin.chahiyecustomer.Activities.FavouriteTapri;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
+import in.co.tripin.chahiyecustomer.Model.CompanyModel;
+import in.co.tripin.chahiyecustomer.Model.Requests.OfficeRequestBody;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.Managers.AccountManager;
+import in.co.tripin.chahiyecustomer.dataproviders.CommonResponse;
 import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
+import in.co.tripin.chahiyecustomer.services.OfficeService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.support.design.widget.TextInputEditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,7 +66,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,6 +85,8 @@ public class SignUpActivity extends AppCompatActivity {
     private AwesomeValidation mAwesomeValidation;
     private PreferenceManager preferenceManager;
     private AlertDialog dialog;
+    private Spinner spinner ;
+    private TextView textViewCorporate;
 
 
     private String mRequestBody = "";
@@ -71,7 +96,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     TextInputEditText mMobile;
     Button mSubmit;
-
+    ArrayList<String >companyList;
+    ArrayList<CompanyModel>companyModelList;
     TextInputEditText mPin;
     TextInputEditText mReenterPin;
     TextInputEditText mName;
@@ -90,6 +116,63 @@ public class SignUpActivity extends AppCompatActivity {
                 .build();
         init();
         setListners();
+
+        companyList= new ArrayList<>();
+        companyModelList = new ArrayList<>();
+
+        companyList.add("COMPANY 1");
+        companyList.add("COMPANY 2");
+        companyList.add("COMPANY 3");
+        companyList.add("COMPANY 4");
+
+        for (int i = 0;i<companyList.size();i++)
+        {
+            companyModelList.add(new CompanyModel(companyList.get(i)));
+        }
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://206.189.135.19:3055")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        OfficeService officeService = retrofit.create(OfficeService.class);
+        Call<OfficeRequestBody> call = officeService.getOffice();
+        call.enqueue(new Callback<OfficeRequestBody>() {
+            @Override
+            public void onResponse(Call<OfficeRequestBody> call, retrofit2.Response<OfficeRequestBody> response) {
+                if(response.isSuccessful())
+                {
+                    OfficeRequestBody officeRequestBody =  response.body();
+                    for (int i =0; i<officeRequestBody.getData().size();i++) {
+                        String officeName = officeRequestBody.getData().get(i).getName();
+                        Log.d("Office", officeName);
+                    }
+                }
+                else {
+                    String  err = String.valueOf(response.errorBody());
+                    Log.d("ERR",err);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OfficeRequestBody> call, Throwable t) {
+                Log.d("Fail",t.getMessage());
+
+            }
+        });
+
+        CustomAdapter customAdapter = new CustomAdapter(this,android.R.layout.simple_list_item_1,companyModelList);
+        spinner.setAdapter(customAdapter);
     }
 
 
@@ -101,12 +184,13 @@ public class SignUpActivity extends AppCompatActivity {
         mName = findViewById(R.id.name);
         mReenterPin = findViewById(R.id.pin_reenter);
         mSubmit = findViewById(R.id.btn_signup);
+        textViewCorporate= (TextView)findViewById(R.id.textViewCorporate);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         mAwesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         setValidations();
 
     }
-
 
 
     private void setListners() {
@@ -133,12 +217,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signUp() {
 
-        if(mAwesomeValidation.validate()){
+        if (mAwesomeValidation.validate()) {
 
 
-
-
-            if(mPin.getText().toString().length()==4){
+            if (mPin.getText().toString().length() == 4) {
                 String mobile = mMobile.getText().toString();
                 String pin = mPin.getText().toString();
                 String name = mName.getText().toString();
@@ -151,7 +233,7 @@ public class SignUpActivity extends AppCompatActivity {
                     jsonBody.put("pin", pin);
                     jsonBody.put("fcm", preferenceManager.getFCMId());
                     mRequestBody = jsonBody.toString();
-                    Logger.v("Body : "+mRequestBody);
+                    Logger.v("Body : " + mRequestBody);
                     HitSignUpAPI();
 
                 } catch (JSONException e) {
@@ -171,8 +253,8 @@ public class SignUpActivity extends AppCompatActivity {
 //                        Toast.makeText(SignUpActivity.this, "onFailed ", Toast.LENGTH_SHORT).show();
 //                    }
 //                }, name, mobile, pin);
-            }else {
-                Toast.makeText(getApplicationContext(),"Pin Length should be 4!",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Pin Length should be 4!", Toast.LENGTH_LONG).show();
             }
 
 
@@ -185,17 +267,17 @@ public class SignUpActivity extends AppCompatActivity {
         dialog.show();
 
         Logger.v("Signing Up");
-        final String url = Constants.BASE_URL+"api/v1/user/signUp";
+        final String url = Constants.BASE_URL + "api/v1/user/signUp";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
                         dialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"OTP Sent!",Toast.LENGTH_LONG).show();
-                        Logger.v("Response: "+response.toString());
-                        Intent intent = new Intent(SignUpActivity.this,VerifyOTPActivity.class);
-                        intent.putExtra("mobile",mMobile.getText().toString().trim());
+                        Toast.makeText(getApplicationContext(), "OTP Sent!", Toast.LENGTH_LONG).show();
+                        Logger.v("Response: " + response.toString());
+                        Intent intent = new Intent(SignUpActivity.this, VerifyOTPActivity.class);
+                        intent.putExtra("mobile", mMobile.getText().toString().trim());
                         startActivity(intent);
                     }
                 },
@@ -205,14 +287,14 @@ public class SignUpActivity extends AppCompatActivity {
                         dialog.dismiss();
                         try {
                             String s = new String(error.networkResponse.data, "UTF-8");
-                            Logger.v("Error.Response: "+ s);
+                            Logger.v("Error.Response: " + s);
                             JSONObject jsonObject = new JSONObject(s);
-                            Double code  = jsonObject.getDouble("errorCode");
-                            if(code==200){
+                            Double code = jsonObject.getDouble("errorCode");
+                            if (code == 200) {
                                 // go to log in
-                                Toast.makeText(getApplicationContext(),"User Already Exists, Log in!",Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
-                                i.putExtra("mobile",mMobile.getText().toString().trim());
+                                Toast.makeText(getApplicationContext(), "User Already Exists, Log in!", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                                i.putExtra("mobile", mMobile.getText().toString().trim());
                                 startActivity(i);
                                 finish();
                             }
@@ -222,7 +304,7 @@ public class SignUpActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Toast.makeText(getApplicationContext(),"Try Again!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Try Again!", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -258,7 +340,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void back(View view) {
         View vieww = this.getCurrentFocus();
         if (vieww != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(vieww.getWindowToken(), 0);
         }
         finish();
@@ -267,8 +349,47 @@ public class SignUpActivity extends AppCompatActivity {
     private void getDataFromForm() {
 
 
-
     }
+
+    public class CustomAdapter extends ArrayAdapter<CompanyModel>
+    {
+        Context context;
+        ArrayList<CompanyModel > companyModelList = new ArrayList<>();
+
+        public CustomAdapter(@NonNull Context context, int resource,  ArrayList<CompanyModel> companyModelList) {
+            super(context, resource, companyModelList);
+            this.context = context;
+            this.companyModelList = companyModelList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view =  super.getView(position, convertView, parent);
+
+            TextView textView = (TextView)view.findViewById(android.R.id.text1);
+            textView.setTextColor(getResources().getColor(R.color.white));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+            textView.setGravity(Gravity.CENTER);
+            textView.setText(companyModelList.get(position).getName());
+            Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
+            textView.setTypeface(typeface);
+
+            return view;
+        }
+
+        @Override
+        public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = LayoutInflater.from(SignUpActivity.this).inflate(
+                    R.layout.custom_company_spinner, parent, false);
+            TextView textViewCompany = (TextView) convertView.findViewById(R.id.textViewCompany);
+            textViewCompany.setText(companyModelList.get(position).getName());
+
+
+            return convertView;
+        }
+    }
+
 
 }
 

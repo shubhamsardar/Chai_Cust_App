@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
+import in.co.tripin.chahiyecustomer.Activities.FavouriteTapri;
 import in.co.tripin.chahiyecustomer.Activities.MainLandingMapActivity;
 import in.co.tripin.chahiyecustomer.Managers.AccountManager;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
@@ -211,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"Logged In!",Toast.LENGTH_LONG).show();
                                     String mobile = response.getJSONObject("data").getString("mobile");
                                     preferenceManager.setMobileNo(mobile);
-                                    Intent intent = new Intent(LoginActivity.this,MainLandingMapActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
                                     startActivity(intent);
                                     finish();
                                 }else {
