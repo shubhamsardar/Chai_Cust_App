@@ -4,15 +4,9 @@ public class OfficeDataModel {
 
     String _id,updatedAt,createdAt,name,tapri,block,__v,flag;
 
-    public OfficeDataModel(String _id, String updatedAt, String createdAt, String name, String tapri, String block, String __v, String flag) {
+    public OfficeDataModel(String _id, String name) {
         this._id = _id;
-        this.updatedAt = updatedAt;
-        this.createdAt = createdAt;
         this.name = name;
-        this.tapri = tapri;
-        this.block = block;
-        this.__v = __v;
-        this.flag = flag;
     }
 
     public String get_id() {

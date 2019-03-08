@@ -50,5 +50,6 @@
     <string name="err_amount">Amount Cant Be Empty</string>
     <string name="clear_order"><u>CLEAR ORDER</u></string>
     <string name="see_full_menu"><u>SEE FULL MENU</u></string>
+    <string name="add_money"><u>ADD MONEY</u></string>
 
 </resources>
