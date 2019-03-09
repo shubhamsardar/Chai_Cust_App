@@ -51,5 +51,6 @@
     <string name="clear_order"><u>CLEAR ORDER</u></string>
     <string name="see_full_menu"><u>SEE FULL MENU</u></string>
     <string name="add_money"><u>ADD MONEY</u></string>
+    <string name="add_address"><u>ADD ADDRESS</u></string>
 
 </resources>

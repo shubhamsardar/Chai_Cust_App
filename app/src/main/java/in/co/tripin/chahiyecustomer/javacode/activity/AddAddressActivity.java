@@ -38,6 +38,7 @@ public class AddAddressActivity extends AppCompatActivity {
     private RequestQueue queue;
     AwesomeValidation mAwesomeValidation;
     private PreferenceManager preferenceManager;
+    public  static  String FROM_FAV ;
 
 
     private String mNickname = "";

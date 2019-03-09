@@ -316,9 +316,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:weightSum="1"
+                        android:orientation="horizontal"
 
-                        android:orientation="horizontal">
+                        android:weightSum="1">
 
                         <TextView
                             android:id="@+id/tvClearOrder"
@@ -329,20 +329,20 @@
                             android:fontFamily="@font/rajdhani_bold"
                             android:text="@string/clear_order"
                             android:textSize="15sp" />
+
                         <View
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
-                            ></View>
+                            android:layout_weight="0.4"></View>
 
                         <TextView
                             android:id="@+id/tvFullMenu"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textAlignment="textEnd"
                             android:layout_weight="0.3"
                             android:fontFamily="@font/rajdhani_bold"
                             android:text="@string/see_full_menu"
+                            android:textAlignment="textEnd"
                             android:textSize="15sp" />
                     </LinearLayout>
 
@@ -355,9 +355,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/lightChai"
-                android:orientation="vertical"
-                android:layout_marginBottom="20dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -365,22 +365,41 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:weightSum="1">
 
-                    <TextView
-                        android:id="@+id/tvTotal"
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinnerAddress"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_gravity="left"
-                        android:background="@color/lightBrown"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:text="TOTAL: 0"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
+                        android:background="@drawable/back_spinner"
+                        android:textAlignment="textStart"
+                        android:theme="@style/Spinner" />
+                    <TextView
+                        android:id="@+id/tvAddAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/rajdhani_bold"
+                        android:text="@string/add_money"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="18sp" />
 
-                        />
+                    <!--<TextView-->
+                    <!--android:id="@+id/tvTotal"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_gravity="left"-->
+                    <!--android:background="@color/lightBrown"-->
+                    <!--android:fontFamily="@font/source_sans_pro_semibold"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="TOTAL: 0"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="20dp"-->
+
+                    <!--/>-->
+
 
                     <!--<TextView-->
                     <!--android:layout_width="0dp"-->
@@ -422,12 +441,13 @@
                     android:id="@+id/tvAddMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_money"
                     android:layout_gravity="right"
                     android:layout_margin="10dp"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/rajdhani_bold"
+                    android:text="@string/add_money"
                     android:textColor="@color/darkBrown"
-                    android:fontFamily="@font/rajdhani_bold"/>
+                    android:textSize="18sp" />
+
                 <ImageView
                     android:id="@+id/imageViewMap"
                     android:layout_width="40dp"
@@ -446,39 +466,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:weightSum="1"
         android:background="@color/lightChai"
-        >
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
         <LinearLayout
             android:id="@+id/linearQR"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:orientation="horizontal"
+            android:background="@drawable/back_place_order"
             android:gravity="center"
-            android:background="@drawable/back_place_order">
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/qrcode1"
-                />
+                android:src="@drawable/qrcode1" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/source_sans_pro_semibold"
                 android:text="VIEW QR CODE"
                 android:textColor="@color/white"
-                android:fontFamily="@font/source_sans_pro_semibold"
-                android:textSize="18dp"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="18dp" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="3dp"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="0.5">
+            android:layout_marginLeft="3dp"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:gravity="center"
+                android:text="TOTAL: 0"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/tvPlaceOrder"
@@ -488,17 +522,14 @@
                 android:background="@drawable/back_place_order"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:text="PLACE ORDER"
+                android:textColor="@color/white"
                 android:textSize="18dp"
+                android:textStyle="bold"
 
                 />
 
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>

@@ -30,11 +30,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
+import in.co.tripin.chahiyecustomer.Model.AddressModel;
+import in.co.tripin.chahiyecustomer.Model.responce.AddressResponse;
 import in.co.tripin.chahiyecustomer.Model.responce.WalletResponse;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.SharedPreferenceManager;
+import in.co.tripin.chahiyecustomer.javacode.activity.AddAddressActivity;
 import in.co.tripin.chahiyecustomer.javacode.activity.TapriDetailsActivity;
+import in.co.tripin.chahiyecustomer.services.AddressService;
 import in.co.tripin.chahiyecustomer.services.WalletService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,12 +50,14 @@ import static java.security.AccessController.getContext;
 
 public class FavouriteTapri extends AppCompatActivity {
 
-    private Spinner spinnerPayment;
+    private Spinner spinnerPayment,spinnerAddresss;
     ArrayList<String> paymentType;
+    ArrayList<AddressResponse> addressList;
+    ArrayList<AddressModel> addressModelList;
     private ImageView imageViewMap;
     private LinearLayout linearQR;
 
-    private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount;
+    private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount,tvAddAddress;
     private ImageView ivAddTea, ivRemoveTea, ivAddSugerFree, ivRemoveSugerFree, ivAddCoffee, ivRemoveCoffee;
     private TextView tvTotal;
     private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney;
@@ -85,8 +91,12 @@ public class FavouriteTapri extends AppCompatActivity {
         tvFullMenu = (TextView) findViewById(R.id.tvFullMenu);
         tvPlaceOrder = (TextView) findViewById(R.id.tvPlaceOrder);
         tvAddMoney = (TextView) findViewById(R.id.tvAddMoney);
+        spinnerAddresss = (Spinner)findViewById(R.id.spinnerAddress);
+        tvAddAddress = (TextView)findViewById(R.id.tvAddAddress);
 
+        addressList =  new ArrayList<>();
         getCurrentWallet();
+        getAddress();
         imageViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +115,20 @@ public class FavouriteTapri extends AppCompatActivity {
         spinnerPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        spinnerAddresss.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                AddressResponse addressResponse = (AddressResponse) spinnerAddresss.getSelectedItem();
+
 
             }
 
@@ -230,6 +254,14 @@ public class FavouriteTapri extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        tvAddAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FavouriteTapri.this,AddAddressActivity.class);
+                intent.putExtra(AddAddressActivity.FROM_FAV,"fromFav");
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -270,6 +302,64 @@ public class FavouriteTapri extends AppCompatActivity {
         }
     }
 
+
+    public class CustomAddressAdapter extends ArrayAdapter<AddressResponse> implements SpinnerAdapter {
+        Context context;
+        ArrayList<AddressResponse> addressList = new ArrayList<>();
+
+        public CustomAddressAdapter(@NonNull Context context, int resource, @NonNull ArrayList<AddressResponse> objects) {
+            super(context, resource, objects);
+            this.context = context;
+            this.addressList = objects;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
+            View view = super.getView(position, convertView, parent);
+
+            TextView textView = (TextView) view.findViewById(android.R.id.text1);
+            textView.setTextColor(getResources().getColor(R.color.white));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            textView.setGravity(Gravity.CENTER);
+            Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
+            textView.setTypeface(typeface);
+            if(addressList.get(position).getData().size()>0) {
+                for (int i = 0; i < addressList.get(position).getData().size(); i++) {
+
+                    textView.setText(addressList.get(position).getData().get(0).getFullAddressString());
+                }
+            }
+            else
+            {
+                textView.setText("Add Address");
+            }
+            return view;
+        }
+
+        @Override
+        public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = LayoutInflater.from(FavouriteTapri.this).inflate(
+                    R.layout.custom_address_spinner, parent, false);
+            TextView textView = (TextView) convertView.findViewById(R.id.text);
+            if(addressList.get(position).getData().size()>0) {
+                for (int i = 0; i < addressList.get(position).getData().size(); i++) {
+
+                    textView.setText(addressList.get(position).getData().get(i).getFullAddressString());
+                }
+            }
+            else
+            {
+                textView.setText("Add Address");
+            }
+
+            return convertView;
+        }
+    }
+
+
     public void getCurrentWallet() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -278,6 +368,7 @@ public class FavouriteTapri extends AppCompatActivity {
 
         WalletService walletService = retrofit.create(WalletService.class);
         Call<WalletResponse> call = walletService.getWallet(preferenceManager.getAccessToken());
+        Log.d("TOKEN",preferenceManager.getAccessToken());
         call.enqueue(new Callback<WalletResponse>() {
             @Override
             public void onResponse(Call<WalletResponse> call, Response<WalletResponse> response) {
@@ -307,6 +398,50 @@ public class FavouriteTapri extends AppCompatActivity {
                 Log.d("Fail", t.getMessage());
             }
         });
+    }
+
+    public void getAddress()
+    {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AddressService addressService = retrofit.create(AddressService.class);
+        Call<AddressResponse> call = addressService.getAddress(preferenceManager.getAccessToken());
+        call.enqueue(new Callback<AddressResponse>() {
+            @Override
+            public void onResponse(Call<AddressResponse> call, Response<AddressResponse> response) {
+                if(response.isSuccessful())
+                {
+
+                    AddressResponse addressResponse = response.body();
+                    addressList.add(addressResponse);
+                    for(int i =0;i<addressResponse.getData().size();i++)
+                    {
+                        String fullAddress =  addressResponse.getData().get(i).getFullAddressString();
+                       Log.d("Address",fullAddress);
+                       String id = addressResponse.getData().get(i).get_id();
+                    }
+
+                    CustomAddressAdapter customAddressAdapter = new CustomAddressAdapter(FavouriteTapri.this, android.R.layout.simple_list_item_1, addressList);
+                    spinnerAddresss.setAdapter(customAddressAdapter);
+
+                }
+                else
+                {
+                    String err = String.valueOf(response.errorBody());
+                    Log.d("ERR", err);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddressResponse> call, Throwable t) {
+                Log.d("Fail", t.getMessage());
+            }
+        });
+
     }
 
 
