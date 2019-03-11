@@ -60,7 +60,7 @@ public class FavouriteTapri extends AppCompatActivity {
 
     private Spinner spinnerPayment,spinnerAddresss;
     ArrayList<String> paymentType;
-    ArrayList<AddressResponse> addressList;
+    ArrayList<String> addressList;
     ArrayList<AddressModel> addressModelList;
     private ImageView imageViewMap;
     private LinearLayout linearQR;
@@ -80,6 +80,7 @@ public class FavouriteTapri extends AppCompatActivity {
     public static String FAV_TAPRI_NAME="favTapriName";
     String paymentTypes ;
     String addressId;
+    boolean firstTimeExecuted = false;
 
     PreferenceManager preferenceManager;
     List<OrderItemModel> orderItemModelList;
@@ -164,8 +165,19 @@ public class FavouriteTapri extends AppCompatActivity {
         spinnerAddresss.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                int posi =spinnerPayment.getSelectedItemPosition();
+                if(firstTimeExecuted) {
+                    if (i == 0) {
+                        Intent intent = new Intent(FavouriteTapri.this, AddAddressActivity.class);
+                        intent.putExtra(AddAddressActivity.FROM_FAV, "fromFav");
+                        startActivity(intent);
+                    }
+                }
+                else
+                {
+                    firstTimeExecuted = true;
+                }
 
-                AddressResponse addressResponse = (AddressResponse) spinnerAddresss.getSelectedItem();
 
 
             }
@@ -175,6 +187,7 @@ public class FavouriteTapri extends AppCompatActivity {
 
             }
         });
+
 
 
         ivAddTea.setOnClickListener(new View.OnClickListener() {
@@ -319,7 +332,7 @@ public class FavouriteTapri extends AppCompatActivity {
                     String placeOrder = gson.toJson(placeOrderRequestBody);
                     Log.d("PlaceOrder",placeOrder);
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ab32f16a.ngrok.io")
+                            .baseUrl(Constants.BASE_URL)
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
@@ -414,11 +427,12 @@ Log.d("FAIL",t.getMessage());
     }
 
 
-    public class CustomAddressAdapter extends ArrayAdapter<AddressResponse> implements SpinnerAdapter {
+    public class CustomAddressAdapter extends ArrayAdapter<String> implements SpinnerAdapter {
         Context context;
-        ArrayList<AddressResponse> addressList = new ArrayList<>();
+        ArrayList<String> addressList = new ArrayList<>();
 
-        public CustomAddressAdapter(@NonNull Context context, int resource, @NonNull ArrayList<AddressResponse> objects) {
+
+        public CustomAddressAdapter(@NonNull Context context, int resource, @NonNull ArrayList<String> objects) {
             super(context, resource, objects);
             this.context = context;
             this.addressList = objects;
@@ -437,16 +451,9 @@ Log.d("FAIL",t.getMessage());
             textView.setGravity(Gravity.CENTER);
             Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
             textView.setTypeface(typeface);
-            if(addressList.get(position).getData().size()>0) {
-                for (int i = 0; i < addressList.get(position).getData().size(); i++) {
 
-                    textView.setText(addressList.get(position).getData().get(0).getFullAddressString());
-                }
-            }
-            else
-            {
-                textView.setText("Add Address");
-            }
+                    textView.setText(addressList.get(position));
+
             return view;
         }
 
@@ -455,16 +462,9 @@ Log.d("FAIL",t.getMessage());
             convertView = LayoutInflater.from(FavouriteTapri.this).inflate(
                     R.layout.custom_address_spinner, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.text);
-            if(addressList.get(position).getData().size()>0) {
-                for (int i = 0; i < addressList.get(position).getData().size(); i++) {
 
-                    textView.setText(addressList.get(position).getData().get(i).getFullAddressString());
-                }
-            }
-            else
-            {
-                textView.setText("Add Address");
-            }
+
+                    textView.setText(addressList.get(position));
 
             return convertView;
         }
@@ -514,6 +514,7 @@ Log.d("FAIL",t.getMessage());
     public void getAddress()
     {
 
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -528,9 +529,10 @@ Log.d("FAIL",t.getMessage());
                 {
 
                     AddressResponse addressResponse = response.body();
-                    addressList.add(addressResponse);
+                      addressList.add("ADD ADDRESS");
                     for(int i =0;i<addressResponse.getData().size();i++)
                     {
+                        addressList.add(addressResponse.getData().get(i).getFullAddressString());
                         String fullAddress =  addressResponse.getData().get(i).getFullAddressString();
                         addressId = addressResponse.getData().get(i).get_id();
                        Log.d("Address",fullAddress);
