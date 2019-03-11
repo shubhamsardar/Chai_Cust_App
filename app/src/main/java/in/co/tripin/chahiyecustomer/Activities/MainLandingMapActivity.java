@@ -270,6 +270,8 @@ public class MainLandingMapActivity extends AppCompatActivity
             preferenceManager.setUserId(null);
             preferenceManager.setMobileNo(null);
             preferenceManager.setAccessToken(null);
+            preferenceManager.setFavTapriId(null);
+            preferenceManager.setFavTapriName(null);
             startActivity(new Intent(MainLandingMapActivity.this, SplashActivity.class));
             finish();
 

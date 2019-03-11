@@ -237,7 +237,9 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Intent intent = new Intent(LoginActivity.this, MainLandingMapActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
 
                     }
