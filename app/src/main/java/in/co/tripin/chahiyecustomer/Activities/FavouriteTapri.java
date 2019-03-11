@@ -271,7 +271,7 @@ public class FavouriteTapri extends AppCompatActivity {
                 }
                 else if (total > walletBalance && paymentTypes.matches("Wallet")) {
                     Toast.makeText(FavouriteTapri.this, "Please Recharge the Wallet", Toast.LENGTH_SHORT).show();
-                }else if(spinnerAddresss.getSelectedItemPosition()<1)
+                }else if(spinnerAddresss.getSelectedItemPosition()==addressList.size()-1)
                 {
                     Toast.makeText(FavouriteTapri.this, "Please select the Address", Toast.LENGTH_SHORT).show();
                 }
@@ -425,14 +425,14 @@ public class FavouriteTapri extends AppCompatActivity {
 
             textView.setText(addressList.get(position));
 
-            if (position == 0) {
+            if (position == addressList.size()-1) {
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(FavouriteTapri.this, AddAddressActivity.class);
                         intent.putExtra(AddAddressActivity.FROM_FAV, "fromFav");
                         startActivity(intent);
-                        spinnerAddresss.setSelection(0, true);
+                        spinnerAddresss.setSelection(addressList.size()-1, true);
                     }
                 });
             }
@@ -499,8 +499,7 @@ public class FavouriteTapri extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     AddressResponse addressResponse = response.body();
-                    addressList.add("ADD ADDRESS");
-                    addressIdList.add("Dummy");
+
                     for (int i = 0; i < addressResponse.getData().size(); i++) {
                         addressList.add(addressResponse.getData().get(i).getFullAddressString());
                         addressIdList.add(addressResponse.getData().get(i).get_id());
@@ -509,6 +508,8 @@ public class FavouriteTapri extends AppCompatActivity {
                         //Log.d("Address", fullAddress);
                         String id = addressResponse.getData().get(i).get_id();
                     }
+                    addressList.add("ADD ADDRESS");
+                    addressIdList.add("Dummy");
 
                     CustomAddressAdapter customAddressAdapter = new CustomAddressAdapter(FavouriteTapri.this, android.R.layout.simple_list_item_1, addressList);
                     spinnerAddresss.setAdapter(customAddressAdapter);
