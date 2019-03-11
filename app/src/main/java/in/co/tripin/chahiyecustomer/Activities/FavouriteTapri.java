@@ -406,7 +406,7 @@ public class FavouriteTapri extends AppCompatActivity {
 
             TextView textView = (TextView) view.findViewById(android.R.id.text1);
             textView.setTextColor(getResources().getColor(R.color.white));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             textView.setGravity(Gravity.CENTER);
             Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
             textView.setTypeface(typeface);
