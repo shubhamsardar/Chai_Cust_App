@@ -76,7 +76,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-    private AccountManager  mAccountManager;
+    private AccountManager mAccountManager;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -97,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     PreferenceManager mPreferenceManger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,21 +121,21 @@ public class LoginActivity extends AppCompatActivity {
         mPin = findViewById(R.id.pin);
         mSubmit = findViewById(R.id.btn_login);
 
-        if(getIntent().getExtras()!=null){
-            if(getIntent().getExtras().getString("mobile")!=null){
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().getString("mobile") != null) {
                 mobile = getIntent().getExtras().getString("mobile");
                 mMobile.setText(mobile);
-            }else {
+            } else {
                 //to mobile
             }
-        }else {
+        } else {
             //no bundle
         }
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(awesomeValidation.validate()){
+                if (awesomeValidation.validate()) {
                     singIn();
                 }
             }
@@ -181,65 +182,63 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
 
         Logger.v("Signing In..");
-        final String url = Constants.BASE_URL+"api/v1/user/signIn";
+        final String url = Constants.BASE_URL + "api/v1/user/signIn";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
                         dialog.dismiss();
-                        Logger.v("Response: "+response.toString());
+                        Logger.v("Response: " + response.toString());
                         try {
                             String s = response.getString("status");
-                            if(s.equals("Verification Pending")){
+                            if (s.equals("Verification Pending")) {
                                 HitResendOTPapi();
 
-                            }else {
+                            } else {
 
-                                LogInResponce logInResponce = gson.fromJson(response.toString(),LogInResponce.class);
+                                LogInResponce logInResponce = gson.fromJson(response.toString(), LogInResponce.class);
 
                                 Boolean isRole = false;
-                                if( logInResponce.getData().getRoles()!=null){
-                                    for(LogInResponce.Data.Role role : logInResponce.getData().getRoles()){
-                                        if(role.getRoleType().equals("10012")){
+                                if (logInResponce.getData().getRoles() != null) {
+                                    for (LogInResponce.Data.Role role : logInResponce.getData().getRoles()) {
+                                        if (role.getRoleType().equals("10012")) {
                                             isRole = true;
                                         }
                                     }
                                 }
 
 
-                                if(isRole){
-                                    Toast.makeText(getApplicationContext(),"Logged In!",Toast.LENGTH_LONG).show();
+                                if (isRole) {
+                                    Toast.makeText(getApplicationContext(), "Logged In!", Toast.LENGTH_LONG).show();
                                     String mobile = response.getJSONObject("data").getString("mobile");
                                     preferenceManager.setMobileNo(mobile);
-                                    String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
-                                    String favoriteTapriName=response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
-                                    preferenceManager.setFavTapriId(favoriteTapriId);
-                                    preferenceManager.setFavTapriName(favoriteTapriName);
-                                    if(favoriteTapriId!=null) {
-                                        Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
-                                        intent.putExtra(FavouriteTapri.FAV_TAPRI_ID,favoriteTapriId);
-                                        intent.putExtra(FavouriteTapri.FAV_TAPRI_NAME,favoriteTapriName);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                    else
-                                    {
+                                    try {
+                                        String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
+                                        String favoriteTapriName = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
+                                        preferenceManager.setFavTapriId(favoriteTapriId);
+                                        preferenceManager.setFavTapriName(favoriteTapriName);
+                                        if (favoriteTapriId != null) {
+                                            Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
+                                            intent.putExtra(FavouriteTapri.FAV_TAPRI_ID, favoriteTapriId);
+                                            intent.putExtra(FavouriteTapri.FAV_TAPRI_NAME, favoriteTapriName);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } catch (Exception e) {
                                         Intent intent = new Intent(LoginActivity.this, MainLandingMapActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
-                                }else {
-                                    Toast.makeText(getApplicationContext(),"Not a User! Sign In",Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Not a User! Sign In", Toast.LENGTH_LONG).show();
                                     preferenceManager.setAccessToken(null);
                                 }
 
                             }
 
                         } catch (JSONException e) {
-                            Intent intent = new Intent(LoginActivity.this, MainLandingMapActivity.class);
-                            startActivity(intent);
-                            finish();
+                            e.printStackTrace();
                         }
 
                     }
@@ -248,14 +247,14 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
-                        Logger.v("Error.Response: "+ error.toString());
-                        Toast.makeText(getApplicationContext(),"Try Again!",Toast.LENGTH_LONG).show();
+                        Logger.v("Error.Response: " + error.toString());
+                        Toast.makeText(getApplicationContext(), "Try Again!", Toast.LENGTH_LONG).show();
                         try {
-                            if(error.networkResponse!=null){
+                            if (error.networkResponse != null) {
                                 String s = new String(error.networkResponse.data, "UTF-8");
-                                Logger.v("Error.Response: "+ s);
+                                Logger.v("Error.Response: " + s);
                                 JSONObject jsonObject = new JSONObject(s);
-                                Double code  = jsonObject.getDouble("errorCode");
+                                Double code = jsonObject.getDouble("errorCode");
                             }
 
                         } catch (UnsupportedEncodingException e) {
@@ -293,7 +292,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 mToken = response.headers.get("token");
-                Logger.v("Access Token... :"+response.headers.get("token"));
+                Logger.v("Access Token... :" + response.headers.get("token"));
                 preferenceManager.setAccessToken(mToken);
                 return super.parseNetworkResponse(response);
             }
@@ -305,7 +304,7 @@ public class LoginActivity extends AppCompatActivity {
 
         View vieww = this.getCurrentFocus();
         if (vieww != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(vieww.getWindowToken(), 0);
         }
         finish();
@@ -315,16 +314,16 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
 
         Logger.v("Resending OTP...");
-        final String url = Constants.BASE_URL+"api/v1/otp/send";
+        final String url = Constants.BASE_URL + "api/v1/otp/send";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
                         dialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"Verification is Pending!",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(LoginActivity.this,VerifyOTPActivity.class);
-                        intent.putExtra("mobile",mMobile.getText().toString().trim());
+                        Toast.makeText(getApplicationContext(), "Verification is Pending!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, VerifyOTPActivity.class);
+                        intent.putExtra("mobile", mMobile.getText().toString().trim());
                         startActivity(intent);
                     }
                 },
@@ -332,8 +331,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
-                        Logger.v("Error.Response: "+ error.toString());
-                        Toast.makeText(getApplicationContext(),"Try Again!",Toast.LENGTH_LONG).show();
+                        Logger.v("Error.Response: " + error.toString());
+                        Toast.makeText(getApplicationContext(), "Try Again!", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -367,6 +366,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void gotoforgotpinscreen(View view) {
 
-        startActivity(new Intent(LoginActivity.this,ForgotPinActivity.class));
+        startActivity(new Intent(LoginActivity.this, ForgotPinActivity.class));
     }
 }
