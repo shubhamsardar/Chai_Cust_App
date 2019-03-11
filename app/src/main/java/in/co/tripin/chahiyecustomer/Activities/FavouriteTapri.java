@@ -58,29 +58,30 @@ import static java.security.AccessController.getContext;
 
 public class FavouriteTapri extends AppCompatActivity {
 
-    private Spinner spinnerPayment,spinnerAddresss;
+    private Spinner spinnerPayment, spinnerAddresss;
     ArrayList<String> paymentType;
     ArrayList<String> addressList;
     ArrayList<AddressModel> addressModelList;
     private ImageView imageViewMap;
     private LinearLayout linearQR;
 
-    private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount,tvAddAddress;
+    private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount, tvAddAddress;
     private ImageView ivAddTea, ivRemoveTea, ivAddSugerFree, ivRemoveSugerFree, ivAddCoffee, ivRemoveCoffee;
     private TextView tvTotal;
-    private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney,tvFavTapriName;
-    private TextView tvTea,tvTeaSugerFree,tvCoffee;
-    String teaId,teaSugerFreeId,coffeeId;
+    private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney, tvFavTapriName;
+    private TextView tvTea, tvTeaSugerFree, tvCoffee;
+    String teaId, teaSugerFreeId, coffeeId;
     int countTea = 0, countCoffee = 0, countSugerFree = 0;
     int total = 0;
-    String teaRate,teaSugerFreeRate,coffeeRate;
+    String teaRate, teaSugerFreeRate, coffeeRate;
     String balance;
     int walletBalance = 0;
-    public static String FAV_TAPRI_ID="favTapri";
-    public static String FAV_TAPRI_NAME="favTapriName";
-    String paymentTypes ;
+    public static String FAV_TAPRI_ID = "favTapri";
+    public static String FAV_TAPRI_NAME = "favTapriName";
+    String paymentTypes;
     String addressId;
-    boolean firstTimeExecuted = false;
+
+    int check = 0;
 
     PreferenceManager preferenceManager;
     List<OrderItemModel> orderItemModelList;
@@ -108,17 +109,17 @@ public class FavouriteTapri extends AppCompatActivity {
         tvFullMenu = (TextView) findViewById(R.id.tvFullMenu);
         tvPlaceOrder = (TextView) findViewById(R.id.tvPlaceOrder);
         tvAddMoney = (TextView) findViewById(R.id.tvAddMoney);
-        spinnerAddresss = (Spinner)findViewById(R.id.spinnerAddress);
-        tvAddAddress = (TextView)findViewById(R.id.tvAddAddress);
+        spinnerAddresss = (Spinner) findViewById(R.id.spinnerAddress);
+        tvAddAddress = (TextView) findViewById(R.id.tvAddAddress);
         tvFavTapriName = (TextView) findViewById(R.id.tvFavTapriName);
-        tvTea =(TextView)findViewById(R.id.tvTea);
-        tvTeaSugerFree =(TextView)findViewById(R.id.tvTeaSugerFree);
-        tvCoffee =(TextView)findViewById(R.id.tvCoffee);
+        tvTea = (TextView) findViewById(R.id.tvTea);
+        tvTeaSugerFree = (TextView) findViewById(R.id.tvTeaSugerFree);
+        tvCoffee = (TextView) findViewById(R.id.tvCoffee);
         tvAddMoney.setVisibility(View.GONE);
         orderItemModelList = new ArrayList<>();
 
 
-        addressList =  new ArrayList<>();
+        addressList = new ArrayList<>();
         getCurrentWallet();
         getAddress();
         getTapriMenu();
@@ -146,13 +147,10 @@ public class FavouriteTapri extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                int posi =spinnerPayment.getSelectedItemPosition();
-                if(posi ==1)
-                {
+                int posi = spinnerPayment.getSelectedItemPosition();
+                if (posi == 1) {
                     tvAddMoney.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                } else {
                     tvAddMoney.setVisibility(View.GONE);
                 }
             }
@@ -162,32 +160,6 @@ public class FavouriteTapri extends AppCompatActivity {
 
             }
         });
-        spinnerAddresss.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                int posi =spinnerPayment.getSelectedItemPosition();
-                if(firstTimeExecuted) {
-                    if (i == 0) {
-                        Intent intent = new Intent(FavouriteTapri.this, AddAddressActivity.class);
-                        intent.putExtra(AddAddressActivity.FROM_FAV, "fromFav");
-                        startActivity(intent);
-                    }
-                }
-                else
-                {
-                    firstTimeExecuted = true;
-                }
-
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
 
 
         ivAddTea.setOnClickListener(new View.OnClickListener() {
@@ -288,66 +260,53 @@ public class FavouriteTapri extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if( spinnerPayment.getSelectedItemPosition() ==1)
-                {
+                if (spinnerPayment.getSelectedItemPosition() == 1) {
                     paymentTypes = "Wallet";
                 }
-                if(spinnerPayment.getSelectedItemPosition() ==2)
-                {
+                if (spinnerPayment.getSelectedItemPosition() == 2) {
                     paymentTypes = "COD";
                 }
-                if(spinnerPayment.getSelectedItemPosition() ==3)
-                {
+                if (spinnerPayment.getSelectedItemPosition() == 3) {
                     paymentTypes = "WOD";
                 }
 
-                if(total==0)
-                {
+                if (total == 0) {
                     Toast.makeText(FavouriteTapri.this, "Please select the items", Toast.LENGTH_SHORT).show();
-                }
-                else if (total > walletBalance) {
+                } else if (total > walletBalance) {
                     Toast.makeText(FavouriteTapri.this, "Please Recharge the Wallet", Toast.LENGTH_SHORT).show();
-                }
-                else if(spinnerPayment.getSelectedItemPosition()==0)
-                {
+                } else if (spinnerPayment.getSelectedItemPosition() == 0) {
                     Toast.makeText(FavouriteTapri.this, "Please select the payment mode", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    if(countTea>0)
-                    {
-                        orderItemModelList.add(new OrderItemModel(tvTea.getText().toString(),countTea*Integer.parseInt(teaRate),teaId,countTea));
+                } else {
+                    if (countTea > 0) {
+                        orderItemModelList.add(new OrderItemModel(tvTea.getText().toString(), countTea * Integer.parseInt(teaRate), teaId, countTea));
                     }
-                    if(countCoffee>0)
-                    {
-                        orderItemModelList.add(new OrderItemModel(tvCoffee.getText().toString(),countCoffee*Integer.parseInt(coffeeRate),coffeeId,countCoffee));
+                    if (countCoffee > 0) {
+                        orderItemModelList.add(new OrderItemModel(tvCoffee.getText().toString(), countCoffee * Integer.parseInt(coffeeRate), coffeeId, countCoffee));
                     }
-                    if(countSugerFree>0)
-                    {
-                        orderItemModelList.add(new OrderItemModel(tvTeaSugerFree.getText().toString(),countSugerFree*Integer.parseInt(teaSugerFreeRate),teaSugerFreeId,countSugerFree));
+                    if (countSugerFree > 0) {
+                        orderItemModelList.add(new OrderItemModel(tvTeaSugerFree.getText().toString(), countSugerFree * Integer.parseInt(teaSugerFreeRate), teaSugerFreeId, countSugerFree));
 
                     }
 
-                    PlaceOrderRequestBody placeOrderRequestBody = new PlaceOrderRequestBody(preferenceManager.getFavTapriId(),paymentTypes,total,orderItemModelList,addressId);
+                    PlaceOrderRequestBody placeOrderRequestBody = new PlaceOrderRequestBody(preferenceManager.getFavTapriId(), paymentTypes, total, orderItemModelList, addressId);
                     Gson gson = new Gson();
                     String placeOrder = gson.toJson(placeOrderRequestBody);
-                    Log.d("PlaceOrder",placeOrder);
+                    Log.d("PlaceOrder", placeOrder);
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(Constants.BASE_URL)
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
-                    TapariService tapariService =retrofit.create(TapariService.class);
-                    Call<PlaceOrderRequestBody> call = tapariService.toPlaceOrder(preferenceManager.getAccessToken(),placeOrderRequestBody);
+                    TapariService tapariService = retrofit.create(TapariService.class);
+                    Call<PlaceOrderRequestBody> call = tapariService.toPlaceOrder(preferenceManager.getAccessToken(), placeOrderRequestBody);
                     call.enqueue(new Callback<PlaceOrderRequestBody>() {
                         @Override
                         public void onResponse(Call<PlaceOrderRequestBody> call, Response<PlaceOrderRequestBody> response) {
-                            if(response.isSuccessful()) {
+                            if (response.isSuccessful()) {
                                 Toast.makeText(FavouriteTapri.this, "Order Placed Successfully...!!!", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
+                            } else {
                                 try {
-                                    Log.d("ERR",response.errorBody().string());
+                                    Log.d("ERR", response.errorBody().string());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -356,11 +315,9 @@ public class FavouriteTapri extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<PlaceOrderRequestBody> call, Throwable t) {
-Log.d("FAIL",t.getMessage());
+                            Log.d("FAIL", t.getMessage());
                         }
                     });
-
-
 
 
                 }
@@ -371,9 +328,9 @@ Log.d("FAIL",t.getMessage());
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(FavouriteTapri.this, WalletActivity.class);
-                if(walletBalance<total){
-                    Double tobeadded = Double.valueOf(total-walletBalance);
-                    i.putExtra("money",""+tobeadded);
+                if (walletBalance < total) {
+                    Double tobeadded = Double.valueOf(total - walletBalance);
+                    i.putExtra("money", "" + tobeadded);
                 }
                 startActivity(i);
             }
@@ -381,8 +338,8 @@ Log.d("FAIL",t.getMessage());
         tvAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FavouriteTapri.this,AddAddressActivity.class);
-                intent.putExtra(AddAddressActivity.FROM_FAV,"fromFav");
+                Intent intent = new Intent(FavouriteTapri.this, AddAddressActivity.class);
+                intent.putExtra(AddAddressActivity.FROM_FAV, "fromFav");
                 startActivity(intent);
             }
         });
@@ -452,7 +409,7 @@ Log.d("FAIL",t.getMessage());
             Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
             textView.setTypeface(typeface);
 
-                    textView.setText(addressList.get(position));
+            textView.setText(addressList.get(position));
 
             return view;
         }
@@ -464,10 +421,23 @@ Log.d("FAIL",t.getMessage());
             TextView textView = (TextView) convertView.findViewById(R.id.text);
 
 
-                    textView.setText(addressList.get(position));
+            textView.setText(addressList.get(position));
+
+            if (position == 0) {
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(FavouriteTapri.this, AddAddressActivity.class);
+                        intent.putExtra(AddAddressActivity.FROM_FAV, "fromFav");
+                        startActivity(intent);
+                        spinnerAddresss.setSelection(0, true);
+                    }
+                });
+            }
 
             return convertView;
         }
+
     }
 
 
@@ -479,7 +449,7 @@ Log.d("FAIL",t.getMessage());
 
         WalletService walletService = retrofit.create(WalletService.class);
         Call<WalletResponse> call = walletService.getWallet(preferenceManager.getAccessToken());
-        Log.d("TOKEN",preferenceManager.getAccessToken());
+        Log.d("TOKEN", preferenceManager.getAccessToken());
         call.enqueue(new Callback<WalletResponse>() {
             @Override
             public void onResponse(Call<WalletResponse> call, Response<WalletResponse> response) {
@@ -511,8 +481,7 @@ Log.d("FAIL",t.getMessage());
         });
     }
 
-    public void getAddress()
-    {
+    public void getAddress() {
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -525,26 +494,23 @@ Log.d("FAIL",t.getMessage());
         call.enqueue(new Callback<AddressResponse>() {
             @Override
             public void onResponse(Call<AddressResponse> call, Response<AddressResponse> response) {
-                if(response.isSuccessful())
-                {
+                if (response.isSuccessful()) {
 
                     AddressResponse addressResponse = response.body();
-                      addressList.add("ADD ADDRESS");
-                    for(int i =0;i<addressResponse.getData().size();i++)
-                    {
+                    addressList.add("ADD ADDRESS");
+                    for (int i = 0; i < addressResponse.getData().size(); i++) {
                         addressList.add(addressResponse.getData().get(i).getFullAddressString());
-                        String fullAddress =  addressResponse.getData().get(i).getFullAddressString();
+                        String fullAddress = addressResponse.getData().get(i).getFullAddressString();
                         addressId = addressResponse.getData().get(i).get_id();
-                       Log.d("Address",fullAddress);
-                       String id = addressResponse.getData().get(i).get_id();
+                        Log.d("Address", fullAddress);
+                        String id = addressResponse.getData().get(i).get_id();
                     }
 
                     CustomAddressAdapter customAddressAdapter = new CustomAddressAdapter(FavouriteTapri.this, android.R.layout.simple_list_item_1, addressList);
                     spinnerAddresss.setAdapter(customAddressAdapter);
 
-                }
-                else
-                {
+
+                } else {
                     String err = String.valueOf(response.errorBody());
                     Log.d("ERR", err);
                 }
@@ -557,8 +523,8 @@ Log.d("FAIL",t.getMessage());
         });
 
     }
-    public void getTapriMenu()
-    {
+
+    public void getTapriMenu() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -566,31 +532,27 @@ Log.d("FAIL",t.getMessage());
                 .build();
 
         TapariService tapariService = retrofit.create(TapariService.class);
-        Call<TapriMenuResponses> call = tapariService.getTapriMenu(preferenceManager.getAccessToken(),preferenceManager.getFavTapriId());
+        Call<TapriMenuResponses> call = tapariService.getTapriMenu(preferenceManager.getAccessToken(), preferenceManager.getFavTapriId());
         call.enqueue(new Callback<TapriMenuResponses>() {
             @Override
             public void onResponse(Call<TapriMenuResponses> call, Response<TapriMenuResponses> response) {
 
-                if(response.isSuccessful())
-                {
-                    TapriMenuResponses tapriMenuResponses =response.body();
+                if (response.isSuccessful()) {
+                    TapriMenuResponses tapriMenuResponses = response.body();
                     tvTea.setText(tapriMenuResponses.getData().getChaihiyeh().get(0).getName());
                     tvTeaSugerFree.setText(tapriMenuResponses.getData().getChaihiyeh().get(1).getName());
                     tvCoffee.setText(tapriMenuResponses.getData().getChaihiyeh().get(2).getName());
                     teaRate = tapriMenuResponses.getData().getChaihiyeh().get(0).getRate();
-                     teaSugerFreeRate = tapriMenuResponses.getData().getChaihiyeh().get(1).getRate();
-                     coffeeRate = tapriMenuResponses.getData().getChaihiyeh().get(2).getRate();
-                     teaId =  tapriMenuResponses.getData().getChaihiyeh().get(0).get_id();
-                    teaSugerFreeId =  tapriMenuResponses.getData().getChaihiyeh().get(1).get_id();
-                    coffeeId =  tapriMenuResponses.getData().getChaihiyeh().get(2).get_id();
+                    teaSugerFreeRate = tapriMenuResponses.getData().getChaihiyeh().get(1).getRate();
+                    coffeeRate = tapriMenuResponses.getData().getChaihiyeh().get(2).getRate();
+                    teaId = tapriMenuResponses.getData().getChaihiyeh().get(0).get_id();
+                    teaSugerFreeId = tapriMenuResponses.getData().getChaihiyeh().get(1).get_id();
+                    coffeeId = tapriMenuResponses.getData().getChaihiyeh().get(2).get_id();
 
 
-
-                }
-                else
-                {
+                } else {
                     try {
-                        Log.d("ERR",response.errorBody().string());
+                        Log.d("ERR", response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -599,7 +561,7 @@ Log.d("FAIL",t.getMessage());
 
             @Override
             public void onFailure(Call<TapriMenuResponses> call, Throwable t) {
-Log.d("FAIL",t.getMessage());
+                Log.d("FAIL", t.getMessage());
             }
         });
     }
