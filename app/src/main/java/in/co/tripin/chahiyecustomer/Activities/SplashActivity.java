@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         preferenceManager = PreferenceManager.getInstance(this);
 
-
+       String s=  preferenceManager.getFavTapriId();
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -39,8 +39,11 @@ public class SplashActivity extends AppCompatActivity {
                 if(preferenceManager.getAccessToken()==null){
                     startActivity(new Intent(SplashActivity.this, AuthLandingActivity.class));
                     finish();
-                }else {
+                }else if(preferenceManager.getFavTapriId() != null) {
                     startActivity(new Intent(SplashActivity.this, FavouriteTapri.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(SplashActivity.this, MainLandingMapActivity.class));
                     finish();
                 }
             }
