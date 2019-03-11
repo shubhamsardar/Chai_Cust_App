@@ -343,6 +343,8 @@ public class FavouriteTapri extends AppCompatActivity {
                         public void onResponse(Call<PlaceOrderRequestBody> call, Response<PlaceOrderRequestBody> response) {
                             if(response.isSuccessful()) {
                                 Toast.makeText(FavouriteTapri.this, "Order Placed Successfully...!!!", Toast.LENGTH_SHORT).show();
+                           finish();
+                           startActivity(new Intent(FavouriteTapri.this,FavouriteTapri.class));
                             }
                             else
                             {
