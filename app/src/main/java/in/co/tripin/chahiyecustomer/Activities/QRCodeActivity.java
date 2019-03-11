@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -18,6 +19,7 @@ public class QRCodeActivity extends AppCompatActivity {
 
     //VIEWS
     private ImageView imageViewQRCode;
+    private TextView textViewUserName ;
     PreferenceManager preferenceManager;
 
     @Override
@@ -26,6 +28,8 @@ public class QRCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qrcode_scanner);
 preferenceManager = PreferenceManager.getInstance(this);
         imageViewQRCode = (ImageView) findViewById(R.id.imageViewQRCode);
+        textViewUserName= (TextView)findViewById(R.id.textViewUsername);
+        textViewUserName.setText(preferenceManager.getUserName());
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(preferenceManager.getMobileNo(), BarcodeFormat.QR_CODE,400,400);

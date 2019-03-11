@@ -213,6 +213,8 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Logged In!", Toast.LENGTH_LONG).show();
                                     String mobile = response.getJSONObject("data").getString("mobile");
                                     preferenceManager.setMobileNo(mobile);
+                                    String userName = response.getJSONObject("data").getString("name");
+                                    preferenceManager.setUserName(userName);
                                     try {
                                         String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
                                         String favoriteTapriName = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
