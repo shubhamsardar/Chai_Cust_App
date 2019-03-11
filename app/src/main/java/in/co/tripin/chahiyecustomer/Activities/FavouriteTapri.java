@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -408,20 +409,22 @@ public class FavouriteTapri extends AppCompatActivity {
             textView.setTextColor(getResources().getColor(R.color.white));
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             textView.setGravity(Gravity.CENTER);
+            textView.setMaxLines(1);
             Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
             textView.setTypeface(typeface);
 
             textView.setText(addressList.get(position));
+            textView.setEllipsize(TextUtils.TruncateAt.END);
 
             return view;
         }
 
         @Override
         public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
             convertView = LayoutInflater.from(FavouriteTapri.this).inflate(
                     R.layout.custom_address_spinner, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.text);
-
 
             textView.setText(addressList.get(position));
 
