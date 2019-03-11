@@ -35,5 +35,6 @@ preferenceManager = PreferenceManager.getInstance(this);
         } catch (WriterException e) {
             e.printStackTrace();
         }
+        setResult(0);
     }
 }

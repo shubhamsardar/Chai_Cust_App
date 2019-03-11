@@ -379,17 +379,7 @@
                         android:background="@drawable/back_spinner"
                         android:textAlignment="textStart"
                         android:theme="@style/Spinner" />
-                    <TextView
-                        android:id="@+id/tvAddAddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/rajdhani_bold"
-                        android:text="@string/add_address"
-                        android:textColor="@color/darkBrown"
-                        android:textSize="18sp" />
+
 
                     <!--<TextView-->
                     <!--android:id="@+id/tvTotal"-->
@@ -429,6 +419,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
