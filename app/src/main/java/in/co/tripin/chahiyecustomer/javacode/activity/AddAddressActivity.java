@@ -1,5 +1,6 @@
 package in.co.tripin.chahiyecustomer.javacode.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.tripin.chahiyecustomer.Activities.FavouriteTapri;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
@@ -38,7 +40,7 @@ public class AddAddressActivity extends AppCompatActivity {
     private RequestQueue queue;
     AwesomeValidation mAwesomeValidation;
     private PreferenceManager preferenceManager;
-    public  static  String FROM_FAV ;
+    public static String FROM_FAV;
 
 
     private String mNickname = "";
@@ -62,7 +64,10 @@ public class AddAddressActivity extends AppCompatActivity {
         init();
         mAwesomeValidation = new AwesomeValidation(BASIC);
         addValidations();
-        preferenceManager =  PreferenceManager.getInstance(this);
+        preferenceManager = PreferenceManager.getInstance(this);
+        Intent intent = getIntent();
+        FROM_FAV = intent.getStringExtra(FROM_FAV);
+
 
     }
 
@@ -87,8 +92,8 @@ public class AddAddressActivity extends AppCompatActivity {
 
     public void addAddress(View view) {
 
-        if(mAwesomeValidation.validate()){
-            Toast.makeText(getApplicationContext(),"Saving...",Toast.LENGTH_LONG).show();
+        if (mAwesomeValidation.validate()) {
+            Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_LONG).show();
             getDataFromForm();
             HitAddAddressAPI();
         }
@@ -98,15 +103,20 @@ public class AddAddressActivity extends AppCompatActivity {
 
     private void HitAddAddressAPI() {
         Logger.v("add address");
-        final String url = Constants.BASE_URL+"api/v1/users/address";
+        final String url = Constants.BASE_URL + "api/v1/users/address";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        Toast.makeText(getApplicationContext(),"Address Saved!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Address Saved!", Toast.LENGTH_LONG).show();
+
                         Log.d("Response", response.toString());
-                        finish();
+                        if (FROM_FAV != null) {
+                            startActivity(new Intent(AddAddressActivity.this, FavouriteTapri.class));
+                        } else {
+                            finish();
+                        }
 
                     }
                 },
@@ -114,7 +124,7 @@ public class AddAddressActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Error.Response", error.toString());
-                        Toast.makeText(getApplicationContext(),"Try Again!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Try Again!", Toast.LENGTH_LONG).show();
 
                     }
                 }

@@ -24,6 +24,8 @@ public class PreferenceManager {
     private static final String PREF_COMPANY_NAME = "compamy_name";
     private static final String PREF_PROFILE_IMG = "profile_img";
     private static final String PREF_DEFAULT_ADDRESS = "default_address";
+    private static final String PREF_FAV_TAPRI_ID = "favTapriId";
+    private static final String PRED_FAV_TAPRI_NAME = "favTapriName";
 
 
     private static SharedPreferences sInstance;
@@ -237,4 +239,25 @@ public class PreferenceManager {
         editor.commit();
     }
 
+    public String getFavTapriId() {
+        String favTapriId = sInstance.getString(PREF_FAV_TAPRI_ID, null);
+        return favTapriId;
+    }
+
+    public void setFavTapriId(String favTapriId) {
+        editor.putString(PREF_FAV_TAPRI_ID, favTapriId);
+        editor.commit();
+
+    }
+    public  String getFavTapriName() {
+        String favTapriName = sInstance.getString(PRED_FAV_TAPRI_NAME, null);
+        return favTapriName;
+    }
+    public void setFavTapriName(String favTapriName) {
+        editor.putString(PRED_FAV_TAPRI_NAME, favTapriName);
+        editor.commit();
+
+    }
 }
+
+

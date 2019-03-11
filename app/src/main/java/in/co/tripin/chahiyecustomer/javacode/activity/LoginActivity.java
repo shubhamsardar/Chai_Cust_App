@@ -212,9 +212,23 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"Logged In!",Toast.LENGTH_LONG).show();
                                     String mobile = response.getJSONObject("data").getString("mobile");
                                     preferenceManager.setMobileNo(mobile);
-                                    Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
-                                    startActivity(intent);
-                                    finish();
+                                    String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
+                                    String favoriteTapriName=response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
+                                    preferenceManager.setFavTapriId(favoriteTapriId);
+                                    preferenceManager.setFavTapriName(favoriteTapriName);
+                                    if(favoriteTapriId!=null) {
+                                        Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
+                                        intent.putExtra(FavouriteTapri.FAV_TAPRI_ID,favoriteTapriId);
+                                        intent.putExtra(FavouriteTapri.FAV_TAPRI_NAME,favoriteTapriName);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else
+                                    {
+                                        Intent intent = new Intent(LoginActivity.this, MainLandingMapActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }else {
                                     Toast.makeText(getApplicationContext(),"Not a User! Sign In",Toast.LENGTH_LONG).show();
                                     preferenceManager.setAccessToken(null);
