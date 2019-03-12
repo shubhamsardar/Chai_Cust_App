@@ -3,6 +3,7 @@ package in.co.tripin.chahiyecustomer.Activities;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class QRCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_scanner);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 preferenceManager = PreferenceManager.getInstance(this);
         imageViewQRCode = (ImageView) findViewById(R.id.imageViewQRCode);
         textViewUserName= (TextView)findViewById(R.id.textViewUsername);
@@ -40,5 +42,16 @@ preferenceManager = PreferenceManager.getInstance(this);
             e.printStackTrace();
         }
         setResult(0);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

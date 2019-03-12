@@ -117,6 +117,7 @@ public class FavouriteTapri extends AppCompatActivity {
         tvTeaSugerFree = (TextView) findViewById(R.id.tvTeaSugerFree);
         tvCoffee = (TextView) findViewById(R.id.tvCoffee);
         tvAddMoney.setVisibility(View.GONE);
+
         //orderItemModelList = new ArrayList<>();
 
 
@@ -129,6 +130,7 @@ public class FavouriteTapri extends AppCompatActivity {
         FAV_TAPRI_ID = preferenceManager.getFavTapriId();
         FAV_TAPRI_NAME = intent.getStringExtra(FAV_TAPRI_NAME);
         tvFavTapriName.setText(preferenceManager.getFavTapriName());
+        //tvFavTapriName.setText("Jack");
         //Log.d("FAV_TAPRI",FAV_TAPRI_ID);
         imageViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,7 +300,7 @@ public class FavouriteTapri extends AppCompatActivity {
                     String placeOrder = gson.toJson(placeOrderRequestBody);
                     Log.d("PlaceOrder", placeOrder);
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://edd6f346.ngrok.io")
+                            .baseUrl(Constants.BASE_URL)
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
@@ -516,7 +518,7 @@ public class FavouriteTapri extends AppCompatActivity {
 
                     CustomAddressAdapter customAddressAdapter = new CustomAddressAdapter(FavouriteTapri.this, android.R.layout.simple_list_item_1, addressList);
                     spinnerAddresss.setAdapter(customAddressAdapter);
-
+                    spinnerAddresss.setSelection(addressList.size()-1);
 
                 } else {
                     String err = String.valueOf(response.errorBody());
@@ -583,11 +585,14 @@ public class FavouriteTapri extends AppCompatActivity {
         tvTeaCount.setText(countTea + "");
         tvCoffeeCount.setText(countCoffee + "");
         tvSugerFreeCount.setText(countSugerFree + "");
+        spinnerPayment.setSelection(0);
+        spinnerAddresss.setSelection(addressList.size()-1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         getCurrentWallet();
+        clearOrder();
     }
 }

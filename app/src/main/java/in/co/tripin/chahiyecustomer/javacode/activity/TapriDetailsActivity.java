@@ -257,6 +257,8 @@ public class TapriDetailsActivity extends AppCompatActivity {
                         paymentMethod = "COD";
                     }else  if(mPaymentType.getCheckedRadioButtonId() == R.id.radiowallet) {
                         paymentMethod = "Wallet";
+                    }else  if(mPaymentType.getCheckedRadioButtonId() == R.id.radioWOD) {
+                        paymentMethod = "WOD";
                     }
 
                     OrderSummeryPOJO orderSummeryPOJO = new OrderSummeryPOJO(tapriId,
@@ -267,7 +269,7 @@ public class TapriDetailsActivity extends AppCompatActivity {
                             mItems);
 
                     if(orderSummeryPOJO.getmItems().size()!=0){
-                        if(orderSummeryPOJO.getmPaymentMethod().equals("Wallet")){
+                        if(orderSummeryPOJO.getmPaymentMethod().equals("Wallet") || orderSummeryPOJO.getmPaymentMethod().equals("WOD")){
                             if(mAvailableBalance<mTotalCost){
                                 Toast.makeText(getApplicationContext(),"Balance is Insufficient, Add Money!",Toast.LENGTH_LONG).show();
                             }else {
@@ -299,6 +301,11 @@ public class TapriDetailsActivity extends AppCompatActivity {
                 if(checkedId == R.id.radiocod){
                     mWalletInfo.setVisibility(View.INVISIBLE);
                 }else  if(checkedId == R.id.radiowallet) {
+                    mWalletInfo.setVisibility(View.VISIBLE);
+                    FetchCurrentBalance();
+
+                }
+                else  if(checkedId == R.id.radioWOD) {
                     mWalletInfo.setVisibility(View.VISIBLE);
                     FetchCurrentBalance();
 

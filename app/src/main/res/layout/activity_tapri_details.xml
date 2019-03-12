@@ -340,6 +340,15 @@
                             android:buttonTint="@color/colorPrimary"
                             android:text="WALLET"
                             android:textStyle="bold" />
+
+                        <RadioButton
+                            android:id="@+id/radioWOD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorPrimary"
+                            android:text="WOD"
+                            android:textStyle="bold" />
                     </RadioGroup>
 
                     <LinearLayout
