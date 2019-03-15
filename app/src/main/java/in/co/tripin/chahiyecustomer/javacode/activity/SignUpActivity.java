@@ -348,7 +348,7 @@ public class SignUpActivity extends AppCompatActivity {
         dialog.show();
 
         Logger.v("Signing Up");
-        final String url = "http://e63ae891.ngrok.io/" + "api/v1/user/signUp";
+        final String url = Constants.BASE_URL + "api/v1/user/signUp";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
