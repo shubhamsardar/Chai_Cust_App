@@ -26,6 +26,7 @@ public class PreferenceManager {
     private static final String PREF_DEFAULT_ADDRESS = "default_address";
     private static final String PREF_FAV_TAPRI_ID = "favTapriId";
     private static final String PRED_FAV_TAPRI_NAME = "favTapriName";
+    private static final String PREF_FAV_TAPRI_MOBILE = "favTapriMobile";
 
 
     private static SharedPreferences sInstance;
@@ -244,11 +245,23 @@ public class PreferenceManager {
         return favTapriId;
     }
 
+    public void setFavTapriMobile(String favTapriMobile) {
+        editor.putString(PREF_FAV_TAPRI_MOBILE, favTapriMobile);
+        editor.commit();
+
+    }
+
+    public String getFavTapriMobile() {
+        String favTapriMobile = sInstance.getString(PREF_FAV_TAPRI_MOBILE, null);
+        return favTapriMobile;
+    }
+
     public void setFavTapriId(String favTapriId) {
         editor.putString(PREF_FAV_TAPRI_ID, favTapriId);
         editor.commit();
 
     }
+
     public  String getFavTapriName() {
         String favTapriName = sInstance.getString(PRED_FAV_TAPRI_NAME, null);
         return favTapriName;

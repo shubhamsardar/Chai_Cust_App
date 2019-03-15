@@ -67,7 +67,7 @@ public class FavouriteTapri extends AppCompatActivity {
     private ImageView imageViewMap;
     private LinearLayout linearQR;
 
-    private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount;
+    private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount, textViewMobile;
     private ImageView ivAddTea, ivRemoveTea, ivAddSugerFree, ivRemoveSugerFree, ivAddCoffee, ivRemoveCoffee;
     private TextView tvTotal;
     private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney, tvFavTapriName;
@@ -101,6 +101,7 @@ public class FavouriteTapri extends AppCompatActivity {
         tvSugerFreeCount = (TextView) findViewById(R.id.textViewSugerFreeCount);
         tvCoffeeCount = (TextView) findViewById(R.id.textViewCoffeeCount);
         ivAddTea = (ImageView) findViewById(R.id.ivAddTea);
+        textViewMobile = findViewById(R.id.textViewMobile);
         ivRemoveTea = (ImageView) findViewById(R.id.ivRemoveTea);
         ivAddCoffee = (ImageView) findViewById(R.id.ivAddCoffee);
         ivRemoveCoffee = (ImageView) findViewById(R.id.ivRemoveCoffee);
@@ -130,6 +131,7 @@ public class FavouriteTapri extends AppCompatActivity {
         FAV_TAPRI_ID = preferenceManager.getFavTapriId();
         FAV_TAPRI_NAME = intent.getStringExtra(FAV_TAPRI_NAME);
         tvFavTapriName.setText(preferenceManager.getFavTapriName());
+        textViewMobile.setText(preferenceManager.getFavTapriMobile());
         //tvFavTapriName.setText("Jack");
         //Log.d("FAV_TAPRI",FAV_TAPRI_ID);
         imageViewMap.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +143,7 @@ public class FavouriteTapri extends AppCompatActivity {
         linearQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(FavouriteTapri.this, QRCodeActivity.class),0);
+                startActivityForResult(new Intent(FavouriteTapri.this, QRCodeActivity.class), 0);
             }
         });
 
@@ -271,15 +273,12 @@ public class FavouriteTapri extends AppCompatActivity {
                     Toast.makeText(FavouriteTapri.this, "Please select the items", Toast.LENGTH_SHORT).show();
                 } else if (spinnerPayment.getSelectedItemPosition() == 0) {
                     Toast.makeText(FavouriteTapri.this, "Please select the payment mode", Toast.LENGTH_SHORT).show();
-                }
-                else if (total > walletBalance && paymentTypes.matches("Wallet")) {
+                } else if (total > walletBalance && paymentTypes.matches("Wallet")) {
                     Toast.makeText(FavouriteTapri.this, "Please Recharge the Wallet", Toast.LENGTH_SHORT).show();
-                }else if(spinnerAddresss.getSelectedItemPosition()==addressList.size()-1)
-                {
+                } else if (spinnerAddresss.getSelectedItemPosition() == addressList.size() - 1) {
                     Toast.makeText(FavouriteTapri.this, "Please select the Address", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    orderItemModelList =new ArrayList<>();
+                } else {
+                    orderItemModelList = new ArrayList<>();
                     if (countTea > 0) {
                         orderItemModelList.add(new OrderItemModel(tvTea.getText().toString(), countTea * Integer.parseInt(teaRate), teaId, countTea));
                     }
@@ -289,7 +288,8 @@ public class FavouriteTapri extends AppCompatActivity {
                     if (countSugerFree > 0) {
                         orderItemModelList.add(new OrderItemModel(tvTeaSugerFree.getText().toString(), countSugerFree * Integer.parseInt(teaSugerFreeRate), teaSugerFreeId, countSugerFree));
 
-                    }if (addressIdList!=null){
+                    }
+                    if (addressIdList != null) {
 
                         int pos = spinnerAddresss.getSelectedItemPosition();
                         addressId = addressIdList.get(pos);
@@ -348,7 +348,6 @@ public class FavouriteTapri extends AppCompatActivity {
 
 
     }
-
 
 
     public class CustomAdapter extends ArrayAdapter<String> implements SpinnerAdapter {
@@ -430,14 +429,14 @@ public class FavouriteTapri extends AppCompatActivity {
 
             textView.setText(addressList.get(position));
 
-            if (position == addressList.size()-1) {
+            if (position == addressList.size() - 1) {
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(FavouriteTapri.this, AddAddressActivity.class);
                         intent.putExtra(AddAddressActivity.FROM_FAV, "fromFav");
                         startActivity(intent);
-                        spinnerAddresss.setSelection(addressList.size()-1, true);
+                        spinnerAddresss.setSelection(addressList.size() - 1, true);
                     }
                 });
             }
@@ -518,7 +517,7 @@ public class FavouriteTapri extends AppCompatActivity {
 
                     CustomAddressAdapter customAddressAdapter = new CustomAddressAdapter(FavouriteTapri.this, android.R.layout.simple_list_item_1, addressList);
                     spinnerAddresss.setAdapter(customAddressAdapter);
-                    spinnerAddresss.setSelection(addressList.size()-1);
+                    spinnerAddresss.setSelection(addressList.size() - 1);
 
                 } else {
                     String err = String.valueOf(response.errorBody());
@@ -586,7 +585,7 @@ public class FavouriteTapri extends AppCompatActivity {
         tvCoffeeCount.setText(countCoffee + "");
         tvSugerFreeCount.setText(countSugerFree + "");
         spinnerPayment.setSelection(0);
-        spinnerAddresss.setSelection(addressList.size()-1);
+        spinnerAddresss.setSelection(addressList.size() - 1);
     }
 
     @Override
