@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -89,20 +91,19 @@ public class SignUpActivity extends AppCompatActivity {
     private AwesomeValidation mAwesomeValidation;
     private PreferenceManager preferenceManager;
     private AlertDialog dialog;
-    private Spinner spinner ;
+    private Spinner spinner;
     private TextView textViewCorporate;
-
 
 
     private String mRequestBody = "";
     private String mToken = "";
     private RequestQueue queue;
-    private String officeId ;
+    private String officeId;
 
     TextInputEditText mMobile;
     Button mSubmit;
-    ArrayList<String >companyList;
-    ArrayList<CompanyModel>companyModelList;
+    ArrayList<String> companyList;
+    ArrayList<CompanyModel> companyModelList;
     ArrayList<OfficeDataModel> officeDataModelList;
     TextInputEditText mPin;
     TextInputEditText mReenterPin;
@@ -126,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
         init();
         setListners();
 
-        companyList= new ArrayList<>();
+        companyList = new ArrayList<>();
         companyModelList = new ArrayList<>();
 
         companyList.add("COMPANY 1");
@@ -134,8 +135,7 @@ public class SignUpActivity extends AppCompatActivity {
         companyList.add("COMPANY 3");
         companyList.add("COMPANY 4");
 
-        for (int i = 0;i<companyList.size();i++)
-        {
+        for (int i = 0; i < companyList.size(); i++) {
             companyModelList.add(new CompanyModel(companyList.get(i)));
         }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -144,9 +144,9 @@ public class SignUpActivity extends AppCompatActivity {
 
                 //officeId = officeDataModelList.get(i).get_id();
 
-               OfficeDataModel officeDataModel = (OfficeDataModel) spinner.getSelectedItem();
+                OfficeDataModel officeDataModel = (OfficeDataModel) spinner.getSelectedItem();
                 officeId = officeDataModel.get_id();
-                Log.d("ID",officeId);
+                Log.d("ID", officeId);
             }
 
             @Override
@@ -154,8 +154,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }
@@ -169,13 +167,37 @@ public class SignUpActivity extends AppCompatActivity {
         mName = findViewById(R.id.name);
         mReenterPin = findViewById(R.id.pin_reenter);
         mTapriCode = findViewById(R.id.tapri_code);
-        input_layout_tapri_code= findViewById(R.id.input_layout_tapri_code);
+        input_layout_tapri_code = findViewById(R.id.input_layout_tapri_code);
         mSubmit = findViewById(R.id.btn_signup);
-        textViewCorporate= (TextView)findViewById(R.id.textViewCorporate);
+        textViewCorporate = (TextView) findViewById(R.id.textViewCorporate);
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
 
         mAwesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
+        mTapriCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() > 0) {
+                    textViewCorporate.setVisibility(View.GONE);
+                    spinner.setVisibility(View.GONE);
+                    officeId = null;
+                } else {
+                    textViewCorporate.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         setValidations();
 
     }
@@ -208,32 +230,30 @@ public class SignUpActivity extends AppCompatActivity {
                 call.enqueue(new Callback<OfficeRequestBody>() {
                     @Override
                     public void onResponse(Call<OfficeRequestBody> call, retrofit2.Response<OfficeRequestBody> response) {
-                        if(response.isSuccessful())
-                        {
-                            OfficeRequestBody officeRequestBody =  response.body();
+                        if (response.isSuccessful()) {
+                            OfficeRequestBody officeRequestBody = response.body();
                             officeDataModelList = new ArrayList<>();
-                            for (int i =0; i<officeRequestBody.getData().size();i++) {
+                            for (int i = 0; i < officeRequestBody.getData().size(); i++) {
                                 String officeName = officeRequestBody.getData().get(i).getName();
                                 String officeId = officeRequestBody.getData().get(i).get_id();
-                                officeDataModelList.add(new OfficeDataModel(officeId,officeName));
+                                officeDataModelList.add(new OfficeDataModel(officeId, officeName));
                                 Log.d("Office", officeName);
-                                Log.d("ID",officeId);
+                                Log.d("ID", officeId);
 
                             }
 
 
-                            CustomAdapter customAdapter = new CustomAdapter(SignUpActivity.this,android.R.layout.simple_list_item_1,officeDataModelList);
+                            CustomAdapter customAdapter = new CustomAdapter(SignUpActivity.this, android.R.layout.simple_list_item_1, officeDataModelList);
                             spinner.setAdapter(customAdapter);
-                        }
-                        else {
-                            String  err = String.valueOf(response.errorBody());
-                            Log.d("ERR",err);
+                        } else {
+                            String err = String.valueOf(response.errorBody());
+                            Log.d("ERR", err);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<OfficeRequestBody> call, Throwable t) {
-                        Log.d("Fail",t.getMessage());
+                        Log.d("Fail", t.getMessage());
 
                     }
                 });
@@ -269,29 +289,25 @@ public class SignUpActivity extends AppCompatActivity {
 
                 JSONObject jsonBody = new JSONObject();
                 try {
-                    if(officeId!=null) {
+                    if (officeId != null) {
                         jsonBody.put("name", name);
                         jsonBody.put("mobile", mobile);
                         jsonBody.put("pin", pin);
                         jsonBody.put("fcm", preferenceManager.getFCMId());
-                        jsonBody.put("Office",officeId);
+                        jsonBody.put("Office", officeId);
                         mRequestBody = jsonBody.toString();
                         Logger.v("Body : " + mRequestBody);
                         HitSignUpAPI();
-                    }
-                    else if(tapriCode!=null)
-                    {
+                    } else if (tapriCode != null) {
                         jsonBody.put("name", name);
                         jsonBody.put("mobile", mobile);
                         jsonBody.put("pin", pin);
                         jsonBody.put("fcm", preferenceManager.getFCMId());
-                        jsonBody.put("tapriCode",tapriCode);
+                        jsonBody.put("tapriCode", tapriCode);
                         mRequestBody = jsonBody.toString();
                         Logger.v("Body : " + mRequestBody);
                         HitSignUpAPI();
-                    }
-                    else
-                    {
+                    } else {
                         jsonBody.put("name", name);
                         jsonBody.put("mobile", mobile);
                         jsonBody.put("pin", pin);
@@ -332,7 +348,7 @@ public class SignUpActivity extends AppCompatActivity {
         dialog.show();
 
         Logger.v("Signing Up");
-        final String url = "http://e63ae891.ngrok.io/"+ "api/v1/user/signUp";
+        final String url = "http://e63ae891.ngrok.io/" + "api/v1/user/signUp";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -416,12 +432,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public class CustomAdapter extends ArrayAdapter<OfficeDataModel>
-    {
+    public class CustomAdapter extends ArrayAdapter<OfficeDataModel> {
         Context context;
-        ArrayList<OfficeDataModel > officeDataModelList = new ArrayList<>();
+        ArrayList<OfficeDataModel> officeDataModelList = new ArrayList<>();
 
-        public CustomAdapter(@NonNull Context context, int resource,ArrayList<OfficeDataModel> officeDataModelList) {
+        public CustomAdapter(@NonNull Context context, int resource, ArrayList<OfficeDataModel> officeDataModelList) {
             super(context, resource, officeDataModelList);
             this.context = context;
             this.officeDataModelList = officeDataModelList;
@@ -430,11 +445,11 @@ public class SignUpActivity extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View view =  super.getView(position, convertView, parent);
+            View view = super.getView(position, convertView, parent);
 
-            TextView textView = (TextView)view.findViewById(android.R.id.text1);
+            TextView textView = (TextView) view.findViewById(android.R.id.text1);
             textView.setTextColor(getResources().getColor(R.color.white));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
             textView.setGravity(Gravity.CENTER);
             textView.setText(officeDataModelList.get(position).getName());
             Typeface typeface = ResourcesCompat.getFont(context, R.font.source_sans_pro_semibold);
