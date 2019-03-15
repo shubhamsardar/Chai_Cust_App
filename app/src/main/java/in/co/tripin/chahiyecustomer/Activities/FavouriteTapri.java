@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
@@ -132,6 +133,16 @@ public class FavouriteTapri extends AppCompatActivity {
         FAV_TAPRI_NAME = intent.getStringExtra(FAV_TAPRI_NAME);
         tvFavTapriName.setText(preferenceManager.getFavTapriName());
         textViewMobile.setText(preferenceManager.getFavTapriMobile());
+
+        textViewMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + textViewMobile.getText()));
+                startActivity(intent);
+            }
+        });
+
         //tvFavTapriName.setText("Jack");
         //Log.d("FAV_TAPRI",FAV_TAPRI_ID);
         imageViewMap.setOnClickListener(new View.OnClickListener() {
