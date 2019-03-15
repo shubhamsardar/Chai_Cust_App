@@ -218,8 +218,10 @@ public class LoginActivity extends AppCompatActivity {
                                     try {
                                         String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
                                         String favoriteTapriName = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
+                                        String favouriteTapriMobile = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("mobile");
                                         preferenceManager.setFavTapriId(favoriteTapriId);
                                         preferenceManager.setFavTapriName(favoriteTapriName);
+                                        preferenceManager.setFavTapriMobile(favouriteTapriMobile);
                                         if (favoriteTapriId != null) {
                                             Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
                                             intent.putExtra(FavouriteTapri.FAV_TAPRI_ID, favoriteTapriId);
