@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 
@@ -90,6 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView textViewCorporate;
 
 
+
     private String mRequestBody = "";
     private String mToken = "";
     private RequestQueue queue;
@@ -103,6 +105,8 @@ public class SignUpActivity extends AppCompatActivity {
     TextInputEditText mPin;
     TextInputEditText mReenterPin;
     TextInputEditText mName;
+    TextInputEditText mTapriCode;
+    TextInputLayout input_layout_tapri_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +165,8 @@ public class SignUpActivity extends AppCompatActivity {
         mPin = findViewById(R.id.pin);
         mName = findViewById(R.id.name);
         mReenterPin = findViewById(R.id.pin_reenter);
+        mTapriCode = findViewById(R.id.tapri_code);
+        input_layout_tapri_code= findViewById(R.id.input_layout_tapri_code);
         mSubmit = findViewById(R.id.btn_signup);
         textViewCorporate= (TextView)findViewById(R.id.textViewCorporate);
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -185,11 +191,13 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 spinner.setVisibility(View.VISIBLE);
+                mTapriCode.setVisibility(View.GONE);
+                input_layout_tapri_code.setVisibility(View.GONE);
 //                String office = spinner.getSelectedItem().toString();
 //                Log.d("S_Office",office);
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://03452e3c.ngrok.io")
+                        .baseUrl(Constants.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 OfficeService officeService = retrofit.create(OfficeService.class);
@@ -253,6 +261,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String pin = mPin.getText().toString();
                 String name = mName.getText().toString();
                 String reentPin = mReenterPin.getText().toString();
+                String tapriCode = mTapriCode.getText().toString();
 
 
                 JSONObject jsonBody = new JSONObject();
@@ -266,7 +275,19 @@ public class SignUpActivity extends AppCompatActivity {
                         mRequestBody = jsonBody.toString();
                         Logger.v("Body : " + mRequestBody);
                         HitSignUpAPI();
-                    }else
+                    }
+                    else if(tapriCode!=null)
+                    {
+                        jsonBody.put("name", name);
+                        jsonBody.put("mobile", mobile);
+                        jsonBody.put("pin", pin);
+                        jsonBody.put("fcm", preferenceManager.getFCMId());
+                        jsonBody.put("tapriCode",tapriCode);
+                        mRequestBody = jsonBody.toString();
+                        Logger.v("Body : " + mRequestBody);
+                        HitSignUpAPI();
+                    }
+                    else
                     {
                         jsonBody.put("name", name);
                         jsonBody.put("mobile", mobile);
@@ -308,7 +329,7 @@ public class SignUpActivity extends AppCompatActivity {
         dialog.show();
 
         Logger.v("Signing Up");
-        final String url = Constants.BASE_URL+ "api/v1/user/signUp";
+        final String url = "http://e63ae891.ngrok.io/"+ "api/v1/user/signUp";
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
