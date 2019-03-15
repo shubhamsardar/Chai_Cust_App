@@ -189,7 +189,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                Log.d("S_Office",office);
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://03452e3c.ngrok.io")
+                        .baseUrl(Constants.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 OfficeService officeService = retrofit.create(OfficeService.class);
