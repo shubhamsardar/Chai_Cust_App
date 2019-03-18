@@ -463,6 +463,18 @@
                         android:textColor="@color/darkBrown"
                         android:textSize="18sp"
                         />
+                    <TextView
+                        android:id="@+id/tvOrderHistory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/rajdhani_bold"
+                        android:text="@string/order_history"
+                        android:textSize="18sp"
+                        android:textColor="@color/darkBrown"
+                        android:layout_marginBottom="5dp"/>
 
 
                 </FrameLayout>
@@ -473,6 +485,24 @@
         </LinearLayout>
 
     </ScrollView>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="bottom"-->
+        <!--android:background="@color/lightChai"-->
+        <!--&gt;-->
+        <!--<TextView-->
+            <!--android:id="@+id/tvOrderHistory"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="left"-->
+            <!--android:layout_weight="0.3"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:fontFamily="@font/rajdhani_bold"-->
+            <!--android:text="@string/order_history"-->
+            <!--android:textSize="15sp"-->
+            <!--android:layout_marginBottom="5dp"/>-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -481,7 +511,8 @@
         android:background="@color/lightChai"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        >
 
         <LinearLayout
             android:id="@+id/linearQR"

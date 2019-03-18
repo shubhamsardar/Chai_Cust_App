@@ -52,5 +52,7 @@
     <string name="see_full_menu"><u>SEE FULL MENU</u></string>
     <string name="add_money"><u>ADD MONEY</u></string>
     <string name="add_address"><u>ADD ADDRESS</u></string>
+    <string name="click_here"><u>Click Here</u></string>
+    <string name="order_history"><u>ORDER HISTORY</u></string>
 
 </resources>
