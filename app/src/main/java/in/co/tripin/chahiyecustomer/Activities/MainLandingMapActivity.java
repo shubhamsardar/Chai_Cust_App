@@ -249,8 +249,13 @@ public class MainLandingMapActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if (id == R.id.nav_QRCode) {
 
-        if (id == R.id.nav_history) {
+            startActivity(new Intent(MainLandingMapActivity.this, QRCodeActivity.class));
+
+        }
+
+        else if (id == R.id.nav_history) {
 
             startActivity(new Intent(MainLandingMapActivity.this, OrderHistoryActivity.class));
 

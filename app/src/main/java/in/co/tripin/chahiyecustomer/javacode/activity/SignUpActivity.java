@@ -98,6 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String mRequestBody = "";
     private String mToken = "";
     private RequestQueue queue;
+
     private String officeId;
 
     TextInputEditText mMobile;
@@ -169,7 +170,7 @@ public class SignUpActivity extends AppCompatActivity {
         mTapriCode = findViewById(R.id.tapri_code);
         input_layout_tapri_code = findViewById(R.id.input_layout_tapri_code);
         mSubmit = findViewById(R.id.btn_signup);
-        textViewCorporate = (TextView) findViewById(R.id.textViewCorporate);
+        textViewCorporate = (TextView) findViewById(R.id.textViewClickHere);
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
 
