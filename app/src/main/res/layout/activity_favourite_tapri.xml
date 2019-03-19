@@ -48,11 +48,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="80dp"
-                            android:fontFamily="@font/rajdhani_bold"
-                            android:padding="15dp"
-                            android:maxLines="2"
-                            android:ellipsize="end"
                             android:layout_marginRight="110dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/rajdhani_bold"
+                            android:maxLines="2"
+                            android:padding="15dp"
                             android:text="Bholenath \nNagori Tea"
                             android:textSize="20sp" />
 
@@ -100,7 +100,6 @@
 
                     </LinearLayout>
 
-
                 </FrameLayout>
 
                 <LinearLayout
@@ -110,36 +109,65 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:orientation="vertical"
-                    android:weightSum="1">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:layout_weight="0.33"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/tvTea"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/rajdhani_bold"
                                 android:gravity="center"
                                 android:text="TEA"
                                 android:textColor="@color/darkBrown"
                                 android:textSize="18sp" />
 
+                            <TextView
+                                android:id="@+id/tvTeaSugerFree"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/rajdhani_bold"
+                                android:gravity="center"
+                                android:text="TEA sugerfree"
+                                android:textColor="@color/darkBrown"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvCoffee"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/rajdhani_bold"
+                                android:gravity="center"
+                                android:text="COFFEE"
+                                android:textColor="@color/darkBrown"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="100dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/back_counter"
                                 android:gravity="center">
 
@@ -155,55 +183,12 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center_horizontal|center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/ivRemoveTea"
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:layout_gravity="right"
-                                    android:layout_weight="0.2"
-                                    android:src="@drawable/baseline_remove_circle_24" />
-
-                                <ImageView
-                                    android:id="@+id/ivAddTea"
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:layout_gravity="right"
-                                    android:layout_weight="0.3"
-                                    android:src="@drawable/baseline_add_circle_24" />
-
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="8dp"
-                            android:layout_weight="0.33"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tvTeaSugerFree"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/rajdhani_bold"
-                                android:gravity="center"
-                                android:text="TEA sugerfree"
-                                android:textColor="@color/darkBrown"
-                                android:textSize="18sp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="100dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/back_counter"
                                 android:gravity="center">
 
@@ -219,56 +204,12 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center_horizontal|center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/ivRemoveSugerFree"
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:layout_gravity="right"
-                                    android:layout_weight="0.2"
-                                    android:src="@drawable/baseline_remove_circle_24" />
-
-                                <ImageView
-                                    android:id="@+id/ivAddSugerFree"
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:layout_gravity="right"
-                                    android:layout_weight="0.3"
-                                    android:src="@drawable/baseline_add_circle_24" />
-
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.33"
-
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tvCoffee"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/rajdhani_bold"
-                                android:gravity="center"
-                                android:text="COFFEE"
-                                android:textColor="@color/darkBrown"
-                                android:textSize="18sp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="100dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/back_counter"
                                 android:gravity="center">
 
@@ -283,38 +224,105 @@
 
                             </LinearLayout>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
-                                android:gravity="center_horizontal|center_vertical"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/ivRemoveTea"
+                                    android:layout_width="34dp"
+                                    android:layout_height="34dp"
+                                    android:layout_gravity="left"
+                                    android:src="@drawable/baseline_remove_circle_24" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/ivAddTea"
+                                    android:layout_width="34dp"
+                                    android:layout_height="34dp"
+                                    android:layout_gravity="right"
+                                    android:src="@drawable/baseline_add_circle_24" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/ivRemoveSugerFree"
+                                    android:layout_width="34dp"
+                                    android:layout_height="34dp"
+                                    android:layout_gravity="right"
+                                    android:src="@drawable/baseline_remove_circle_24" />
+
+                                <View
+                                    android:layout_width="129dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/ivAddSugerFree"
+                                    android:layout_width="34dp"
+                                    android:layout_height="34dp"
+                                    android:layout_gravity="right"
+                                    android:src="@drawable/baseline_add_circle_24" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
                                 android:orientation="horizontal">
 
                                 <ImageView
                                     android:id="@+id/ivRemoveCoffee"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
-                                    android:layout_gravity="right"
-                                    android:layout_weight="0.2"
                                     android:src="@drawable/baseline_remove_circle_24" />
+
+                                <View
+                                    android:layout_width="129dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5" />
 
                                 <ImageView
                                     android:id="@+id/ivAddCoffee"
                                     android:layout_width="34dp"
                                     android:layout_height="34dp"
-                                    android:layout_gravity="right"
-                                    android:layout_weight="0.3"
                                     android:src="@drawable/baseline_add_circle_24" />
 
 
                             </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="right|bottom"
-                                android:text="@string/see_full_menu"
-                                android:textSize="20sp" />
+
                         </LinearLayout>
 
 
@@ -324,15 +332,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tvClearOrder"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:layout_weight="0.3"
                             android:fontFamily="@font/rajdhani_bold"
                             android:text="@string/clear_order"
                             android:textSize="15sp" />
@@ -340,13 +345,12 @@
                         <View
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.4"></View>
+                            android:layout_weight="0.5"></View>
 
                         <TextView
                             android:id="@+id/tvFullMenu"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.3"
                             android:fontFamily="@font/rajdhani_bold"
                             android:text="@string/see_full_menu"
                             android:textAlignment="textEnd"
@@ -439,8 +443,8 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal|center_vertical">
+                    android:gravity="center_horizontal|center_vertical"
+                    android:orientation="horizontal">
 
 
                     <ImageView
@@ -449,8 +453,8 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/map"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:src="@drawable/map" />
 
                     <TextView
                         android:id="@+id/tvAddMoney"
@@ -461,8 +465,7 @@
                         android:fontFamily="@font/rajdhani_bold"
                         android:text="@string/add_money"
                         android:textColor="@color/darkBrown"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
 
 
                 </FrameLayout>
