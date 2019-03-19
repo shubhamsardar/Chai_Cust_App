@@ -46,6 +46,7 @@ import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.SharedPreferenceManager;
 import in.co.tripin.chahiyecustomer.javacode.activity.AddAddressActivity;
+import in.co.tripin.chahiyecustomer.javacode.activity.OrderHistoryActivity;
 import in.co.tripin.chahiyecustomer.javacode.activity.TapriDetailsActivity;
 import in.co.tripin.chahiyecustomer.services.AddressService;
 import in.co.tripin.chahiyecustomer.services.TapariService;
@@ -71,7 +72,7 @@ public class FavouriteTapri extends AppCompatActivity {
     private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount, textViewMobile;
     private ImageView ivAddTea, ivRemoveTea, ivAddSugerFree, ivRemoveSugerFree, ivAddCoffee, ivRemoveCoffee;
     private TextView tvTotal;
-    private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney, tvFavTapriName;
+    private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney, tvFavTapriName,tvOrderHistory;
     private TextView tvTea, tvTeaSugerFree, tvCoffee;
     String teaId, teaSugerFreeId, coffeeId;
     int countTea = 0, countCoffee = 0, countSugerFree = 0;
@@ -118,6 +119,7 @@ public class FavouriteTapri extends AppCompatActivity {
         tvTea = (TextView) findViewById(R.id.tvTea);
         tvTeaSugerFree = (TextView) findViewById(R.id.tvTeaSugerFree);
         tvCoffee = (TextView) findViewById(R.id.tvCoffee);
+        tvOrderHistory= (TextView)findViewById(R.id.tvOrderHistory);
         tvAddMoney.setVisibility(View.GONE);
 
         //orderItemModelList = new ArrayList<>();
@@ -354,6 +356,13 @@ public class FavouriteTapri extends AppCompatActivity {
                     i.putExtra("money", "" + tobeadded);
                 }
                 startActivity(i);
+            }
+        });
+
+        tvOrderHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FavouriteTapri.this, OrderHistoryActivity.class));
             }
         });
 

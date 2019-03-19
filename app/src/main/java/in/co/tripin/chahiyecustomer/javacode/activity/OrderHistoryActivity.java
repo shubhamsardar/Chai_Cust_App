@@ -195,7 +195,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(OrderHistoryActivity.this, MainLandingMapActivity.class));
+        //startActivity(new Intent(OrderHistoryActivity.this, MainLandingMapActivity.class));
         finish();
     }
 

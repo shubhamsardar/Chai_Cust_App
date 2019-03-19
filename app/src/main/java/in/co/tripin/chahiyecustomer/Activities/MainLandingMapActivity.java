@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -86,6 +87,7 @@ public class MainLandingMapActivity extends AppCompatActivity
     private PreferenceManager preferenceManager;
     private AlertDialog dialog;
     private Context mContext;
+    private ImageView imageViewFavTap;
 
     static final int REQUEST_CODE_ASK_PERMISSIONS = 1002;
 
@@ -106,8 +108,21 @@ public class MainLandingMapActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mContext = this;
         mTapriManager = new TapriManager(this);
+        imageViewFavTap = (ImageView) findViewById(R.id.imageViewFavTap);
+        imageViewFavTap.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
         preferenceManager = PreferenceManager.getInstance(this);
+
+        if(preferenceManager.getFavTapriId()!=null)
+        {
+            imageViewFavTap.setVisibility(View.VISIBLE);
+        }
+        imageViewFavTap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainLandingMapActivity.this,FavouriteTapri.class));
+            }
+        });
         setTitle("Your Location");
         Objects.requireNonNull(getSupportActionBar()).setSubtitle("0 Results");
         dialog = new SpotsDialog.Builder()
