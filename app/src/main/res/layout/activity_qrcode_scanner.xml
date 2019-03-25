@@ -4,40 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/lightChai"
+    android:gravity="center"
     tools:context=".Activities.QRCodeActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayoutQR"
         android:layout_width="300dp"
         android:layout_height="400dp"
-        android:orientation="vertical"
+        android:background="@drawable/back_qrcode"
         android:gravity="center"
-        android:background="@drawable/back_qrcode">
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/textViewUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
+            android:fontFamily="@font/rajdhani_bold"
             android:text="Prathamesh"
-            android:textSize="30dp"
             android:textColor="@color/darkBrown"
-            android:fontFamily="@font/rajdhani_bold"/>
-    <ImageView
-        android:id="@+id/imageViewQRCode"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+            android:textSize="30dp" />
+
+        <ImageView
+            android:id="@+id/imageViewQRCode"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center" />
+
         <TextView
             android:id="@+id/textViewNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
+            android:fontFamily="@font/source_sans_pro"
             android:text="Scan QR Code to Transfer Money"
-            android:textSize="15dp"
             android:textColor="@color/dark_gray"
-            android:fontFamily="@font/source_sans_pro"/>
+            android:textSize="15dp" />
     </LinearLayout>
 </LinearLayout>
