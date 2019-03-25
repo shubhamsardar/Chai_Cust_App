@@ -286,7 +286,7 @@ public class MainLandingMapActivity extends AppCompatActivity
 
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
-            String shareBodyText = "Check it out. Chaihiyeh Android App!";
+            String shareBodyText = "Check it out. Waah Chai Android App!";
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
