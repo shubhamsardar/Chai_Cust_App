@@ -354,6 +354,7 @@ public class MainLandingMapActivity extends AppCompatActivity
                                 Objects.requireNonNull(getSupportActionBar()).setSubtitle(tapriData.length + " Tapris Found");
 
                                 for (final Tapri.Data data : tapriData) {
+                                    Log.d("DATA",data.toString());
                                     String[] location = data.getLocation().getCoordinates();
                                     double lat = Double.parseDouble(location[1].trim());
                                     double lng = Double.parseDouble(location[0].trim());
@@ -363,7 +364,7 @@ public class MainLandingMapActivity extends AppCompatActivity
 
                                     MarkerOptions markerOptions = new MarkerOptions();
                                     markerOptions.position(point)
-                                            .title(data.getName())
+                                            .title(data.getName()+"\n"+data.getTapriMobile())
                                             .snippet(data.get_id())
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 
@@ -374,9 +375,10 @@ public class MainLandingMapActivity extends AppCompatActivity
                                     map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                         @Override
                                         public void onInfoWindowClick(Marker marker) {
+                                          String [] tapriName=  marker.getTitle().split("\n");
                                             Intent i = new Intent(MainLandingMapActivity.this, TapriDetailsActivity.class);
                                             i.putExtra("tapri_id", marker.getSnippet());
-                                            i.putExtra("tapri_name", marker.getTitle());
+                                            i.putExtra("tapri_name",tapriName[0]);
 
                                             Logger.v("Tapri Id Opened : " + marker.getSnippet());
 

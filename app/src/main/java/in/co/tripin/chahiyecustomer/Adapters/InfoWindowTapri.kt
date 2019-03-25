@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.GoogleMap
+import org.w3c.dom.Text
 
 
 class InfoWindowCustom(internal var context: Context) : GoogleMap.InfoWindowAdapter {
@@ -24,6 +25,7 @@ class InfoWindowCustom(internal var context: Context) : GoogleMap.InfoWindowAdap
 
         val title = v.findViewById(R.id.name) as TextView
         val subtitle = v.findViewById(R.id.distance) as TextView
+        //val mobile = v.findViewById<TextView>(R.id.mobile)
         title.text = marker.title
         subtitle.text = marker.snippet
         return v

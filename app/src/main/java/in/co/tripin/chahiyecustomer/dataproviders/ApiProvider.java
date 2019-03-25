@@ -5,6 +5,8 @@ import in.co.tripin.chahiyecustomer.BuildConfig;
 
 public class ApiProvider {
     private static final String BASE_URL = "http://206.189.135.19:3055/api/v1";
+    //private static final String BASE_URL = "http://c93b88c9.ngrok.io/api/v1";
+
 
     public static String getApiByTag(int apiTag) {
         String url = null;

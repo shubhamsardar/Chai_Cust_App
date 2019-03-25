@@ -38,6 +38,16 @@ public class Tapri extends CommonResponse {
 
         private String name;
 
+        private String tapriMobile;
+
+        public String getTapriMobile() {
+            return tapriMobile;
+        }
+
+        public void setTapriMobile(String tapriMobile) {
+            this.tapriMobile = tapriMobile;
+        }
+
         public String getIsFixed ()
         {
             return isFixed;

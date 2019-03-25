@@ -1,6 +1,7 @@
 package in.co.tripin.chahiyecustomer.Managers;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class TapriManager implements RequestListener {
     @Override
     public void onError(int responseResult, int apiTag, String message, Response response) {
         Toast.makeText(mContext,"ON-Failed", Toast.LENGTH_SHORT).show();
+        Log.d("ERR", String.valueOf(message));
     }
 
     public interface TapriListListener {
