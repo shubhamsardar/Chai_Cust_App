@@ -27,6 +27,7 @@ public class PreferenceManager {
     private static final String PREF_FAV_TAPRI_ID = "favTapriId";
     private static final String PRED_FAV_TAPRI_NAME = "favTapriName";
     private static final String PREF_FAV_TAPRI_MOBILE = "favTapriMobile";
+    private static final String isCreditPaymentEnabled = "isCreditPaymentEnabled";
 
 
     private static SharedPreferences sInstance;
@@ -271,6 +272,17 @@ public class PreferenceManager {
         editor.commit();
 
     }
+
+    public static boolean getIsCreditPaymentEnabled() {
+        boolean x = sInstance.getBoolean(isCreditPaymentEnabled,false);
+        return x;
+    }
+
+    public void setIsCreditPaymentEnabled(Boolean x){
+        editor.putBoolean(isCreditPaymentEnabled,x);
+        editor.commit();
+    }
 }
+
 
 

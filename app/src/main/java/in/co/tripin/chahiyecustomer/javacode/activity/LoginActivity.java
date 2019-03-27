@@ -219,13 +219,16 @@ public class LoginActivity extends AppCompatActivity {
                                         String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
                                         String favoriteTapriName = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
                                         String favouriteTapriMobile = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("mobile");
+                                        boolean  isCreditPaymentEnabled = response.getJSONObject("data").getBoolean("isCreditPaymentEnabled");
                                         preferenceManager.setFavTapriId(favoriteTapriId);
                                         preferenceManager.setFavTapriName(favoriteTapriName);
                                         preferenceManager.setFavTapriMobile(favouriteTapriMobile);
+                                        preferenceManager.setIsCreditPaymentEnabled(isCreditPaymentEnabled);
                                         if (favoriteTapriId != null) {
                                             Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
                                             intent.putExtra(FavouriteTapri.FAV_TAPRI_ID, favoriteTapriId);
                                             intent.putExtra(FavouriteTapri.FAV_TAPRI_NAME, favoriteTapriName);
+                                            intent.putExtra(FavouriteTapri.IS_CREDIT,isCreditPaymentEnabled);
                                             startActivity(intent);
                                             finish();
                                         }

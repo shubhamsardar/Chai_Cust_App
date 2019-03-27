@@ -82,6 +82,8 @@ public class FavouriteTapri extends AppCompatActivity {
     int walletBalance = 0;
     public static String FAV_TAPRI_ID = "favTapri";
     public static String FAV_TAPRI_NAME = "favTapriName";
+    public static String IS_CREDIT = "isCredit";
+    boolean isCreditPaymentEnabled;
     String paymentTypes;
     String addressId;
 
@@ -133,6 +135,7 @@ public class FavouriteTapri extends AppCompatActivity {
         Intent intent = getIntent();
         FAV_TAPRI_ID = preferenceManager.getFavTapriId();
         FAV_TAPRI_NAME = intent.getStringExtra(FAV_TAPRI_NAME);
+        isCreditPaymentEnabled= intent.getBooleanExtra(IS_CREDIT,false);
         tvFavTapriName.setText(preferenceManager.getFavTapriName());
         textViewMobile.setText(preferenceManager.getFavTapriMobile());
 
@@ -281,7 +284,9 @@ public class FavouriteTapri extends AppCompatActivity {
                 if (spinnerPayment.getSelectedItemPosition() == 3) {
                     paymentTypes = "WOD";
                 }
-
+                if (spinnerPayment.getSelectedItemPosition() == 4) {
+                    paymentTypes = "Credit";
+                }
                 if (total == 0) {
                     Toast.makeText(FavouriteTapri.this, "Please select the items", Toast.LENGTH_SHORT).show();
                 } else if (spinnerPayment.getSelectedItemPosition() == 0) {
@@ -490,6 +495,9 @@ public class FavouriteTapri extends AppCompatActivity {
                     paymentType.add("WALLET  ( Rs." + balance + " )");
                     paymentType.add("COD");
                     paymentType.add("WALLET AFTER DELIVERY");
+                    if(preferenceManager.getIsCreditPaymentEnabled()) {
+                        paymentType.add("CREDIT");
+                    }
 
                     CustomAdapter customAdapter = new CustomAdapter(FavouriteTapri.this, android.R.layout.simple_list_item_1, paymentType);
                     spinnerPayment.setAdapter(customAdapter);
