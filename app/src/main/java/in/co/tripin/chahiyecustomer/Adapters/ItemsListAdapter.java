@@ -71,38 +71,38 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.View
 
             @Override
             public void afterTextChanged(Editable s) {
-                int quantityBefore = data[position].getQuantity();
-                if(s.toString().isEmpty()){
-                    data[position].setQuantity(0);
-                }else {
-                    if(!s.toString().equals("0")){
-                        data[position].setQuantity(Integer.decode(s.toString().trim()));
-                    }else {
-                        data[position].setQuantity(0);
-                    }
-                }
-
-                if(data[position].getQuantity()!=0){
-                    holder.display.setBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
-                    holder.display.setTextColor(ContextCompat.getColor(context,R.color.black));
-                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorHighlight));
-                }else {
-                    holder.display.setBackground(ContextCompat.getDrawable(context,R.drawable.brown_border_bg));
-                    holder.display.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
-                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.transparent));
-                }
-
-                Logger.v("Quantity OnTextChanged: " + data[position].getQuantity());
-
-                int quantityAfter = data[position].getQuantity();
-                if(quantityAfter>quantityBefore){
-                    //increment
-                    itemSelectionCallback.onitemAdded(Double.parseDouble(data[position].getRate()),quantityAfter-quantityBefore);
-
-                }else {
-                    //decrement
-                    itemSelectionCallback.onItemRemoved(Double.parseDouble(data[position].getRate()),quantityBefore-quantityAfter);
-                }
+//                int quantityBefore = data[position].getQuantity();
+//                if(s.toString().isEmpty()){
+//                    data[position].setQuantity(0);
+//                }else {
+//                    if(!s.toString().equals("0")){
+//                        data[position].setQuantity(Integer.decode(s.toString().trim()));
+//                    }else {
+//                        data[position].setQuantity(0);
+//                    }
+//                }
+//
+//                if(data[position].getQuantity()!=0){
+//                    holder.display.setBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
+//                    holder.display.setTextColor(ContextCompat.getColor(context,R.color.black));
+//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorHighlight));
+//                }else {
+//                    holder.display.setBackground(ContextCompat.getDrawable(context,R.drawable.brown_border_bg));
+//                    holder.display.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
+//                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.transparent));
+//                }
+//
+//                Logger.v("Quantity OnTextChanged: " + data[position].getQuantity());
+//
+//                int quantityAfter = data[position].getQuantity();
+//                if(quantityAfter>quantityBefore){
+//                    //increment
+//                    itemSelectionCallback.onitemAdded(Double.parseDouble(data[position].getRate()),quantityAfter-quantityBefore);
+//
+//                }else {
+//                    //decrement
+//                    itemSelectionCallback.onItemRemoved(Double.parseDouble(data[position].getRate()),quantityBefore-quantityAfter);
+//                }
             }
         });
 
