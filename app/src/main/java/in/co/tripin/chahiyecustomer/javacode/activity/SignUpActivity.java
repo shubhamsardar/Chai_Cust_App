@@ -295,7 +295,7 @@ public class SignUpActivity extends AppCompatActivity {
                         jsonBody.put("mobile", mobile);
                         jsonBody.put("pin", pin);
                         jsonBody.put("fcm", preferenceManager.getFCMId());
-                        jsonBody.put("Office", officeId);
+                        jsonBody.put("office", officeId);
                         mRequestBody = jsonBody.toString();
                         Logger.v("Body : " + mRequestBody);
                         HitSignUpAPI();
