@@ -75,6 +75,7 @@ public class FavouriteTapriNew extends AppCompatActivity
     private ImageView imageViewMap;
     private LinearLayout linearQR;
 
+    private TextView tvUsername , tvUserMobile;
     private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount, textViewMobile;
     private ImageView ivAddTea, ivRemoveTea, ivAddSugerFree, ivRemoveSugerFree, ivAddCoffee, ivRemoveCoffee;
     private TextView tvTotal;
@@ -97,6 +98,7 @@ public class FavouriteTapriNew extends AppCompatActivity
     private Context mContext;
     PreferenceManager preferenceManager;
     List<OrderItemModel> orderItemModelList;
+    NavigationView navigationView;
 
 
     @Override
@@ -106,6 +108,7 @@ public class FavouriteTapriNew extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        navigationView =(NavigationView)findViewById(R.id.nav_view_fav_tap);
         mContext = this;
         spinnerPayment = (Spinner) findViewById(R.id.spinnerPayment);
         imageViewMap = (ImageView) findViewById(R.id.imageViewMap);
@@ -131,11 +134,20 @@ public class FavouriteTapriNew extends AppCompatActivity
         tvTea = (TextView) findViewById(R.id.tvTea);
         tvTeaSugerFree = (TextView) findViewById(R.id.tvTeaSugerFree);
         tvCoffee = (TextView) findViewById(R.id.tvCoffee);
+
         tvOrderHistory= (TextView)findViewById(R.id.tvOrderHistory);
         tvAddMoney.setVisibility(View.GONE);
 
         //orderItemModelList = new ArrayList<>();
 
+
+
+        View headerView = navigationView.getHeaderView(0);
+        tvUsername = (TextView)headerView.findViewById(R.id.tvUsername);
+        tvUserMobile = (TextView)headerView.findViewById(R.id.tvUserMobile);
+
+        tvUsername.setText(preferenceManager.getUserName());
+        tvUserMobile.setText(preferenceManager.getMobileNo());
 
         addressList = new ArrayList<>();
         addressIdList = new ArrayList<>();
@@ -389,7 +401,7 @@ public class FavouriteTapriNew extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
     }
 

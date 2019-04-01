@@ -49,6 +49,7 @@ public class AuthLandingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AuthLandingActivity.this,LoginActivity.class));
+                finish();
             }
         });
 

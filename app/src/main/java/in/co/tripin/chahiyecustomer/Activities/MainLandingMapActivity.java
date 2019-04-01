@@ -120,7 +120,7 @@ public class MainLandingMapActivity extends AppCompatActivity
         imageViewFavTap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainLandingMapActivity.this,FavouriteTapri.class));
+                startActivity(new Intent(MainLandingMapActivity.this,FavouriteTapriNew.class));
             }
         });
         setTitle("Your Location");
