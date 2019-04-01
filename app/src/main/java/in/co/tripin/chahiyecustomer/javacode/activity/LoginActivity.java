@@ -220,16 +220,28 @@ public class LoginActivity extends AppCompatActivity {
                                         String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
                                         String favoriteTapriName = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
                                         String favouriteTapriMobile = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("mobile");
-                                        boolean  isCreditPaymentEnabled = response.getJSONObject("data").getBoolean("isCreditPaymentEnabled");
+                                        boolean isCreditPaymentEnabled = false;
+                                        try {
+                                            isCreditPaymentEnabled = response.getJSONObject("data").getBoolean("isCreditPaymentEnabled");
+                                        } catch (Exception e) {
+
+                                        }
                                         preferenceManager.setFavTapriId(favoriteTapriId);
                                         preferenceManager.setFavTapriName(favoriteTapriName);
                                         preferenceManager.setFavTapriMobile(favouriteTapriMobile);
                                         preferenceManager.setIsCreditPaymentEnabled(isCreditPaymentEnabled);
                                         if (favoriteTapriId != null) {
+<<<<<<< HEAD
                                             Intent intent = new Intent(LoginActivity.this, FavouriteTapriNew.class);
                                             intent.putExtra(FavouriteTapriNew.FAV_TAPRI_ID, favoriteTapriId);
                                             intent.putExtra(FavouriteTapriNew.FAV_TAPRI_NAME, favoriteTapriName);
                                             intent.putExtra(FavouriteTapriNew.IS_CREDIT,isCreditPaymentEnabled);
+=======
+                                            Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
+                                            intent.putExtra(FavouriteTapri.FAV_TAPRI_ID, favoriteTapriId);
+                                            intent.putExtra(FavouriteTapri.FAV_TAPRI_NAME, favoriteTapriName);
+                                            intent.putExtra(FavouriteTapri.IS_CREDIT, isCreditPaymentEnabled);
+>>>>>>> 65d47b6e0915e4de38229a7b36d06a46d6db49a9
                                             startActivity(intent);
                                             finish();
                                         }
