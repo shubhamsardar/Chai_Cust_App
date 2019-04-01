@@ -54,5 +54,6 @@
     <string name="add_address"><u>ADD ADDRESS</u></string>
     <string name="click_here"><u>Click Here</u></string>
     <string name="order_history"><u>ORDER HISTORY</u></string>
+    <string name="title_activity_favourite_tapri_new">FavouriteTapriNew</string>
 
 </resources>

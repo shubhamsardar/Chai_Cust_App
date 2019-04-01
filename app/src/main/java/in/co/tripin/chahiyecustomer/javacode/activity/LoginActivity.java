@@ -41,6 +41,7 @@ import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 import in.co.tripin.chahiyecustomer.Activities.FavouriteTapri;
+import in.co.tripin.chahiyecustomer.Activities.FavouriteTapriNew;
 import in.co.tripin.chahiyecustomer.Activities.MainLandingMapActivity;
 import in.co.tripin.chahiyecustomer.Managers.AccountManager;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
@@ -225,10 +226,10 @@ public class LoginActivity extends AppCompatActivity {
                                         preferenceManager.setFavTapriMobile(favouriteTapriMobile);
                                         preferenceManager.setIsCreditPaymentEnabled(isCreditPaymentEnabled);
                                         if (favoriteTapriId != null) {
-                                            Intent intent = new Intent(LoginActivity.this, FavouriteTapri.class);
-                                            intent.putExtra(FavouriteTapri.FAV_TAPRI_ID, favoriteTapriId);
-                                            intent.putExtra(FavouriteTapri.FAV_TAPRI_NAME, favoriteTapriName);
-                                            intent.putExtra(FavouriteTapri.IS_CREDIT,isCreditPaymentEnabled);
+                                            Intent intent = new Intent(LoginActivity.this, FavouriteTapriNew.class);
+                                            intent.putExtra(FavouriteTapriNew.FAV_TAPRI_ID, favoriteTapriId);
+                                            intent.putExtra(FavouriteTapriNew.FAV_TAPRI_NAME, favoriteTapriName);
+                                            intent.putExtra(FavouriteTapriNew.IS_CREDIT,isCreditPaymentEnabled);
                                             startActivity(intent);
                                             finish();
                                         }

@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this, AuthLandingActivity.class));
                     finish();
                 }else if(preferenceManager.getFavTapriId() != null) {
-                    startActivity(new Intent(SplashActivity.this, FavouriteTapri.class));
+                    startActivity(new Intent(SplashActivity.this, FavouriteTapriNew.class));
                     finish();
                 } else {
                     startActivity(new Intent(SplashActivity.this, MainLandingMapActivity.class));

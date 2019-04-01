@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <!--<item-->
+        <!--android:id="@+id/nav_camera"-->
+        <!--android:icon="@drawable/ic_add_shopping_cart_black_24dp"-->
+        <!--android:title="Place Order" />-->
+        <item
+
+            android:id="@+id/nav_QRCode"
+            android:icon="@drawable/qrcode2"
+            android:title="Wallet QR Code"/>
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="Order History" />
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Your Wallet" />
+        <item
+            android:id="@+id/nav_changepin"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="Change Pin" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Log Out" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share App" />
+
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_rate_review_black_24dp"
+                android:title="Rate us on Playstore" />
+
+            <item
+                android:id="@+id/nav_call"
+                android:icon="@drawable/ic_call_black_24dp"
+                android:title="Call Support" />
+        </menu>
+    </item>
+
+</menu>
