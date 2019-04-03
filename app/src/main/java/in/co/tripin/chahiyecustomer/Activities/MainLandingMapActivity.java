@@ -28,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -88,6 +89,7 @@ public class MainLandingMapActivity extends AppCompatActivity
     private AlertDialog dialog;
     private Context mContext;
     private ImageView imageViewFavTap;
+    private TextView tvUsername , tvUserMobile;
 
     static final int REQUEST_CODE_ASK_PERMISSIONS = 1002;
 
@@ -112,6 +114,8 @@ public class MainLandingMapActivity extends AppCompatActivity
         imageViewFavTap.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
         preferenceManager = PreferenceManager.getInstance(this);
+
+
 
         if(preferenceManager.getFavTapriId()!=null)
         {
@@ -152,6 +156,12 @@ public class MainLandingMapActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        tvUsername = (TextView)headerView.findViewById(R.id.tvUsername);
+        tvUserMobile = (TextView)headerView.findViewById(R.id.tvUserMobile);
+
+        tvUsername.setText(preferenceManager.getUserName());
+        tvUserMobile.setText(preferenceManager.getMobileNo());
 
         //set up map
         mapView = findViewById(R.id.mapView);
@@ -308,7 +318,15 @@ public class MainLandingMapActivity extends AppCompatActivity
         } else if (id == R.id.nav_rate) {
             rateApp();
         } else if (id == R.id.nav_call) {
-            //call
+
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + "9594352346"));
+            startActivity(intent);
+
+        } else if (id == R.id.nav_web) {
+            Uri uri = Uri.parse("http://www.waahchai.in"); // missing 'http://' will cause crashed
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

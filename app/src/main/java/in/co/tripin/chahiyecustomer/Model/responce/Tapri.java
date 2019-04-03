@@ -40,6 +40,16 @@ public class Tapri extends CommonResponse {
 
         private String tapriMobile;
 
+        private String logoUrlPath;
+
+        public String getLogoUrlPath() {
+            return logoUrlPath;
+        }
+
+        public void setLogoUrlPath(String logoUrlPath) {
+            this.logoUrlPath = logoUrlPath;
+        }
+
         public String getTapriMobile() {
             return tapriMobile;
         }

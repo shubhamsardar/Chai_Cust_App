@@ -486,8 +486,16 @@ public class FavouriteTapriNew extends AppCompatActivity
         } else if (id == R.id.nav_rate) {
             rateApp();
         } else if (id == R.id.nav_call) {
-            //call
-        }
+
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + "9594352346"));
+            startActivity(intent);
+
+        } else if (id == R.id.nav_web) {
+            Uri uri = Uri.parse("http://www.waahchai.in"); // missing 'http://' will cause crashed
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+    }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
