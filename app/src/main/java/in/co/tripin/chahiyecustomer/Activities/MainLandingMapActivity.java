@@ -34,6 +34,8 @@ import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -68,6 +70,7 @@ import in.co.tripin.chahiyecustomer.Managers.TapriManager;
 import in.co.tripin.chahiyecustomer.Model.responce.Tapri;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Constants;
+import in.co.tripin.chahiyecustomer.helper.GlideApp;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 import in.co.tripin.chahiyecustomer.javacode.activity.EditPinActivity;
 import in.co.tripin.chahiyecustomer.javacode.activity.OTPForChangePINActivity;
@@ -101,9 +104,7 @@ public class MainLandingMapActivity extends AppCompatActivity
     private AlertDialog dialog;
     private Context mContext;
     private ImageView imageViewFavTap;
-    private TextView tvUsername , tvUserMobile;
-
-    String logoUrlPath;
+    private TextView tvUsername, tvUserMobile;
 
     static final int REQUEST_CODE_ASK_PERMISSIONS = 1002;
 
@@ -130,15 +131,13 @@ public class MainLandingMapActivity extends AppCompatActivity
         preferenceManager = PreferenceManager.getInstance(this);
 
 
-
-        if(preferenceManager.getFavTapriId()!=null)
-        {
+        if (preferenceManager.getFavTapriId() != null) {
             imageViewFavTap.setVisibility(View.VISIBLE);
         }
         imageViewFavTap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainLandingMapActivity.this,FavouriteTapriNew.class));
+                startActivity(new Intent(MainLandingMapActivity.this, FavouriteTapriNew.class));
             }
         });
         setTitle("Your Location");
@@ -171,8 +170,8 @@ public class MainLandingMapActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
-        tvUsername = (TextView)headerView.findViewById(R.id.tvUsername);
-        tvUserMobile = (TextView)headerView.findViewById(R.id.tvUserMobile);
+        tvUsername = (TextView) headerView.findViewById(R.id.tvUsername);
+        tvUserMobile = (TextView) headerView.findViewById(R.id.tvUserMobile);
 
         tvUsername.setText(preferenceManager.getUserName());
         tvUserMobile.setText(preferenceManager.getMobileNo());
@@ -292,9 +291,7 @@ public class MainLandingMapActivity extends AppCompatActivity
 
             startActivity(new Intent(MainLandingMapActivity.this, QRCodeActivity.class));
 
-        }
-
-        else if (id == R.id.nav_history) {
+        } else if (id == R.id.nav_history) {
 
             startActivity(new Intent(MainLandingMapActivity.this, OrderHistoryActivity.class));
 
@@ -387,10 +384,10 @@ public class MainLandingMapActivity extends AppCompatActivity
 
                                 for (final Tapri.Data data : tapriData) {
 
-                                    logoUrlPath = data.getLogoUrlPath();
-                                    Log.d("TAG",logoUrlPath);
+                                    String logoUrlPath = data.getLogoUrlPath();
+                                    Log.d("TAG", logoUrlPath);
 
-                                    Log.d("DATA",data.toString());
+                                    Log.d("DATA", data.toString());
                                     String[] location = data.getLocation().getCoordinates();
                                     double lat = Double.parseDouble(location[1].trim());
                                     double lng = Double.parseDouble(location[0].trim());
@@ -400,23 +397,67 @@ public class MainLandingMapActivity extends AppCompatActivity
 
                                     MarkerOptions markerOptions = new MarkerOptions();
                                     markerOptions.position(point)
-                                            .title(data.getName()+"\n"+data.getTapriMobile())
+                                            .title(data.getName() + "\n" + data.getTapriMobile())
                                             .snippet(data.get_id())
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 
-                                    map.addMarker(markerOptions);
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(Constants.BASE_URL)
+                                            .build();
+
+                                    TapariService documentService = retrofit.create(TapariService.class);
+
+                                    Call<ResponseBody> apiCall = documentService.downloadImage(preferenceManager.getAccessToken(), logoUrlPath);
+
+                                    Log.d("TAG", preferenceManager.getAccessToken());
+
+                                    apiCall.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<okhttp3.ResponseBody> call, Response<ResponseBody> response) {
 
 
+                                            if (response.isSuccessful()) {
+                                                Log.d("TAG", "Successful");
+                                                try {
+                                                    InputStream is = response.body().byteStream();
 
-                                    map.setInfoWindowAdapter(new InfoWindowCustomAdapter(MainLandingMapActivity.this));
+                                                    byte[] imageAsByteArray = new byte[(int) response.body().contentLength()];
+                                                    int data;
+                                                    int index = 0;
+                                                    while ((data = is.read()) != -1) {
+                                                        imageAsByteArray[index] = (byte) data;
+                                                        index++;
+                                                    }
+
+                                                    map.addMarker(markerOptions);
+                                                    map.setInfoWindowAdapter(new InfoWindowCustomAdapter(mContext, imageAsByteArray));
+
+
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                    Log.d("TAG", "Fail1");
+                                                }
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            Log.d("TAG", "FAIL :" + t.getMessage());
+
+                                        }
+                                    });
+
+
 
                                     map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                         @Override
                                         public void onInfoWindowClick(Marker marker) {
-                                          String [] tapriName=  marker.getTitle().split("\n");
+                                            String[] tapriName = marker.getTitle().split("\n");
                                             Intent i = new Intent(MainLandingMapActivity.this, TapriDetailsActivity.class);
                                             i.putExtra("tapri_id", marker.getSnippet());
-                                            i.putExtra("tapri_name",tapriName[0]);
+                                            i.putExtra("tapri_name", tapriName[0]);
 
                                             Logger.v("Tapri Id Opened : " + marker.getSnippet());
 
@@ -440,7 +481,6 @@ public class MainLandingMapActivity extends AppCompatActivity
                     }
                 });
     }
-
 
 
     @Override
@@ -545,14 +585,15 @@ public class MainLandingMapActivity extends AppCompatActivity
         }
     }
 
-    public class  InfoWindowCustomAdapter implements GoogleMap.InfoWindowAdapter{
+    public class InfoWindowCustomAdapter implements GoogleMap.InfoWindowAdapter {
 
-        View v;
+        private View v;
+        private Context context;
+        private byte[] bytes;
 
-        Context context;
-
-        public InfoWindowCustomAdapter(Context context) {
+        public InfoWindowCustomAdapter(Context context, byte[] bytes) {
             this.context = context;
+            this.bytes = bytes;
         }
 
         @Override
@@ -562,74 +603,81 @@ public class MainLandingMapActivity extends AppCompatActivity
 
         @Override
         public View getInfoContents(Marker marker) {
-          v = getLayoutInflater().inflate(R.layout.infowindow_tapri,null);
 
-          TextView title = (TextView)v.findViewById(R.id.name);
-          TextView snippet = (TextView)v.findViewById(R.id.distance);
-          ImageView imageView = (ImageView)v.findViewById(R.id.image);
+            v = getLayoutInflater().inflate(R.layout.infowindow_tapri, null, false);
 
-          title.setText(marker.getTitle());
-          snippet.setText(marker.getSnippet());
-          getImage(imageView);
+            TextView title = (TextView) v.findViewById(R.id.name);
+            TextView snippet = (TextView) v.findViewById(R.id.distance);
+            ImageView imageView = (ImageView) v.findViewById(R.id.image);
 
+            title.setText(marker.getTitle());
+            snippet.setText(marker.getSnippet());
+//            getImage(imageView);
 
+            GlideApp.with(mContext)
+                    .asBitmap()
+                    .load(bytes).into(imageView);
 
-          return v;
+            return v;
+
         }
 
-
-        private void getImage(ImageView imageView) {
-
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
-                    .build();
-
-            TapariService documentService = retrofit.create(TapariService.class);
-
-            Call<ResponseBody> apiCall = documentService.downloadImage(preferenceManager.getAccessToken(),logoUrlPath);
-
-            apiCall.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<okhttp3.ResponseBody> call, Response<ResponseBody> response) {
-
-
-
-                    if (response.isSuccessful()) {
-                        Log.d("TAG","Successful");
-                        try {
-                            InputStream is = response.body().byteStream();
-
-                            byte[] imageAsByteArray = new byte[(int) response.body().contentLength()];
-                            int data;
-                            int index = 0;
-                            while ((data = is.read()) != -1) {
-                                imageAsByteArray[index] = (byte) data;
-                                index++;
-                            }
-
-                            try {
-                                Glide.with(MainLandingMapActivity.this).asBitmap().load(imageAsByteArray).into(imageView);
-                                Log.d("TAG","Success");
-                            } catch (Exception e) {
-                                Log.d("TAG","Fail");
-                            }
-
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.d("TAG","Fail1");
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d("TAG", "FAIL :"+t.getMessage());
-
-                }
-            });
-        }
+//        private void getImage(ImageView imageView) {
+//
+//
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl(Constants.BASE_URL)
+//                    .build();
+//
+//            TapariService documentService = retrofit.create(TapariService.class);
+//
+//            Call<ResponseBody> apiCall = documentService.downloadImage(preferenceManager.getAccessToken(), "");
+//
+//            Log.d("TAG", preferenceManager.getAccessToken());
+//
+//            apiCall.enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<okhttp3.ResponseBody> call, Response<ResponseBody> response) {
+//
+//
+//                    if (response.isSuccessful()) {
+//                        Log.d("TAG", "Successful");
+//                        try {
+//                            InputStream is = response.body().byteStream();
+//
+//                            byte[] imageAsByteArray = new byte[(int) response.body().contentLength()];
+//                            int data;
+//                            int index = 0;
+//                            while ((data = is.read()) != -1) {
+//                                imageAsByteArray[index] = (byte) data;
+//                                index++;
+//                            }
+//
+//                            try {
+//                                imageView.setImageResource(R.drawable.footerlogo);
+//                                GlideApp.with(imageView.getContext())
+//                                        .load(imageAsByteArray).into(imageView);
+//                                Log.d("TAG", "Success");
+//
+//                            } catch (Exception e) {
+//                                Log.d("TAG", "Fail");
+//                            }
+//
+//
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                            Log.d("TAG", "Fail1");
+//                        }
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    Log.d("TAG", "FAIL :" + t.getMessage());
+//
+//                }
+//            });
+//        }
     }
 }
