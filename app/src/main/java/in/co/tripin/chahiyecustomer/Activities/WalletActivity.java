@@ -1,6 +1,10 @@
 package in.co.tripin.chahiyecustomer.Activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +13,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,20 +42,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import dmax.dialog.SpotsDialog;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
 import in.co.tripin.chahiyecustomer.Model.responce.InitiatePaymentResponce;
+import in.co.tripin.chahiyecustomer.Model.responce.TransactionsResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Constants;
+import in.co.tripin.chahiyecustomer.helper.DateFormatHelper;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 import in.co.tripin.chahiyecustomer.paytm.Checksum;
 import in.co.tripin.chahiyecustomer.paytm.Paytm;
 import in.co.tripin.chahiyecustomer.retrofit.APIService;
+import in.co.tripin.chahiyecustomer.services.WalletService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -59,6 +71,7 @@ public class WalletActivity extends AppCompatActivity implements PaytmPaymentTra
     TextView mBalance;
     EditText mAmount;
     Button mAddMoney;
+    ListView transactionListView;
     FloatingActionButton mRefresh;
     AwesomeValidation awesomeValidation;
     private PreferenceManager preferenceManager;
@@ -68,9 +81,9 @@ public class WalletActivity extends AppCompatActivity implements PaytmPaymentTra
     private String mValidateRequestBody = "";
     private String mCancelRequestBody = "";
     private String mTxnId = "";
-
+    private ArrayList<TransactionsResponce.Data> transactionList;
     private Gson gson;
-
+    CustomAdapter customAdapter;
 
 
     @Override
@@ -81,6 +94,7 @@ public class WalletActivity extends AppCompatActivity implements PaytmPaymentTra
         init();
         setListners();
         FetchCurrentBalance();
+        fetchTransactions();
         if(getIntent().getExtras()!=null){
             if(getIntent().getExtras().getString("money")!=null){
                 mAmount.setText(getIntent().getExtras().getString("money"));
@@ -97,6 +111,7 @@ public class WalletActivity extends AppCompatActivity implements PaytmPaymentTra
         mAmount = findViewById(R.id.amount);
         mAddMoney = findViewById(R.id.add);
         mRefresh = findViewById(R.id.refresh);
+        transactionListView = findViewById(R.id.transactionList);
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this, R.id.amount, RegexTemplate.NOT_EMPTY, R.string.err_amount);
         gson = new Gson();
@@ -506,5 +521,67 @@ public class WalletActivity extends AppCompatActivity implements PaytmPaymentTra
         Logger.v("onTransactionCancel: "+s);
 //        PrepareCancelTransactionBody();
 
+    }
+
+    public void fetchTransactions()
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        WalletService  walletService = retrofit.create(WalletService.class);
+        Call<TransactionsResponce> call = walletService.getTransactions(preferenceManager.getAccessToken());
+        call.enqueue(new Callback<TransactionsResponce>() {
+            @Override
+            public void onResponse(Call<TransactionsResponce> call, retrofit2.Response<TransactionsResponce> response) {
+                if(response.isSuccessful())
+                {
+                    TransactionsResponce transactionsResponce = response.body();
+                    transactionList = (ArrayList<TransactionsResponce.Data>) transactionsResponce.getData();
+
+                    customAdapter = new CustomAdapter(WalletActivity.this, android.R.layout.simple_list_item_1, transactionList);
+                    transactionListView.setAdapter(customAdapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TransactionsResponce> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public class  CustomAdapter extends ArrayAdapter<TransactionsResponce.Data> {
+
+        Context context;
+        ArrayList<TransactionsResponce.Data> transactionList;
+        View view;
+
+        public CustomAdapter(@NonNull Context context, int resource, @NonNull ArrayList<TransactionsResponce.Data> transactionList) {
+            super(context, resource, transactionList);
+            this.context = context;
+            this.transactionList = transactionList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            view = getLayoutInflater().inflate(R.layout.custom_transactions, null);
+
+            TextView tvAmount = (TextView) view.findViewById(R.id.tvAmount);
+            TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
+            TextView tvType = (TextView) view.findViewById(R.id.tvType);
+
+
+            tvAmount.setText("₹ "+transactionList.get(position).getAmount());
+            tvDate.setText(DateFormatHelper.getDisplayableDate(transactionList.get(position).getCreatedAt()));
+            tvType.setText(transactionList.get(position).getType());
+
+
+         return view;
+        }
     }
 }
