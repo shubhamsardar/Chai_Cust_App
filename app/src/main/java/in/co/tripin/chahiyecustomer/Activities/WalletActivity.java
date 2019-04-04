@@ -575,8 +575,8 @@ public class WalletActivity extends AppCompatActivity implements PaytmPaymentTra
             TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
             TextView tvType = (TextView) view.findViewById(R.id.tvType);
 
+                tvAmount.setText("₹ " + transactionList.get(position).getAmount());
 
-            tvAmount.setText("₹ "+transactionList.get(position).getAmount());
             tvDate.setText(DateFormatHelper.getDisplayableDate(transactionList.get(position).getCreatedAt()));
             tvType.setText(transactionList.get(position).getType());
 
