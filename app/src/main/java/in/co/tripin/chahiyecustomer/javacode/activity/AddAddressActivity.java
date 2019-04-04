@@ -26,9 +26,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.co.tripin.chahiyecustomer.Activities.FavouriteTapri;
+import in.co.tripin.chahiyecustomer.Activities.FavouriteTapriNew;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
-import in.co.tripin.chahiyecustomer.Model.responce.UserAddress;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
@@ -113,7 +112,7 @@ public class AddAddressActivity extends AppCompatActivity {
 
                         Log.d("Response", response.toString());
                         if (FROM_FAV != null) {
-                            startActivity(new Intent(AddAddressActivity.this, FavouriteTapri.class));
+                            startActivity(new Intent(AddAddressActivity.this, FavouriteTapriNew.class));
                         } else {
                             finish();
                         }

@@ -188,9 +188,6 @@
         <activity
             android:name=".Activities.QRCodeActivity"
             android:label="Wallet QR Code" />
-        <activity
-            android:name=".Activities.FavouriteTapri"
-            android:theme="@style/AppTheme.OnlyStatusBar" />
     </application>
 
 </manifest>

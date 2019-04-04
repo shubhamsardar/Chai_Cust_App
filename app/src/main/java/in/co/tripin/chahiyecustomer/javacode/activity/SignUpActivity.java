@@ -23,7 +23,6 @@ import android.view.View;
 
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -32,14 +31,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import dmax.dialog.SpotsDialog;
-import in.co.tripin.chahiyecustomer.Activities.FavouriteTapri;
 import in.co.tripin.chahiyecustomer.Managers.PreferenceManager;
 import in.co.tripin.chahiyecustomer.Model.CompanyModel;
 import in.co.tripin.chahiyecustomer.Model.OfficeDataModel;
 import in.co.tripin.chahiyecustomer.Model.Requests.OfficeRequestBody;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.Managers.AccountManager;
-import in.co.tripin.chahiyecustomer.dataproviders.CommonResponse;
 import in.co.tripin.chahiyecustomer.helper.Constants;
 import in.co.tripin.chahiyecustomer.helper.Logger;
 import in.co.tripin.chahiyecustomer.services.OfficeService;
@@ -49,13 +46,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.support.design.widget.TextInputEditText;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -66,7 +61,6 @@ import com.android.volley.toolbox.Volley;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +68,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
