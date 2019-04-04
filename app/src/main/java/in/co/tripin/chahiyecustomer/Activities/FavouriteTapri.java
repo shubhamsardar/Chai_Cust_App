@@ -79,7 +79,7 @@ public class FavouriteTapri extends AppCompatActivity {
     int total = 0;
     String teaRate, teaSugerFreeRate, coffeeRate;
     String balance;
-    int walletBalance = 0;
+    float walletBalance = 0;
     public static String FAV_TAPRI_ID = "favTapri";
     public static String FAV_TAPRI_NAME = "favTapriName";
     public static String IS_CREDIT = "isCredit";
@@ -487,7 +487,7 @@ public class FavouriteTapri extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     WalletResponse walletResponse = response.body();
                     balance = walletResponse.getData().getBalance();
-                    walletBalance = Integer.parseInt(balance);
+                    walletBalance = Float.parseFloat(balance);
                     Log.d("Balance", balance);
 
                     paymentType = new ArrayList<>();

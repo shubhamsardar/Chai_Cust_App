@@ -86,7 +86,7 @@ public class FavouriteTapriNew extends AppCompatActivity
     int total = 0;
     String teaRate, teaSugerFreeRate, coffeeRate;
     String balance;
-    int walletBalance = 0;
+    float walletBalance = 0;
     public static String FAV_TAPRI_ID = "favTapri";
     public static String FAV_TAPRI_NAME = "favTapriName";
     public static String IS_CREDIT = "isCredit";
@@ -387,12 +387,12 @@ public class FavouriteTapriNew extends AppCompatActivity
             }
         });
 
-        tvOrderHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(FavouriteTapriNew.this, OrderHistoryActivity.class));
-            }
-        });
+//        tvOrderHistory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(FavouriteTapriNew.this, OrderHistoryActivity.class));
+//            }
+//        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -616,7 +616,7 @@ public class FavouriteTapriNew extends AppCompatActivity
                 if (response.isSuccessful()) {
                     WalletResponse walletResponse = response.body();
                     balance = walletResponse.getData().getBalance();
-                    walletBalance = Integer.parseInt(balance);
+                    walletBalance = Float.parseFloat(balance);
                     Log.d("Balance", balance);
 
                     paymentType = new ArrayList<>();

@@ -464,18 +464,18 @@
                         android:textColor="@color/darkBrown"
                         android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/tvOrderHistory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/rajdhani_bold"
-                        android:text="@string/order_history"
-                        android:textSize="18sp"
-                        android:textColor="@color/darkBrown"
-                        android:layout_marginBottom="5dp"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tvOrderHistory"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="left"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:fontFamily="@font/rajdhani_bold"-->
+                        <!--android:text="@string/order_history"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:textColor="@color/darkBrown"-->
+                        <!--android:layout_marginBottom="5dp"/>-->
 
                 </FrameLayout>
 
