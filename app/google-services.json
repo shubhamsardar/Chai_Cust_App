@@ -37,6 +37,14 @@
             "package_name": "in.co.tripin.chahiyecustomer",
             "certificate_hash": "c27a3cb91604eae827129c854d7868f3ba8a14d6"
           }
+        },
+        {
+          "client_id": "242440699218-glorj961p78md6n3fh13qqttt1bcltnu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.tripin.chahiyecustomer",
+            "certificate_hash": "c2581bbcdf0d91b078369663c5b124bd3d985f54"
+          }
         }
       ],
       "api_key": [
