@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
     android:orientation="vertical"
-    tools:context=".Activities.FavouriteTapri">
+    tools:context=".Activities.FavouriteTapriNew">
 
     <ScrollView
         android:layout_width="match_parent"

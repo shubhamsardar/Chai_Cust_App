@@ -134,8 +134,6 @@ public class FavouriteTapriNew extends AppCompatActivity
         tvTea = (TextView) findViewById(R.id.tvTea);
         tvTeaSugerFree = (TextView) findViewById(R.id.tvTeaSugerFree);
         tvCoffee = (TextView) findViewById(R.id.tvCoffee);
-
-        tvOrderHistory= (TextView)findViewById(R.id.tvOrderHistory);
         tvAddMoney.setVisibility(View.GONE);
 
         //orderItemModelList = new ArrayList<>();
