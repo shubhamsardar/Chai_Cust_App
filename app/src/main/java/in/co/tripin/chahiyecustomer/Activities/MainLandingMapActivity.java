@@ -342,6 +342,16 @@ public class MainLandingMapActivity extends AppCompatActivity
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         }
+        else if (id == R.id.nav_terms) {
+            Uri uri = Uri.parse("http://waahchai.in/t-c.html"); // missing 'http://' will cause crashed
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_privacy) {
+            Uri uri = Uri.parse("http://waahchai.in/privacy-policy.html"); // missing 'http://' will cause crashed
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
