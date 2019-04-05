@@ -23,8 +23,20 @@
           }
         },
         {
-          "client_id": "242440699218-sjj52t1rrp83mrbshhplifo2e955sv15.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "242440699218-k9oei3bhsfcq126ct7fpjlbjqj12cqk0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.tripin.chahiyecustomer",
+            "certificate_hash": "65b8a5af1122a9522ead26645efa5a381384e4d8"
+          }
+        },
+        {
+          "client_id": "242440699218-v31oe2ftf9hoei95p759q6gcl4v00cg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.tripin.chahiyecustomer",
+            "certificate_hash": "c27a3cb91604eae827129c854d7868f3ba8a14d6"
+          }
         }
       ],
       "api_key": [
@@ -33,20 +45,54 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "242440699218-sjj52t1rrp83mrbshhplifo2e955sv15.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242440699218:android:39732abeb114ba58",
+        "android_client_info": {
+          "package_name": "in.co.tripin.chai_hub_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242440699218-4qp4u5f5k328re0quqeo1v80rm15jjrm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.tripin.chai_hub_app",
+            "certificate_hash": "f09ec7589c8bf72b98e2e7f8d34f0749a869c4d4"
+          }
         },
-        "ads_service": {
-          "status": 2
+        {
+          "client_id": "242440699218-h57uknt7h06823jdk9l3u74uorrqquss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.tripin.chai_hub_app",
+            "certificate_hash": "65b8a5af1122a9522ead26645efa5a381384e4d8"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu3QLsASEdXok3q_rJDUNMg1WUBQQb6jc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242440699218-sjj52t1rrp83mrbshhplifo2e955sv15.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -67,8 +113,12 @@
           }
         },
         {
-          "client_id": "242440699218-sjj52t1rrp83mrbshhplifo2e955sv15.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "242440699218-6bbcp511o71lll84l0mfpge170u335dt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.tripin.chai_tapri_app",
+            "certificate_hash": "65b8a5af1122a9522ead26645efa5a381384e4d8"
+          }
         }
       ],
       "api_key": [
@@ -77,20 +127,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "242440699218-sjj52t1rrp83mrbshhplifo2e955sv15.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
