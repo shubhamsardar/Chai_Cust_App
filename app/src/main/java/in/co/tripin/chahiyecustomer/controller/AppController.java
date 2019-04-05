@@ -10,13 +10,19 @@ import com.android.volley.toolbox.Volley;
 
 import org.acra.ACRA;
 import org.acra.BuildConfig;
+import org.acra.annotation.AcraCore;
+import org.acra.annotation.AcraHttpSender;
 import org.acra.config.CoreConfigurationBuilder;
-import org.acra.config.MailSenderConfigurationBuilder;
+import org.acra.config.HttpSenderConfigurationBuilder;
 import org.acra.data.StringFormat;
+import org.acra.sender.HttpSender;
 
 import java.util.Calendar;
 
+import in.co.tripin.chahiyecustomer.R;
+import in.co.tripin.chahiyecustomer.helper.Constants;
 
+@AcraCore(buildConfigClass = BuildConfig.class)
 public class AppController extends MultiDexApplication {
 
     public static final String TAG = AppController.class
@@ -60,12 +66,11 @@ public class AppController extends MultiDexApplication {
 
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this);
         builder.setBuildConfigClass(BuildConfig.class).setReportFormat(StringFormat.JSON);
-        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
-                .setEnabled(true)
-                .setReportFileName("CrashReport_" + Calendar.getInstance().getTime().toString() + ".json")
-                .setMailTo("clyde.mendonca@weaverbirds.in,siddharth@weaverbirds.in,amar@weaverbirds.in");
+        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
+                .setUri(Constants.BASE_URL + "acra")
+                .setHttpMethod(HttpSender.Method.POST)
+                .setEnabled(true);
 
-        // The following line triggers the initialization of ACRA
         ACRA.init(this, builder);
 
     }
