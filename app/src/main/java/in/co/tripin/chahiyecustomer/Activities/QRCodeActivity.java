@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.print.PrintAttributes;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.NonNull;
@@ -84,6 +85,8 @@ public class QRCodeActivity extends AppCompatActivity {
     }
 
     public void downloadQRCode() {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
