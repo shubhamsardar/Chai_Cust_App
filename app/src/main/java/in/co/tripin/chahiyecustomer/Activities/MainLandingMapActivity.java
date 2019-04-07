@@ -334,7 +334,7 @@ public class MainLandingMapActivity extends AppCompatActivity
         } else if (id == R.id.nav_call) {
 
             Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + "9594352346"));
+            intent.setData(Uri.parse("tel:" + "02228907966"));
             startActivity(intent);
 
         } else if (id == R.id.nav_web) {
