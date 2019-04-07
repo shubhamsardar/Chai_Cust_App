@@ -34,7 +34,7 @@ android {
     play {
         track = 'production' //'alpha','beta' or 'production'
         serviceAccountEmail = "waah-chai-service-account@api-6419876953179377848-753436.iam.gserviceaccount.com"
-        serviceAccountCredentials = file("../api-6419876953179377848-753436-a03e13801656.p12")
+        serviceAccountCredentials = file("api-6419876953179377848-753436-a03e13801656.p12")
     }
 }
 
