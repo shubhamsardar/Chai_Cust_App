@@ -176,7 +176,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="64dp"
             android:fontFamily="@font/source_sans_pro_semibold"
-            android:hint="Tapri code (OPTIONAL)"
+            android:hint="My Chaiwala code (OPTIONAL)"
             android:textColorHint="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
