@@ -1,3 +1,8 @@
+plugins {
+    id 'com.android.application'
+    id 'com.github.triplet.play' version '2.1.0'
+}
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
@@ -24,6 +29,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    play {
+        track = 'production' //'alpha','beta' or 'production'
+        serviceAccountEmail = "waah-chai-service-account@api-6419876953179377848-753436.iam.gserviceaccount.com"
+        serviceAccountCredentials = file("../api-6419876953179377848-753436-a03e13801656.p12")
     }
 }
 
