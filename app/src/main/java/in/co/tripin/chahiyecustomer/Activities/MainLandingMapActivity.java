@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -625,28 +626,32 @@ public class MainLandingMapActivity extends AppCompatActivity
 
             title.setText(marker.getTitle());
             snippet.setText(marker.getSnippet());
+            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            imageView.setImageBitmap(bmp);
 //            getImage(imageView);
 
             Log.d("BYTE",bytes+"");
-            GlideApp.with(MainLandingMapActivity.this)
-                    .asBitmap()
-                    .load(bytes)
-                    .override(200,200)
-                    .listener(new RequestListener<Bitmap>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+//            GlideApp.with(MainLandingMapActivity.this)
+//                    .asBitmap()
+//                    .load(bytes)
+//                    .override(200,200)
+//                    .listener(new RequestListener<Bitmap>() {
+//                        @Override
+//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+//
+//                            Log.d("ERR",e.getMessage());
+//                            return false;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+//                            Log.d("Success","Success");
+//                            return false;
+//                        }
+//                    })
+//                     .into(imageView);
 
-                            Log.d("ERR",e.getMessage());
-                            return false;
-                        }
 
-                        @Override
-                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                            Log.d("Success","Success");
-                            return false;
-                        }
-                    })
-                     .into(imageView);
 
             return v;
 
