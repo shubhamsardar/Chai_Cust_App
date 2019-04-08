@@ -95,7 +95,7 @@ public class QRCodeActivity extends AppCompatActivity {
         } else {
 
             PrintAttributes printAttributes = (new PrintAttributes.Builder())
-                    .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                    .setMediaSize(PrintAttributes.MediaSize.ISO_A3)
                     .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                     .setColorMode(PrintAttributes.COLOR_MODE_MONOCHROME)
                     .build();
@@ -106,11 +106,11 @@ public class QRCodeActivity extends AppCompatActivity {
             PdfDocument.Page page = document.startPage(0);
 
             // draw something on the page
-            imageViewQRCode.getImageMatrix().setScale(1.1f, 1.1f);
+            //imageViewQRCode.getImageMatrix().setScale(1.1f, 1.1f);
             View content = linearLayoutQR;
-            textViewUserName.setTextScaleX(0.5f);
+            //textViewUserName.setTextScaleX(0.9f);
             content.draw(page.getCanvas());
-            textViewUserName.setTextScaleX(1f);
+            //textViewUserName.setTextScaleX(0.9f);
 
             // finish the page
             document.finishPage(page);

@@ -90,7 +90,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/source_sans_pro_semibold"
-                            android:text="CHAI-HI-YEH PRODUCTS"
+                            android:text="Waah Chai Products"
                             android:textAllCaps="true"
                             android:textSize="12sp"
                             android:textStyle="bold" />
