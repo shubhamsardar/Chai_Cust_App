@@ -455,7 +455,13 @@ public class FavouriteTapriNew extends AppCompatActivity
 
             startActivity(new Intent(FavouriteTapriNew.this, OrderHistoryActivity.class));
 
-        } else if (id == R.id.nav_wallet) {
+        }
+//        else if (id == R.id.nav_creditHistory) {
+//
+//            startActivity(new Intent(FavouriteTapriNew.this, CreditOrderHistoryActivity.class));
+//
+//        }
+        else if (id == R.id.nav_wallet) {
 
             //open Wallet Activity
             startActivity(new Intent(FavouriteTapriNew.this, WalletActivity.class));
