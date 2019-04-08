@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutQR"
-        android:layout_width="300dp"
+        android:layout_width="285dp"
         android:layout_height="400dp"
         android:background="@drawable/back_qrcode"
         android:gravity="center"
@@ -24,7 +24,7 @@
             android:fontFamily="@font/rajdhani_bold"
             android:text="Prathamesh"
             android:textColor="@color/darkBrown"
-            android:textSize="30dp" />
+            android:textSize="26dp" />
 
         <ImageView
             android:id="@+id/imageViewQRCode"
