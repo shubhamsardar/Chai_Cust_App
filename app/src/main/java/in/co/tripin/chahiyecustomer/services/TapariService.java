@@ -3,6 +3,7 @@ package in.co.tripin.chahiyecustomer.services;
 import in.co.tripin.chahiyecustomer.Model.Requests.OfficeRequestBody;
 import in.co.tripin.chahiyecustomer.Model.Requests.PlaceOrderRequestBody;
 import in.co.tripin.chahiyecustomer.Model.responce.AddressResponse;
+import in.co.tripin.chahiyecustomer.Model.responce.FavTapriResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.TapriMenuResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.TapriMenuResponses;
 import okhttp3.ResponseBody;
@@ -26,4 +27,7 @@ public interface TapariService {
 
     @GET("/api/v1/document/download")
     Call<ResponseBody> downloadImage(@Header("token") String token, @Query("path") String logoUrlPath);
+
+    @GET("/api/v1/tapri")
+    Call<FavTapriResponce> getImageUrl(@Header("token")String token,@Query("tapri") String tapriId);
 }

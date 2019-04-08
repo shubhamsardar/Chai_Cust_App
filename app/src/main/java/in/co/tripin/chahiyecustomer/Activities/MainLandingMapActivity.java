@@ -628,25 +628,25 @@ public class MainLandingMapActivity extends AppCompatActivity
 //            getImage(imageView);
 
             Log.d("BYTE",bytes+"");
-            GlideApp.with(MainLandingMapActivity.this)
-                    .asBitmap()
-                    .load(bytes)
-                    .override(200,200)
-                    .listener(new RequestListener<Bitmap>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-
-                            Log.d("ERR",e.getMessage());
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                            Log.d("Success","Success");
-                            return false;
-                        }
-                    })
-                     .into(imageView);
+//            GlideApp.with(MainLandingMapActivity.this)
+//                    .asBitmap()
+//                    .load(bytes)
+//                    .override(200,200)
+//                    .listener(new RequestListener<Bitmap>() {
+//                        @Override
+//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+//
+//                            Log.d("ERR",e.getMessage());
+//                            return false;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+//                            Log.d("Success","Success");
+//                            return false;
+//                        }
+//                    })
+//                     .into(imageView);
 
             return v;
 
