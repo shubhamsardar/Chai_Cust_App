@@ -32,6 +32,7 @@ public class LogInResponce {
 
     public class Data {
 
+        String office;
         @SerializedName("name")
         @Expose
         private String name;
@@ -44,6 +45,14 @@ public class LogInResponce {
         @SerializedName("roles")
         @Expose
         private List<Role> roles = null;
+
+        public String getOffice() {
+            return office;
+        }
+
+        public void setOffice(String office) {
+            this.office = office;
+        }
 
         public String getName() {
             return name;

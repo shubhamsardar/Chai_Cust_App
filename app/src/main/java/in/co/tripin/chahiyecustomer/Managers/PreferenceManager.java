@@ -28,6 +28,7 @@ public class PreferenceManager {
     private static final String PRED_FAV_TAPRI_NAME = "favTapriName";
     private static final String PREF_FAV_TAPRI_MOBILE = "favTapriMobile";
     private static final String isCreditPaymentEnabled = "isCreditPaymentEnabled";
+    private static final String OFFICE_ID = "officeId";
 
 
     private static SharedPreferences sInstance;
@@ -263,23 +264,36 @@ public class PreferenceManager {
 
     }
 
-    public  String getFavTapriName() {
+    public String getFavTapriName() {
         String favTapriName = sInstance.getString(PRED_FAV_TAPRI_NAME, null);
         return favTapriName;
     }
+
     public void setFavTapriName(String favTapriName) {
         editor.putString(PRED_FAV_TAPRI_NAME, favTapriName);
         editor.commit();
 
     }
 
+    public String getOfficeId() {
+        String officeId = sInstance.getString(OFFICE_ID, null);
+        return officeId;
+
+    }
+
+    public void setOfficeId(String officeId) {
+        editor.putString(OFFICE_ID, officeId);
+        editor.commit();
+
+    }
+
     public static boolean getIsCreditPaymentEnabled() {
-        boolean x = sInstance.getBoolean(isCreditPaymentEnabled,false);
+        boolean x = sInstance.getBoolean(isCreditPaymentEnabled, false);
         return x;
     }
 
-    public void setIsCreditPaymentEnabled(Boolean x){
-        editor.putBoolean(isCreditPaymentEnabled,x);
+    public void setIsCreditPaymentEnabled(Boolean x) {
+        editor.putBoolean(isCreditPaymentEnabled, x);
         editor.commit();
     }
 }

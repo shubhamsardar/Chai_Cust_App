@@ -197,6 +197,7 @@ public class LoginActivity extends AppCompatActivity {
                                         String favoriteTapriId = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("_id");
                                         String favoriteTapriName = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("name");
                                         String favouriteTapriMobile = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("mobile");
+                                        String officeId = response.getJSONObject("data").getString("office");
                                         boolean isCreditPaymentEnabled = false;
                                         try {
                                             isCreditPaymentEnabled = response.getJSONObject("data").getBoolean("isCreditPaymentEnabled");
@@ -206,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
                                         preferenceManager.setFavTapriId(favoriteTapriId);
                                         preferenceManager.setFavTapriName(favoriteTapriName);
                                         preferenceManager.setFavTapriMobile(favouriteTapriMobile);
+                                        preferenceManager.setOfficeId(officeId);
                                         preferenceManager.setIsCreditPaymentEnabled(isCreditPaymentEnabled);
                                         if (favoriteTapriId != null) {
 
