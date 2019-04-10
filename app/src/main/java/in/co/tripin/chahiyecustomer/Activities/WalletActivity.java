@@ -409,7 +409,7 @@ public class WalletActivity extends AppCompatActivity implements PaytmPaymentTra
     private void initializePaytmPayment(String checksumHash, Paytm paytm) {
 
         //getting paytm service
-        PaytmPGService Service = PaytmPGService.getStagingService();
+        PaytmPGService Service = PaytmPGService.getProductionService();
 
         //use this when using for production
         //PaytmPGService Service = PaytmPGService.getProductionService();
