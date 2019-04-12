@@ -424,6 +424,15 @@ public class FavouriteTapriNew extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.favourite_tapri_new, menu);
+
+        Menu menu1 =navigationView.getMenu();
+
+        MenuItem creditHistory = menu1.findItem(R.id.nav_creditHistory);
+        if(preferenceManager.getisOfficeAdmin())
+        {
+            creditHistory.setVisible(true);
+        }
+
         return true;
     }
 
@@ -447,6 +456,7 @@ public class FavouriteTapriNew extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
         if (id == R.id.nav_QRCode) {
 
             startActivity(new Intent(FavouriteTapriNew.this, QRCodeActivity.class));
@@ -456,11 +466,11 @@ public class FavouriteTapriNew extends AppCompatActivity
             startActivity(new Intent(FavouriteTapriNew.this, OrderHistoryActivity.class));
 
         }
-//        else if (id == R.id.nav_creditHistory) {
-//
-//            startActivity(new Intent(FavouriteTapriNew.this, CreditOrderHistoryActivity.class));
-//
-//        }
+        else if (id == R.id.nav_creditHistory) {
+
+            startActivity(new Intent(FavouriteTapriNew.this, CreditOrderHistoryActivity.class));
+
+        }
         else if (id == R.id.nav_wallet) {
 
             //open Wallet Activity
