@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,6 +39,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +48,12 @@ import in.co.tripin.chahiyecustomer.Model.AddressModel;
 import in.co.tripin.chahiyecustomer.Model.OrderItemModel;
 import in.co.tripin.chahiyecustomer.Model.Requests.PlaceOrderRequestBody;
 import in.co.tripin.chahiyecustomer.Model.responce.AddressResponse;
+import in.co.tripin.chahiyecustomer.Model.responce.FavTapriResponce;
 import in.co.tripin.chahiyecustomer.Model.responce.TapriMenuResponses;
 import in.co.tripin.chahiyecustomer.Model.responce.WalletResponse;
 import in.co.tripin.chahiyecustomer.R;
 import in.co.tripin.chahiyecustomer.helper.Constants;
+import in.co.tripin.chahiyecustomer.helper.GlideApp;
 import in.co.tripin.chahiyecustomer.javacode.activity.AddAddressActivity;
 import in.co.tripin.chahiyecustomer.javacode.activity.EditPinActivity;
 import in.co.tripin.chahiyecustomer.javacode.activity.OrderHistoryActivity;
@@ -57,6 +61,7 @@ import in.co.tripin.chahiyecustomer.javacode.activity.TapriDetailsActivity;
 import in.co.tripin.chahiyecustomer.services.AddressService;
 import in.co.tripin.chahiyecustomer.services.TapariService;
 import in.co.tripin.chahiyecustomer.services.WalletService;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,14 +77,14 @@ public class FavouriteTapriNew extends AppCompatActivity
     ArrayList<String> addressList;
     ArrayList<String> addressIdList;
     ArrayList<AddressModel> addressModelList;
-    private ImageView imageViewMap;
+    private ImageView imageViewMap, imageViewProfile;
     private LinearLayout linearQR;
 
-    private TextView tvUsername , tvUserMobile;
+    private TextView tvUsername, tvUserMobile;
     private TextView tvTeaCount, tvSugerFreeCount, tvCoffeeCount, textViewMobile;
     private ImageView ivAddTea, ivRemoveTea, ivAddSugerFree, ivRemoveSugerFree, ivAddCoffee, ivRemoveCoffee;
     private TextView tvTotal;
-    private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney, tvFavTapriName,tvOrderHistory;
+    private TextView tvClearOrder, tvFullMenu, tvPlaceOrder, tvAddMoney, tvFavTapriName, tvOrderHistory;
     private TextView tvTea, tvTeaSugerFree, tvCoffee;
     String teaId, teaSugerFreeId, coffeeId;
     int countTea = 0, countCoffee = 0, countSugerFree = 0;
@@ -100,6 +105,7 @@ public class FavouriteTapriNew extends AppCompatActivity
     List<OrderItemModel> orderItemModelList;
     NavigationView navigationView;
 
+    String ImageUrlPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +114,11 @@ public class FavouriteTapriNew extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        navigationView =(NavigationView)findViewById(R.id.nav_view_fav_tap);
+        navigationView = (NavigationView) findViewById(R.id.nav_view_fav_tap);
         mContext = this;
         spinnerPayment = (Spinner) findViewById(R.id.spinnerPayment);
         imageViewMap = (ImageView) findViewById(R.id.imageViewMap);
+        imageViewProfile = (ImageView) findViewById(R.id.imageView);
         linearQR = (LinearLayout) findViewById(R.id.linearQR);
         preferenceManager = PreferenceManager.getInstance(this);
         tvTeaCount = (TextView) findViewById(R.id.textViewTeaCount);
@@ -139,10 +146,9 @@ public class FavouriteTapriNew extends AppCompatActivity
         //orderItemModelList = new ArrayList<>();
 
 
-
         View headerView = navigationView.getHeaderView(0);
-        tvUsername = (TextView)headerView.findViewById(R.id.tvUsername);
-        tvUserMobile = (TextView)headerView.findViewById(R.id.tvUserMobile);
+        tvUsername = (TextView) headerView.findViewById(R.id.tvUsername);
+        tvUserMobile = (TextView) headerView.findViewById(R.id.tvUserMobile);
 
         tvUsername.setText(preferenceManager.getUserName());
         tvUserMobile.setText(preferenceManager.getMobileNo());
@@ -152,10 +158,11 @@ public class FavouriteTapriNew extends AppCompatActivity
         getCurrentWallet();
         getAddress();
         getTapriMenu();
+        getImage();
         Intent intent = getIntent();
         FAV_TAPRI_ID = preferenceManager.getFavTapriId();
         FAV_TAPRI_NAME = intent.getStringExtra(FAV_TAPRI_NAME);
-        isCreditPaymentEnabled= intent.getBooleanExtra(IS_CREDIT,false);
+        isCreditPaymentEnabled = intent.getBooleanExtra(IS_CREDIT, false);
         tvFavTapriName.setText(preferenceManager.getFavTapriName());
         textViewMobile.setText(preferenceManager.getFavTapriMobile());
 
@@ -287,7 +294,7 @@ public class FavouriteTapriNew extends AppCompatActivity
             public void onClick(View view) {
                 Intent i = new Intent(FavouriteTapriNew.this, TapriDetailsActivity.class);
                 i.putExtra("tapri_id", "5c07e402f25f9f00104ed0e1");
-                i.putExtra("tapri_name", "Jack");
+                i.putExtra("tapri_name", preferenceManager.getFavTapriName());
                 startActivity(i);
             }
         });
@@ -444,13 +451,17 @@ public class FavouriteTapriNew extends AppCompatActivity
 
             startActivity(new Intent(FavouriteTapriNew.this, QRCodeActivity.class));
 
-        }
-
-        else if (id == R.id.nav_history) {
+        } else if (id == R.id.nav_history) {
 
             startActivity(new Intent(FavouriteTapriNew.this, OrderHistoryActivity.class));
 
-        } else if (id == R.id.nav_wallet) {
+        }
+//        else if (id == R.id.nav_creditHistory) {
+//
+//            startActivity(new Intent(FavouriteTapriNew.this, CreditOrderHistoryActivity.class));
+//
+//        }
+        else if (id == R.id.nav_wallet) {
 
             //open Wallet Activity
             startActivity(new Intent(FavouriteTapriNew.this, WalletActivity.class));
@@ -493,13 +504,11 @@ public class FavouriteTapriNew extends AppCompatActivity
             Uri uri = Uri.parse("http://www.waahchai.in"); // missing 'http://' will cause crashed
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
-    }
-        else if (id == R.id.nav_terms) {
+        } else if (id == R.id.nav_terms) {
             Uri uri = Uri.parse("http://waahchai.in/t-c.html"); // missing 'http://' will cause crashed
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
-        }
-        else if (id == R.id.nav_privacy) {
+        } else if (id == R.id.nav_privacy) {
             Uri uri = Uri.parse("http://waahchai.in/privacy-policy.html"); // missing 'http://' will cause crashed
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
@@ -546,7 +555,6 @@ public class FavouriteTapriNew extends AppCompatActivity
             return convertView;
         }
     }
-
 
 
     public class CustomAddressAdapter extends ArrayAdapter<String> implements SpinnerAdapter {
@@ -631,7 +639,7 @@ public class FavouriteTapriNew extends AppCompatActivity
                     paymentType.add("WALLET  ( Rs." + balance + " )");
                     paymentType.add("COD");
                     paymentType.add("WALLET AFTER DELIVERY");
-                    if(preferenceManager.getIsCreditPaymentEnabled()) {
+                    if (preferenceManager.getIsCreditPaymentEnabled()) {
                         paymentType.add("CREDIT");
                     }
 
@@ -773,5 +781,88 @@ public class FavouriteTapriNew extends AppCompatActivity
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details?id=" + mContext.getPackageName())));
         }
+    }
+
+    public void getImage() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        TapariService tapariService = retrofit.create(TapariService.class);
+        Call<FavTapriResponce> call = tapariService.getImageUrl(preferenceManager.getAccessToken(), preferenceManager.getFavTapriId());
+        call.enqueue(new Callback<FavTapriResponce>() {
+            @Override
+            public void onResponse(Call<FavTapriResponce> call, Response<FavTapriResponce> response) {
+                if (response.isSuccessful()) {
+                    FavTapriResponce favTapriResponce = response.body();
+                    ImageUrlPath = favTapriResponce.getData().get(0).getUsers().get(0).getPersonId().getImageUrlPath();
+                    //Log.d("ImagePath", ImageUrlPath);
+                    if(ImageUrlPath!=null) {
+                        downloadImage();
+                    }
+
+                } else {
+                    try {
+                        Log.d("IMGERR", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FavTapriResponce> call, Throwable t) {
+                Log.d("IMGFail", t.getMessage());
+            }
+        });
+    }
+
+    public void downloadImage() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        TapariService tapariService = retrofit.create(TapariService.class);
+        Call<ResponseBody> call = tapariService.downloadImage(preferenceManager.getAccessToken(), ImageUrlPath);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Log.d("TAG", "Successful");
+                    try {
+                        InputStream is = response.body().byteStream();
+
+                        byte[] imageAsByteArray = new byte[(int) response.body().contentLength()];
+                        int data;
+                        int index = 0;
+                        while ((data = is.read()) != -1) {
+                            imageAsByteArray[index] = (byte) data;
+                            index++;
+                        }
+
+                        try {
+                            imageViewProfile.setImageResource(R.drawable.footerlogo);
+                            GlideApp.with(imageViewProfile.getContext())
+                                    .load(imageAsByteArray).into(imageViewProfile);
+                            Log.d("TAG", "Success");
+
+                        } catch (Exception e) {
+                            Log.d("TAG", "Fail");
+                        }
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d("TAG", "Fail1");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
     }
 }
