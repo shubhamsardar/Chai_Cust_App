@@ -28,6 +28,7 @@ public class PreferenceManager {
     private static final String PRED_FAV_TAPRI_NAME = "favTapriName";
     private static final String PREF_FAV_TAPRI_MOBILE = "favTapriMobile";
     private static final String isCreditPaymentEnabled = "isCreditPaymentEnabled";
+    private static final String isOfficeAdmin = "isOfficeAdmin";
     private static final String OFFICE_ID = "officeId";
 
 
@@ -294,6 +295,15 @@ public class PreferenceManager {
 
     public void setIsCreditPaymentEnabled(Boolean x) {
         editor.putBoolean(isCreditPaymentEnabled, x);
+        editor.commit();
+    }
+    public static boolean getisOfficeAdmin() {
+        boolean x = sInstance.getBoolean(isOfficeAdmin, false);
+        return x;
+    }
+
+    public void setisOfficeAdmin(Boolean x) {
+        editor.putBoolean(isOfficeAdmin, x);
         editor.commit();
     }
 }
