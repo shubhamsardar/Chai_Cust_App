@@ -199,11 +199,15 @@ public class LoginActivity extends AppCompatActivity {
                                         String favouriteTapriMobile = response.getJSONObject("data").getJSONObject("favouriteTapri").getString("mobile");
                                         String officeId = response.getJSONObject("data").getString("office");
                                         boolean isCreditPaymentEnabled = false;
+                                        boolean isOfficeAdmin = false;
+                                        Log.d("isOfficeAdmin",isOfficeAdmin+"");
                                         try {
+                                            isOfficeAdmin =response.getJSONObject("data").getBoolean("isOfficeAdmin");
                                             isCreditPaymentEnabled = response.getJSONObject("data").getBoolean("isCreditPaymentEnabled");
                                         } catch (Exception e) {
 
                                         }
+                                        preferenceManager.setisOfficeAdmin(isOfficeAdmin);
                                         preferenceManager.setFavTapriId(favoriteTapriId);
                                         preferenceManager.setFavTapriName(favoriteTapriName);
                                         preferenceManager.setFavTapriMobile(favouriteTapriMobile);
