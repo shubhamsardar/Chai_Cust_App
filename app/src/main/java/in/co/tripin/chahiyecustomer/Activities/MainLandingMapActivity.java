@@ -114,7 +114,7 @@ public class MainLandingMapActivity extends AppCompatActivity
 
     private FusedLocationProviderClient mFusedLocationClient;
 
-
+    NavigationView navigationView;
     private static final String[] REQUIRED_SDK_PERMISSIONS = new String[]{
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -171,7 +171,7 @@ public class MainLandingMapActivity extends AppCompatActivity
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         tvUsername = (TextView) headerView.findViewById(R.id.tvUsername);
@@ -236,6 +236,14 @@ public class MainLandingMapActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        Menu menu1 =navigationView.getMenu();
+
+        MenuItem creditHistory = menu1.findItem(R.id.nav_creditHistory);
+        if(preferenceManager.getisOfficeAdmin())
+        {
+            creditHistory.setVisible(true);
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_setlocation) {
             LaunchPlacePickerFragment();
@@ -299,7 +307,12 @@ public class MainLandingMapActivity extends AppCompatActivity
 
             startActivity(new Intent(MainLandingMapActivity.this, OrderHistoryActivity.class));
 
-        } else if (id == R.id.nav_wallet) {
+        }  else if (id == R.id.nav_creditHistory) {
+
+            startActivity(new Intent(MainLandingMapActivity.this, CreditOrderHistoryActivity.class));
+
+        }
+        else if (id == R.id.nav_wallet) {
 
             //open Wallet Activity
             startActivity(new Intent(MainLandingMapActivity.this, WalletActivity.class));
