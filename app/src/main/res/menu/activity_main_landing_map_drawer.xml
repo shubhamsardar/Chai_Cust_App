@@ -18,6 +18,12 @@
             android:icon="@drawable/ic_history_black_24dp"
             android:title="Order History" />
         <item
+            android:id="@+id/nav_creditHistory"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="Credit Orders"
+            android:visible="false"
+            />
+        <item
             android:id="@+id/nav_wallet"
             android:icon="@drawable/ic_attach_money_black_24dp"
             android:title="Your Wallet" />
